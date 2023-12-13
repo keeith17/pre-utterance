@@ -9,10 +9,7 @@ export default function LoginPage() {
                     type="video/mp4"
                 /> */}
                 {/* <source src={"/public/videos/Untitled.mp4"} type="video/mp4" /> */}
-                <source
-                    src={"../../../public/videos/Untitled.mp4"}
-                    type="video/mp4"
-                />
+                <source src={"/public/videos/Untitled.mp4"} type="video/mp4" />
             </video>
             <div className="login">
                 <div className="logo">프로젝트 PANDORA</div>
