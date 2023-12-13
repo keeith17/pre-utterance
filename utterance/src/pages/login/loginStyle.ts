@@ -8,6 +8,7 @@ export const LoginWrap = styled.div`
         width: 28%;
         height: 30%;
         margin: auto;
+        // background: rgba(255, 255, 255, 0.2);
         border: 1px solid #fff;
         position: relative;
         display: flex;
@@ -47,6 +48,9 @@ export const InfoArea = styled.div`
             caret-color: #fff;
             &:focus {
                 outline: none;
+            }
+            &::placeholder {
+                color: #fff;
             }
         }
     }

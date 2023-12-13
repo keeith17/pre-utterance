@@ -79,4 +79,9 @@ export const GlobalStyle = css`
         background: transparent;
         cursor: pointer;
     }
+    video {
+        overflow: hidden;
+        position: fixed;
+        z-index: 0;
+    }
 `;
