@@ -5,8 +5,8 @@ export const LoginWrap = styled.div`
     height: 100vh;
     display: flex;
     .login {
-        width: 28%;
-        height: 30%;
+        width: 530px;
+        height: 280px;
         margin: auto;
         // background: rgba(255, 255, 255, 0.2);
         border: 1px solid #fff;
