@@ -5,6 +5,7 @@ export const GlobalStyle = css`
     @font-face {
         font-family: "Giants-Inline";
         src: url(${giantsInline}) format("truetype");
+        font-display: swap;
     }
 
     * {
@@ -21,7 +22,6 @@ export const GlobalStyle = css`
     }
 
     body {
-        font-family: "Giants-Inline";
         overflow-x: overlay;
         overflow-y: overlay;
         background: url(https://images.pexels.com/photos/1694000/pexels-photo-1694000.jpeg)
@@ -78,6 +78,7 @@ export const GlobalStyle = css`
     button {
         background: transparent;
         cursor: pointer;
+        color: #fff;
     }
     video {
         overflow: hidden;

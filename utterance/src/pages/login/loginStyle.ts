@@ -23,7 +23,7 @@ export const LoginWrap = styled.div`
         }
     }
 `;
-export const InfoArea = styled.div`
+export const InfoArea = styled.form`
     width: 100%;
     height: 40%;
     margin: auto;
@@ -46,6 +46,7 @@ export const InfoArea = styled.div`
             border: 1px solid #fff;
             border-radius: 3px;
             caret-color: #fff;
+            color: #fff;
             &:focus {
                 outline: none;
             }
