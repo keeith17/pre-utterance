@@ -5,6 +5,7 @@ import { app } from "../../firebaseApp";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+    console.log(process.env.REACT_APP_API_KEY);
     const navigate = useNavigate();
     //이메일, 비밀번호 변수
     const [serial, setSerial] = useState<string>("");
