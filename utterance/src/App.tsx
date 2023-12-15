@@ -6,13 +6,10 @@ import { app } from "./firebaseApp";
 import { useEffect, useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { useSetRecoilState } from "recoil";
-import { userState } from "./atom";
 
 export default function App() {
     //전체 로그인 관리
     const auth = getAuth(app);
-    const setCurrentUser = useSetRecoilState(userState); //유저 개인 값
     const [init, setInit] = useState<boolean>(false);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
         !!auth?.currentUser
@@ -21,14 +18,12 @@ export default function App() {
         onAuthStateChanged(auth, (user: User | null) => {
             if (user) {
                 setIsAuthenticated(true);
-                setCurrentUser(user);
             } else {
                 setIsAuthenticated(false);
-                setCurrentUser(null);
             }
             setInit(true);
         });
-    }, [auth, setCurrentUser]);
+    }, [auth]);
 
     //상호작용 이후에 유튜브를 로드함...
     const [video, setVideo] = useState<boolean>(false);

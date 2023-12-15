@@ -1,7 +1,13 @@
 import { atom } from "recoil";
-import { User } from "firebase/auth";
 
-export const userState = atom<User | null>({
+interface authUserProps {
+    uid: string | null;
+    email: string | null;
+    displayName: string | null;
+    photoURL: string | null;
+}
+
+export const userState = atom<authUserProps>({
     key: "userState",
-    default: null,
+    default: { uid: null, email: null, displayName: null, photoURL: null },
 });

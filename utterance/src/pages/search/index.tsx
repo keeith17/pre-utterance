@@ -1,16 +1,13 @@
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app } from "../../firebaseApp";
-// import { useEffect } from "react";
+import { userState } from "../../atom";
+import { useRecoilValue } from "recoil";
 
 export default function SearchPage() {
     const navigate = useNavigate();
-    // const auth = getAuth(app);
-    // useEffect(() => {
-    //     onAuthStateChanged(auth, (user) => {
-    //         console.log(user);
-    //     });
-    // }, [auth]);
+    const user = useRecoilValue(userState);
+    console.log(user);
     return (
         <div>
             검색 페이지
@@ -24,6 +21,14 @@ export default function SearchPage() {
             >
                 임시 로그아웃
             </button>
+            <br />
+            별명: {user.displayName} <br />
+            이메일: {user.email}
+            <br />
+            유알엘: {user.photoURL}
+            <br />
+            유아이디: {user.uid}
+            <br />
         </div>
     );
 }
