@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import styled from "@emotion/styled";
 import MyPageBox from "./myPage/MyPageBox";
-import NoticeBox from "./notice/noticeBox";
+import NoticeBox from "./notice/NoticeBox";
 
 const LayoutStyle = styled.div`
     width: 100%;

@@ -10,6 +10,7 @@ const AuthManager = () => {
 
     useEffect(() => {
         const userInfo = onAuthStateChanged(auth, (authUser) => {
+            console.log(authUser);
             if (authUser) {
                 const { uid, email, displayName, photoURL } = authUser;
                 setUser({ uid, email, displayName, photoURL });

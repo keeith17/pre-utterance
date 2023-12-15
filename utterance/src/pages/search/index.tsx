@@ -7,7 +7,6 @@ import { useRecoilValue } from "recoil";
 export default function SearchPage() {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
-    console.log(user);
     return (
         <div>
             검색 페이지
