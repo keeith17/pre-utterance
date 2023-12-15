@@ -13,7 +13,7 @@ export const GlobalStyle = css`
         padding: 0;
         vertical-align: middle;
         box-sizing: border-box;
-        font-family: "Giants-Inline";
+        // font-family: "Giants-Inline";
     }
 
     html,
@@ -22,6 +22,7 @@ export const GlobalStyle = css`
     }
 
     body {
+        font-family: "Giants-Inline";
         overflow-x: overlay;
         overflow-y: overlay;
         background: url(https://images.pexels.com/photos/1694000/pexels-photo-1694000.jpeg)

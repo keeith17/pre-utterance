@@ -4,7 +4,6 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function AddIdPage() {
-    console.log(process.env.REACT_APP_API_KEY);
     const [serial, setSerial] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const navigate = useNavigate();
