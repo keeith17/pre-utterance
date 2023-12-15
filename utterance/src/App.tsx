@@ -49,30 +49,43 @@ export default function App() {
         zIndex: 0,
         display: "none",
     };
+    const [muted, setMuted] = useState<number>(0);
+    const muteChange = () => {
+        if (muted === 0) {
+            setMuted(1);
+        } else {
+            setMuted(0);
+        }
+    };
     const options: YouTubeProps["opts"] = {
-        width: "100",
-        height: "100",
-        style: {
-            position: "absolute",
-            top: 0,
-            right: 0,
-        },
+        width: "150",
+        height: "150",
         playerVars: {
             autoplay: 1,
             modestbranding: 1,
             rel: 0,
             loop: 1,
             fs: 0,
-            controls: 0,
+            controls: 1,
             disablekb: 1,
             playlist: "jcEw1Bsbnq0,_AAdae7diOU,XX2gPs44fxg",
             playsinline: 1,
+            enablejsapi: 1,
+            mute: muted,
         },
     };
-
+    const myStyle: React.CSSProperties = {
+        position: "absolute",
+        top: 0,
+        right: 0,
+        zIndex: 10,
+    };
     return (
         <>
             <Global styles={GlobalStyle} />
+            <button onClick={muteChange} style={myStyle}>
+                배경음악
+            </button>
             {video && (
                 <YouTube videoId="jcEw1Bsbnq0" opts={options} style={style} />
             )}
