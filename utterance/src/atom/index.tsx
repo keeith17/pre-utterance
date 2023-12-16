@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-interface authUserProps {
+export interface authUserProps {
     uid: string | null;
     email: string | null;
     displayName: string | null;

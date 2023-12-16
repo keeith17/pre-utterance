@@ -5,12 +5,17 @@ import NoticeBox from "./notice/NoticeBox";
 
 const LayoutStyle = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    padding: 10px;
     display: flex;
+    justify-content: space-between;
     .contentInfo {
         width: 77%;
     }
     .fixedInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         width: 23%;
     }
 `;

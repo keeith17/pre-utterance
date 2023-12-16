@@ -1,8 +1,8 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
-import { userState } from "../atom";
+import { userState } from "@/atom";
 import { useSetRecoilState } from "recoil";
-import { app } from "../firebaseApp";
+import { app } from "@/firebaseApp";
 
 const AuthManager = () => {
     const setUser = useSetRecoilState(userState);
@@ -10,7 +10,6 @@ const AuthManager = () => {
 
     useEffect(() => {
         const userInfo = onAuthStateChanged(auth, (authUser) => {
-            console.log(authUser);
             if (authUser) {
                 const { uid, email, displayName, photoURL } = authUser;
                 setUser({ uid, email, displayName, photoURL });

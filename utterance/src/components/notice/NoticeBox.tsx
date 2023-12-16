@@ -2,8 +2,7 @@ import styled from "@emotion/styled";
 
 const NoticeStyle = styled.div`
     width: 100%;
-    height: 75%;
-    padding: 10px;
+    height: 74%;
     .noticeBox {
         width: 100%;
         height: 100%;

@@ -74,6 +74,8 @@ export default function App() {
             mute: muted,
         },
     };
+
+    //임시 뮤트 버튼
     const myStyle: React.CSSProperties = {
         position: "absolute",
         top: 0,

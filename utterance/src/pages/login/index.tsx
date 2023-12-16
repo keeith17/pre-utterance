@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { InfoArea, LoginWrap } from "./loginStyle";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { app } from "../../firebaseApp";
+import { app } from "@/firebaseApp";
 import { useNavigate } from "react-router-dom";
+import { InputStyle } from "@/components/Style";
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -41,20 +42,24 @@ export default function LoginPage() {
                 <div className="logo">프로젝트 PANDORA</div>
                 <InfoArea onSubmit={onSubmit}>
                     <div className="info">
-                        <input
+                        <InputStyle
                             type="text"
                             id="serial"
                             name="serial"
                             className="loginInfo"
                             placeholder="ID"
+                            height="50px"
+                            fontSize="15px"
                             onChange={onChange}
                         />
-                        <input
+                        <InputStyle
                             type="text"
                             id="password"
                             name="password"
                             className="loginInfo"
                             placeholder="PASSWORD"
+                            height="50px"
+                            fontSize="15px"
                             onChange={onChange}
                         />
                     </div>
