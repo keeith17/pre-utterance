@@ -3,9 +3,13 @@ import { InputStyle } from "@/components/Style";
 import { db } from "@/firebaseApp";
 import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 export default function NewMemberPage() {
+    const queryClient = useQueryClient();
+    const navigate = useNavigate();
     const user = useRecoilValue(userState);
     const [char, setChar] = useState<string>("");
 
@@ -14,7 +18,6 @@ export default function NewMemberPage() {
             target: { value },
         } = e;
         setChar(value);
-        console.log(char);
     };
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,6 +28,8 @@ export default function NewMemberPage() {
                 await setDoc(charRef, {
                     name: char,
                 });
+                await queryClient.invalidateQueries(`char`);
+                navigate("/");
             }
         } catch (error) {
             console.log(error);

@@ -7,11 +7,11 @@ import TribePage from "@/pages/tribe";
 import ProfilePage from "@/pages/profile";
 import AddIdPage from "@/pages/admin/addId";
 import NewMemberPage from "@/pages/newmember";
+import { DocumentSnapshot, doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebaseApp";
+import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import { userState } from "@/atom";
-import { db } from "@/firebaseApp";
-import { DocumentSnapshot, doc, getDoc } from "firebase/firestore";
-import { useQuery } from "react-query";
 
 interface RouterProps {
     isAuthenticated: boolean;
@@ -40,26 +40,42 @@ export default function Router({ isAuthenticated }: RouterProps) {
             enabled: !!userId, // 쿼리 활성화 여부를 유저 ID의 존재 여부에 따라 설정
         }
     );
+
     return (
         <Routes>
             {isAuthenticated ? (
-                haveCharacter ? (
-                    <>
-                        <Route path="/" element={<SearchPage />} />
-                        <Route path="/CircumPage" element={<CircumPage />} />
-                        <Route path="/CollegePage" element={<CollegePage />} />
-                        <Route path="/TribePage" element={<TribePage />} />
-                        <Route path="/ProfilePage" element={<ProfilePage />} />
-                    </>
-                ) : (
-                    <>
-                        <Route path="/NewMember" element={<NewMemberPage />} />
-                        <Route
-                            path="*"
-                            element={<Navigate replace to="/NewMember" />}
-                        />
-                    </>
-                )
+                <>
+                    {haveCharacter === false ? (
+                        <>
+                            <Route
+                                path="/NewMember"
+                                element={<NewMemberPage />}
+                            />
+                            <Route
+                                path="*"
+                                element={<Navigate replace to="/NewMember" />}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <Route path="/" element={<SearchPage />} />
+
+                            <Route
+                                path="/CircumPage"
+                                element={<CircumPage />}
+                            />
+                            <Route
+                                path="/CollegePage"
+                                element={<CollegePage />}
+                            />
+                            <Route path="/TribePage" element={<TribePage />} />
+                            <Route
+                                path="/ProfilePage"
+                                element={<ProfilePage />}
+                            />
+                        </>
+                    )}
+                </>
             ) : (
                 <>
                     <Route path="/LoginPage" element={<LoginPage />} />
