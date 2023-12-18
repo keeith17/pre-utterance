@@ -11,6 +11,7 @@ const LayoutStyle = styled.div`
     justify-content: space-between;
     .contentInfo {
         width: 77%;
+        position: relative;
     }
     .fixedInfo {
         display: flex;

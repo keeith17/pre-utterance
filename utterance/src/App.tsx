@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Layout } from "./components/Layout";
+import Loader from "./components/loader/Loader";
 
 export default function App() {
     //전체 로그인 관리
@@ -68,7 +69,7 @@ export default function App() {
             fs: 0,
             controls: 1,
             disablekb: 1,
-            playlist: "jcEw1Bsbnq0,_AAdae7diOU,XX2gPs44fxg",
+            playlist: "jcEw1Bsbnq0,Cp5y1hvtKPQ,NaLuuHmnb0Y",
             playsinline: 1,
             enablejsapi: 1,
             mute: muted,
@@ -98,7 +99,7 @@ export default function App() {
                         {init ? (
                             <Router isAuthenticated={isAuthenticated} />
                         ) : (
-                            <div>loadng............</div>
+                            <Loader />
                         )}
                     </Layout>
                 ) : (
@@ -107,7 +108,7 @@ export default function App() {
                         {init ? (
                             <Router isAuthenticated={isAuthenticated} />
                         ) : (
-                            <div>loadng............</div>
+                            <Loader />
                         )}
                     </>
                 )
