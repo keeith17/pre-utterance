@@ -41,6 +41,7 @@ export default function SearchPage() {
     const navigate = useNavigate();
 
     const [char, setChar] = useState<string>("");
+    const [search, setSearch] = useState<string>("");
 
     // 캐릭터가 존재하는지 여부 확인하는 부분
     const getChar = async (userId: string | null) => {
@@ -83,12 +84,19 @@ export default function SearchPage() {
         }
     };
 
+    //검색 창 상태
+    const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {
+            target: { value },
+        } = e;
+        setSearch(value);
+    };
+
     //버튼 정보 가지고 오는 부분
     const { data: buttons } = useQuery<GetButtonProps[]>(
         "buttonData",
         fetchButtonData
     );
-
     return (
         <SearcWrap>
             <div className="searchBox">
@@ -101,12 +109,19 @@ export default function SearchPage() {
                             type="text"
                             height="54px"
                             fontSize="18px"
+                            onChange={onChangeSearch}
                             placeholder="무엇이 궁금하신가요?"
                         />
                         <div className="linkButton">
-                            {buttons?.map((button) => (
-                                <ResultButton button={button} key={button.id} />
-                            ))}
+                            {buttons?.map(
+                                (button) =>
+                                    button.subKey.includes(search) && (
+                                        <ResultButton
+                                            button={button}
+                                            key={button.id}
+                                        />
+                                    )
+                            )}
                         </div>
                     </div>
                 ) : (
