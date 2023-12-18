@@ -41,6 +41,7 @@ export default function SearchPage() {
     const navigate = useNavigate();
 
     const [char, setChar] = useState<string>("");
+    const [nick, setNick] = useState<string>("");
     const [search, setSearch] = useState<string>("");
 
     // 캐릭터가 존재하는지 여부 확인하는 부분
@@ -64,9 +65,10 @@ export default function SearchPage() {
     //캐릭터가 없는 초기 1회 캐릭터 생성하는 부분
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
-            target: { value },
+            target: { name, value },
         } = e;
-        setChar(value);
+        if (name === "name") setChar(value);
+        if (name === "nick") setNick(value);
     };
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -75,8 +77,10 @@ export default function SearchPage() {
                 const charRef = doc(db, "character", user?.uid);
                 await setDoc(charRef, {
                     name: char,
+                    nick: nick,
                 });
                 await queryClient.invalidateQueries(`char`);
+                await queryClient.invalidateQueries(`charData`);
                 navigate("/");
             }
         } catch (error) {
@@ -97,6 +101,7 @@ export default function SearchPage() {
         "buttonData",
         fetchButtonData
     );
+
     return (
         <SearcWrap>
             <div className="searchBox">
@@ -132,8 +137,17 @@ export default function SearchPage() {
                                 type="text"
                                 height="54px"
                                 fontSize="18px"
+                                name="name"
                                 onChange={onChange}
                                 placeholder="임시 캐릭터명 입력"
+                            />
+                            <InputStyle
+                                type="text"
+                                height="54px"
+                                fontSize="18px"
+                                name="nick"
+                                onChange={onChange}
+                                placeholder="익명 밴드 닉네임 입력"
                             />
                             <div className="submit">
                                 <ButtonStyle type="submit" fontSize="20px">

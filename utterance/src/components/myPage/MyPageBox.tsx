@@ -3,7 +3,9 @@ import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { app } from "@/firebaseApp";
+import { app, db } from "@/firebaseApp";
+import { doc, getDoc } from "firebase/firestore";
+import { useQuery } from "react-query";
 
 const myStyle: React.CSSProperties = {
     position: "absolute",
@@ -22,10 +24,30 @@ const MyPageStyle = styled.div`
         background: rgba(255, 255, 255, 0.2);
     }
 `;
-
+interface CharProps {
+    uid: string;
+    name: string;
+    nick: string;
+    gifUrl: string;
+}
+// 버튼 부분 데이터 페칭 함수
+const fetchCharData = async (userUid: string | null) => {
+    if (userUid) {
+        const charRef = doc(db, "character", userUid);
+        const charSnap = await getDoc(charRef);
+        const data = { ...(charSnap?.data() as CharProps), uid: userUid };
+        return data;
+    } else {
+        throw new Error("사용자 UID가 존재하지 않습니다.");
+    }
+};
 export default function MyPageBox() {
-    const user = useRecoilValue(userState);
     const navigate = useNavigate();
+    const user = useRecoilValue(userState);
+    const userUid = user.uid;
+    const { data: myChar } = useQuery<CharProps>("charData", () =>
+        fetchCharData(userUid)
+    );
     return (
         <MyPageStyle>
             <button
@@ -39,15 +61,11 @@ export default function MyPageBox() {
             >
                 임시 로그아웃
             </button>
-            <div className="myPageBox">
-                내 정보 별명: {user.displayName} <br />
-                이메일: {user.email}
-                <br />
-                유알엘: {user.photoURL}
-                <br />
-                유아이디: {user.uid}
-                <br />
-            </div>
+            {myChar?.nick ? (
+                <div className="myPageBox">{myChar?.name}</div>
+            ) : (
+                <div className="myPageBox"> 잠겨 있습니다</div>
+            )}
         </MyPageStyle>
     );
 }

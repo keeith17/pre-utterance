@@ -24,8 +24,10 @@ export const SearcWrap = styled.div`
                 justify-content: center;
                 margin-top: 20px;
             }
-            .submit {
-                padding: 10px 0;
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
             }
         }
     }
