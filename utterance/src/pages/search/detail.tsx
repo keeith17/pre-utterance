@@ -60,11 +60,18 @@ export default function SearchDetailPage() {
                     ))}
             </div>
             <div className="contentArea">
-                {searchData && (
-                    <div className="imgWrap">
-                        <img src={searchData.content[`${selectedData}`]}></img>
-                    </div>
-                )}
+                {searchData &&
+                    (selectedData === "" ? (
+                        <div className="guideWrap">
+                            열람할 페이지를 선택해 주세요
+                        </div>
+                    ) : (
+                        <div className="imgWrap">
+                            <img
+                                src={searchData.content[`${selectedData}`]}
+                            ></img>
+                        </div>
+                    ))}
             </div>
         </SearcDetailWrap>
     );

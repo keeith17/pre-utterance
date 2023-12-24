@@ -50,6 +50,10 @@ export const SearcDetailWrap = styled.div`
     .contentArea {
         width: 60%;
         height: 100%;
+        .guideWrap {
+            width: 100%;
+            height: 100%;
+        }
         .imgWrap {
             width: 100%;
             height: 100%;
