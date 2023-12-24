@@ -32,6 +32,9 @@ export const ButtonStyle = styled.button<ButtonProps>`
     color: #fff;
     font-size: ${(props) => props.fontSize};
     transition: all 0.1s;
+    &.selected {
+        color: red;
+    }
     &:hover {
         background: rgba(255, 255, 255, 0.1);
     }

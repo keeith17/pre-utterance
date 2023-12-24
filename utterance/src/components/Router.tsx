@@ -6,6 +6,7 @@ import CollegePage from "@/pages/college";
 import TribePage from "@/pages/tribe";
 import ProfilePage from "@/pages/profile";
 import AddIdPage from "@/pages/admin/addId";
+import SearchDetailPage from "@/pages/search/detail";
 
 interface RouterProps {
     isAuthenticated: boolean;
@@ -17,6 +18,7 @@ export default function Router({ isAuthenticated }: RouterProps) {
             {isAuthenticated ? (
                 <>
                     <Route path="/" element={<SearchPage />} />
+                    <Route path="/:id" element={<SearchDetailPage />} />
                     <Route path="/CircumPage" element={<CircumPage />} />
                     <Route path="/CollegePage" element={<CollegePage />} />
                     <Route path="/TribePage" element={<TribePage />} />
