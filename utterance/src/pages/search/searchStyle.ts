@@ -54,6 +54,7 @@ export const SearcDetailWrap = styled.div`
             width: 100%;
             height: 100%;
             overflow-y: scroll;
+            padding-right: 5px;
             &::-webkit-scrollbar {
                 width: 10px;
             }
