@@ -20,7 +20,11 @@ interface ResultButtonProps {
 export default function ResultButton({ button }: ResultButtonProps) {
     return (
         <ResultButtonStyle>
-            <Link to={`/${button?.id}`}>{button.name}</Link>
+            <Link
+                to={button?.link !== "" ? `${button?.link}` : `/${button?.id}`}
+            >
+                {button.name}
+            </Link>
         </ResultButtonStyle>
     );
 }

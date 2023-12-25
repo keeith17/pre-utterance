@@ -1,34 +1,23 @@
 import { userState } from "@/atom";
-import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app, db } from "@/firebaseApp";
 import { doc, getDoc } from "firebase/firestore";
 import { useQuery } from "react-query";
+import { ButtonStyle } from "../Style";
+import { MyPageStyle } from "./MyPageBoxStyle";
+import { BsPersonHearts } from "react-icons/bs";
+import { TbPencilHeart } from "react-icons/tb";
+import { BsEnvelopeOpenHeart } from "react-icons/bs";
 
-const myStyle: React.CSSProperties = {
-    position: "absolute",
-    top: 25,
-    right: 0,
-    zIndex: 10,
-};
-
-const MyPageStyle = styled.div`
-    width: 100%;
-    height: 25%;
-    .myPageBox {
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.2);
-    }
-`;
 interface CharProps {
     uid: string;
     name: string;
     nick: string;
     gifUrl: string;
+    grade: string;
+    badge: string;
 }
 // 버튼 부분 데이터 페칭 함수
 const fetchCharData = async (userUid: string | null) => {
@@ -50,19 +39,49 @@ export default function MyPageBox() {
     );
     return (
         <MyPageStyle>
-            <button
-                type="button"
-                onClick={async () => {
-                    const auth = getAuth(app);
-                    await signOut(auth);
-                    navigate("/LoginPage");
-                }}
-                style={myStyle}
-            >
-                임시 로그아웃
-            </button>
             {myChar?.nick ? (
-                <div className="myPageBox">{myChar?.name}</div>
+                <div className="myPageBox">
+                    <div className="logoutArea">
+                        <ButtonStyle
+                            fontSize="12px"
+                            type="button"
+                            onClick={async () => {
+                                const auth = getAuth(app);
+                                await signOut(auth);
+                                navigate("/LoginPage");
+                            }}
+                        >
+                            Logout
+                        </ButtonStyle>
+                    </div>
+                    <div className="myInfoArea">
+                        <div className="badge">
+                            <img src={myChar.badge} alt="휘장" />
+                        </div>
+                        <div className="profilePhoto">
+                            <img src={myChar.gifUrl} alt="캐릭터 두상" />
+                            <p className="myname">{myChar.name}</p>
+                        </div>
+                        <div className="grade">
+                            <img src={myChar.grade} alt="계급장" />
+                        </div>
+                    </div>
+                    <div className="shortCutArea">
+                        <div className="shortCutIcon">
+                            <BsPersonHearts
+                                className="icons"
+                                size={30}
+                                onClick={() => navigate("/ProfilePage")}
+                            />
+                            <TbPencilHeart
+                                className="icons"
+                                size={30}
+                                onClick={() => navigate("/ProfileEditPage")}
+                            />
+                            <BsEnvelopeOpenHeart className="icons" size={30} />
+                        </div>
+                    </div>
+                </div>
             ) : (
                 <div className="myPageBox"> 잠겨 있습니다</div>
             )}

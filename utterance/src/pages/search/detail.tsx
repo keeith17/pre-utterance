@@ -9,7 +9,8 @@ import { SearcDetailWrap } from "./searchStyle";
 export default function SearchDetailPage() {
     const params = useParams<{ id: string }>();
     const [selectedData, setSelectedData] = useState<string>("");
-    // 데이터
+
+    // 각 페이지에 해당하는 데이터 불러오기
     const getSearch = async (paramsId: string | undefined) => {
         if (paramsId) {
             const docRef = doc(db, "searchWord", paramsId);
@@ -30,6 +31,8 @@ export default function SearchDetailPage() {
     const { data: searchData } = useQuery(["search", params.id], () =>
         getSearch(params.id)
     );
+
+    //현재 보고 싶은 데이터 state에 등록
     const handleOnClick = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {

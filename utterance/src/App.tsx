@@ -79,7 +79,7 @@ export default function App() {
     //임시 뮤트 버튼
     const myStyle: React.CSSProperties = {
         position: "absolute",
-        top: 0,
+        top: 300,
         right: 0,
         zIndex: 10,
     };
