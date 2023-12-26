@@ -19,13 +19,13 @@ export const GlobalStyle = css`
         padding: 0;
         vertical-align: middle;
         box-sizing: border-box;
-        font-family: "Giants-Inline";
     }
 
     html,
     body {
         width: 100%;
         height: 100vh;
+        font-family: "Giants-Inline";
     }
 
     body {

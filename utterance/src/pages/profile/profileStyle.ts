@@ -22,7 +22,7 @@ export const Character = styled.div`
                 height: 100%;
                 padding: 15px;
                 display: flex;
-                justify-content: center;
+                justify-content: left;
                 img {
                     height: 100%;
                     object-fit: cover;
@@ -53,16 +53,62 @@ export const Character = styled.div`
                 padding: 35px;
                 display: flex;
                 justify-content: center;
+                transform: perspective(300px) rotateZ(0deg);
+                animation: move 8s linear infinite;
                 img {
                     height: 100%;
                     object-fit: cover;
+                }
+                @keyframes move {
+                    0% {
+                        transform: perspective(300px) rotateY(0deg);
+                    }
+                    100% {
+                        transform: perspective(300px) rotateY(-360deg);
+                    }
                 }
             }
         }
         .charSecret {
             width: 100%;
             height: 60%;
-            background: rgba(200, 255, 255, 0.1);
+            overflow-y: auto;
+            padding: 15px;
+            // display: flex;
+            // flex-direction: column;
+            // gap: 20px;
+            &::-webkit-scrollbar {
+                width: 10px;
+            }
+            &::-webkit-scrollbar-thumb {
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.3);
+            }
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .secret {
+                width: 100%;
+                height: 300px;
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid #fff;
+                overflow-y: auto;
+                &::-webkit-scrollbar {
+                    width: 10px;
+                }
+                &::-webkit-scrollbar-thumb {
+                    border-radius: 5px;
+                    background: rgba(255, 255, 255, 0.3);
+                }
+                &::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                p {
+                    font-family: "nexonGothic";
+                    text-align: justify;
+                }
+            }
         }
     }
     .charRelation {

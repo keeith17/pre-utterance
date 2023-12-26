@@ -109,7 +109,21 @@ export default function ProfilePage() {
                                 <img src={selectChar.badge} alt="기숙사휘장" />
                             </div>
                         </div>
-                        <div className="charSecret"></div>
+                        <div className="charSecret">
+                            <div className="secret secret1">
+                                <p
+                                    dangerouslySetInnerHTML={{
+                                        __html: selectChar.secret1,
+                                    }}
+                                ></p>
+                            </div>
+                            <div className="secret secret2">
+                                <p>{selectChar.secret2}</p>
+                            </div>
+                            <div className="secret secret3">
+                                <p>{selectChar.secret3}</p>
+                            </div>
+                        </div>
                     </div>
                     <div className="charRelation"></div>
                 </Character>

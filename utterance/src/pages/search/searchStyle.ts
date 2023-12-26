@@ -63,6 +63,7 @@ export const SearcDetailWrap = styled.div`
                 width: 10px;
             }
             &::-webkit-scrollbar-thumb {
+                border-radius: 5px;
                 background: rgba(255, 255, 255, 0.3);
             }
             &::-webkit-scrollbar-track {

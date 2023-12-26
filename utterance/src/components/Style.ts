@@ -16,6 +16,7 @@ export const InputStyle = styled.input<InputProps>`
     border-radius: 3px;
     caret-color: #fff;
     color: #fff;
+    font-family: "Giants-Inline";
     &:focus {
         outline: none;
     }
@@ -31,6 +32,7 @@ export const ButtonStyle = styled.button<ButtonProps>`
     border-radius: 3px;
     color: #fff;
     font-size: ${(props) => props.fontSize};
+    font-family: "Giants-Inline";
     transition: all 0.1s;
     &.selected {
         color: red;
