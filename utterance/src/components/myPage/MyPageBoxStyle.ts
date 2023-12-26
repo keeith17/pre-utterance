@@ -33,13 +33,12 @@ export const MyPageStyle = styled.div`
                 }
             }
             .profilePhoto {
-                width: 40%;
                 height: 100%;
-                padding: 25px;
+                aspect-ratio: 1 / 1;
+                padding: 15px;
                 position: relative;
                 img {
                     width: 100%;
-                    aspect-ratio: 1 / 1;
                     object-fit: cover;
                     border-radius: 50%;
                 }
