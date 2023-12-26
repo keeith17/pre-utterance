@@ -1,10 +1,16 @@
 import { css } from "@emotion/react";
 import giantsInline from "./assets/fonts/Giants-Inline.ttf";
+import nexonGothic from "./assets/fonts/NEXON_Lv2_Gothic_Light.ttf";
 
 export const GlobalStyle = css`
     @font-face {
         font-family: "Giants-Inline";
         src: url(${giantsInline}) format("truetype");
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "nexonGothic";
+        src: url(${nexonGothic}) format("truetype");
         font-display: swap;
     }
 
