@@ -167,6 +167,9 @@ export const CharList = styled.div`
             img {
                 width: 100%;
             }
+            &.selected {
+                border: 3px solid purple;
+            }
         }
     }
     .rightArrow {

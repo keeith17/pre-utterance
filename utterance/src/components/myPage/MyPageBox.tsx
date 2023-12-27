@@ -15,7 +15,7 @@ const fetchCharData = async (userUid: string | null) => {
     if (userUid) {
         const charRef = doc(db, "character", userUid);
         const charSnap = await getDoc(charRef);
-        const data = { ...(charSnap?.data() as AllCharProps), uid: userUid };
+        const data = { ...(charSnap?.data() as AllCharProps), id: userUid };
         return data;
     } else {
         throw new Error("사용자 UID가 존재하지 않습니다.");
@@ -29,6 +29,11 @@ export default function MyPageBox() {
     const { data: myChar } = useQuery<AllCharProps>("charData", () =>
         fetchCharData(userUid)
     );
+    const handleButtonClick = () => {
+        navigate("/ProfilePage", {
+            state: myChar,
+        });
+    };
     return (
         <MyPageStyle>
             {myChar?.nick ? (
@@ -64,7 +69,7 @@ export default function MyPageBox() {
                             <IoPersonCircleSharp
                                 className="icons"
                                 size={30}
-                                onClick={() => navigate("/ProfilePage")}
+                                onClick={handleButtonClick}
                             />
                             <IoCreateSharp
                                 className="icons"

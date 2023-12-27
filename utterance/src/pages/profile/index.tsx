@@ -4,6 +4,7 @@ import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
 export interface AllCharProps {
     badge: string;
     badgeImg: string;
@@ -22,23 +23,26 @@ export interface AllCharProps {
     secret3: string;
 }
 export default function ProfilePage() {
+    const location = useLocation();
+    const myChar = location.state;
     const [selectChar, setSelectChar] = useState<AllCharProps>({
-        badge: "",
-        badgeImg: "",
-        gifUrl: "",
-        grade: "",
-        gradeImg: "",
-        name: "",
-        nick: "",
-        id: "",
-        height: "",
-        weight: "",
-        from: "",
-        planet: "",
-        secret1: "",
-        secret2: "",
-        secret3: "",
+        badge: myChar ? myChar.badge : "",
+        badgeImg: myChar ? myChar.badgeImg : "",
+        gifUrl: myChar ? myChar.gifUrl : "",
+        grade: myChar ? myChar.grade : "",
+        gradeImg: myChar ? myChar.gradeImg : "",
+        name: myChar ? myChar.name : "",
+        nick: myChar ? myChar.nick : "",
+        id: myChar ? myChar.id : "",
+        height: myChar ? myChar.height : "",
+        weight: myChar ? myChar.weight : "",
+        from: myChar ? myChar.from : "",
+        planet: myChar ? myChar.planet : "",
+        secret1: myChar ? myChar.secret1 : "",
+        secret2: myChar ? myChar.secret2 : "",
+        secret3: myChar ? myChar.secret3 : "",
     });
+    //이 부분 recoil 써 보는 것으로
     const [selectHouse, setSelectHouse] = useState<number>(1);
     const houseList: string[] = ["quasa1", "quasa2", "quasa3"];
     const badgeList: string[] = [
@@ -167,7 +171,9 @@ export default function ProfilePage() {
                         (char, index) =>
                             char.badge === houseList[selectHouse] && (
                                 <button
-                                    className="charGif"
+                                    className={`charGif ${
+                                        char.id === selectChar.id && "selected"
+                                    }`}
                                     key={index}
                                     value={char.id}
                                     onClick={handleCharSet}
