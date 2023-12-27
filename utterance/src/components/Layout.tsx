@@ -9,6 +9,7 @@ const LayoutStyle = styled.div`
     padding: 10px;
     display: flex;
     justify-content: space-between;
+    position: relative;
     .contentInfo {
         width: 77%;
         position: relative;

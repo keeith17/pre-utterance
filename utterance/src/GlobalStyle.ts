@@ -36,6 +36,7 @@ export const GlobalStyle = css`
             no-repeat;
         background-size: cover;
         color: #ffffff;
+        position: relative;
     }
 
     ul,

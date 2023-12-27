@@ -114,7 +114,6 @@ export const Character = styled.div`
     .charRelation {
         width: 40%;
         height: 100%;
-        // background: rgba(255, 200, 255, 0.1);
     }
 `;
 export const CharList = styled.div`
