@@ -1,5 +1,5 @@
 import { InputStyle } from "@/components/Style";
-import { ProfileLayout, Save, TextAreaStyle } from "./profileEditStyle";
+import { DropdownStyle, ProfileLayout, Save, TextAreaStyle } from "./profileEditStyle";
 
 export default function ProfileEditPage() {
     return (
@@ -10,74 +10,98 @@ export default function ProfileEditPage() {
                     <div className="profGroup">
                         <div className="inputGroup">
                             <div className="profBox">두상</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">이름</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">키 / 몸무게</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">종족</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <DropdownStyle className="profWrite">
+                                <option value="루흘">루흘</option>
+                                <option value="아스화리탈">아스화리탈</option>
+                                <option value="우고트">우고트</option>
+                                <option value="테라">테라</option>
+                                <option value="하라간">하라간</option>
+                            </DropdownStyle>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">행성</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <DropdownStyle className="profWrite">
+                                <option value="소버린">소버린</option>
+                                <option value="아스화리탈">아스화리탈</option>
+                                <option value="할라">할라</option>
+                                <option value="테라">테라</option>
+                                <option value="카르툼">카르툼</option>
+                            </DropdownStyle>
                         </div>
                         <div className="inputGroup">
-                            <div className="profBox">정보 권한 1 정보</div>
-                            <TextAreaStyle className="profWrite" rows={7} cols={57} />
+                            <div className="profBox">비밀</div>
+                            <TextAreaStyle placeholder="정보 권한 2등급에 해당되는 정보를 입력해 주세요." rows={6} cols={57} />
                         </div>
                         
                         <div className="inputGroup">
-                            <div className="profBox">정보 권한 2 정보</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="auto"></InputStyle>
+                            <div className="profBox">기밀</div>
+                            <TextAreaStyle placeholder="정보 권한 3등급에 해당되는 정보를 입력해 주세요." rows={6} cols={57} />
                         </div>
                         
                         <div className="inputGroup">
-                            <div className="profBox">정보 권한 3 정보</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <div className="profBox">극비</div>
+                            <TextAreaStyle placeholder="정보 권한 4등급에 해당되는 정보를 입력해 주세요." rows={6} cols={57} />
                         </div>
 
                         <div className="inputGroup">
                             <div className="profBox">1번 관계 이름</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <DropdownStyle className="profWrite">
+                                <option value="1번 친구">1번 친구</option>
+                                <option value="2번 친구">2번 친구</option>
+                                <option value="3번 친구">3번 친구</option>
+                            </DropdownStyle>
                         </div>
 
                         <div className="inputGroup">
-                            <div className="profBox">1번 관계 내용</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <div className="profRelationBox"></div>
+                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
                         </div>
 
                         <div className="inputGroup">
                             <div className="profBox">2번 관계 이름</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <DropdownStyle className="profWrite">
+                                <option value="1번 친구">1번 친구</option>
+                                <option value="2번 친구">2번 친구</option>
+                                <option value="3번 친구">3번 친구</option>
+                            </DropdownStyle>
                         </div>
 
                         <div className="inputGroup">
-                            <div className="profBox">2번 관계 내용</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <div className="profRelationBox"></div>
+                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
                         </div>
 
                         <div className="inputGroup">
                             <div className="profBox">3번 관계 이름</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <DropdownStyle className="profWrite">
+                                <option value="1번 친구">1번 친구</option>
+                                <option value="2번 친구">2번 친구</option>
+                                <option value="3번 친구">3번 친구</option>
+                            </DropdownStyle>
                         </div>
 
                         <div className="inputGroup">
-                            <div className="profBox">3번 관계 내용</div>
-                            <InputStyle className="profWrite" fontSize="11px" height="23px"></InputStyle>
+                            <div className="profRelationBox"></div>
+                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
                         </div>
                     </div>
                 </form>
-            </div>
-            <Save>
+                <Save>
                 <button className="save">save</button>
-            </Save>
+                </Save>
+            </div>
         </ProfileLayout>
     );
 }
