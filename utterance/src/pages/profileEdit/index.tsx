@@ -10,15 +10,15 @@ export default function ProfileEditPage() {
                     <div className="profGroup">
                         <div className="inputGroup">
                             <div className="profBox">두상</div>
-                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
+                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">이름</div>
-                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
+                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">키 / 몸무게</div>
-                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
+                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">종족</div>
@@ -56,7 +56,7 @@ export default function ProfileEditPage() {
                         </div>
 
                         <div className="inputGroup">
-                            <div className="profBox">1번 관계 이름</div>
+                            <div className="profBox">소셜 네트워크 A</div>
                             <DropdownStyle className="profWrite">
                                 <option value="1번 친구">1번 친구</option>
                                 <option value="2번 친구">2번 친구</option>
@@ -66,11 +66,11 @@ export default function ProfileEditPage() {
 
                         <div className="inputGroup">
                             <div className="profRelationBox"></div>
-                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
+                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
                         </div>
 
                         <div className="inputGroup">
-                            <div className="profBox">2번 관계 이름</div>
+                            <div className="profBox">소셜 네트워크 B</div>
                             <DropdownStyle className="profWrite">
                                 <option value="1번 친구">1번 친구</option>
                                 <option value="2번 친구">2번 친구</option>
@@ -80,11 +80,11 @@ export default function ProfileEditPage() {
 
                         <div className="inputGroup">
                             <div className="profRelationBox"></div>
-                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
+                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
                         </div>
 
                         <div className="inputGroup">
-                            <div className="profBox">3번 관계 이름</div>
+                            <div className="profBox">소셜 네트워크 C</div>
                             <DropdownStyle className="profWrite">
                                 <option value="1번 친구">1번 친구</option>
                                 <option value="2번 친구">2번 친구</option>
@@ -94,7 +94,7 @@ export default function ProfileEditPage() {
 
                         <div className="inputGroup">
                             <div className="profRelationBox"></div>
-                            <InputStyle fontSize="   13px" height="23px"></InputStyle>
+                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
                         </div>
                     </div>
                 </form>
