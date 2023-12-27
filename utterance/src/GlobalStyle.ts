@@ -36,7 +36,10 @@ export const GlobalStyle = css`
             no-repeat;
         background-size: cover;
         color: #ffffff;
-        position: relative;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 
     ul,
