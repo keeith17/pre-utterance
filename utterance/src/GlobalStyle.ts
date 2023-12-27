@@ -25,7 +25,7 @@ export const GlobalStyle = css`
     body {
         width: 100%;
         height: 100vh;
-        font-family: "Giants-Inline", ";
+        font-family: "Giants-Inline", "nexonGothic";
     }
 
     body {
