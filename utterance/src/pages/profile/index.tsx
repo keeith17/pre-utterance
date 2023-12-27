@@ -4,23 +4,23 @@
 // import { useQuery } from "react-query";
 // import { useState } from "react";
 // import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-// export interface AllCharProps {
-//     badge: string;
-//     badgeImg: string;
-//     gifUrl: string;
-//     grade: string;
-//     gradeImg: string;
-//     name: string;
-//     nick: string;
-//     id: string;
-//     height: string;
-//     weight: string;
-//     from: string;
-//     planet: string;
-//     secret1: string;
-//     secret2: string;
-//     secret3: string;
-// }
+export interface AllCharProps {
+    badge: string;
+    badgeImg: string;
+    gifUrl: string;
+    grade: string;
+    gradeImg: string;
+    name: string;
+    nick: string;
+    id: string;
+    height: string;
+    weight: string;
+    from: string;
+    planet: string;
+    secret1: string;
+    secret2: string;
+    secret3: string;
+}
 // export default function ProfilePage() {
 //     const [selectChar, setSelectChar] = useState<AllCharProps>({
 //         badge: "",
