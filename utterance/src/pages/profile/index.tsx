@@ -3,10 +3,13 @@ import { CharList, Character, CharacterWrap } from "./profileStyle";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
 import { useState } from "react";
+import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 export interface AllCharProps {
     badge: string;
+    badgeImg: string;
     gifUrl: string;
     grade: string;
+    gradeImg: string;
     name: string;
     nick: string;
     id: string;
@@ -21,8 +24,10 @@ export interface AllCharProps {
 export default function ProfilePage() {
     const [selectChar, setSelectChar] = useState<AllCharProps>({
         badge: "",
+        badgeImg: "",
         gifUrl: "",
         grade: "",
+        gradeImg: "",
         name: "",
         nick: "",
         id: "",
@@ -34,6 +39,21 @@ export default function ProfilePage() {
         secret2: "",
         secret3: "",
     });
+    const [selectHouse, setSelectHouse] = useState<number>(1);
+    const houseList: string[] = ["quasa1", "quasa2", "quasa3"];
+    const badgeList: string[] = [
+        "https://i.imgur.com/KEchdrQ.png",
+        "https://i.imgur.com/PRPLtc3.png",
+        "https://i.imgur.com/JAj1OK7.png",
+    ];
+    const handleRight = () => {
+        if (selectHouse < 2) setSelectHouse(selectHouse + 1);
+        else setSelectHouse(0);
+    };
+    const handleLeft = () => {
+        if (selectHouse > 0) setSelectHouse(selectHouse - 1);
+        else setSelectHouse(2);
+    };
     // 전체 캐릭터 데이터 받아 오는 부분
     const fetchAllCharData = async () => {
         const allCharSnapshot = await getDocs(collection(db, "character"));
@@ -65,8 +85,10 @@ export default function ProfilePage() {
                     setSelectChar({
                         ...selectChar,
                         badge: hereChar.badge,
+                        badgeImg: hereChar.badgeImg,
                         gifUrl: hereChar.gifUrl,
                         grade: hereChar.grade,
+                        gradeImg: hereChar.gradeImg,
                         id: hereChar.id,
                         name: hereChar.name,
                         nick: hereChar.nick,
@@ -106,7 +128,10 @@ export default function ProfilePage() {
                                 </div>
                             </div>
                             <div className="charBadge">
-                                <img src={selectChar.badge} alt="기숙사휘장" />
+                                <img
+                                    src={selectChar.badgeImg}
+                                    alt="기숙사휘장"
+                                />
                             </div>
                         </div>
                         <div className="charSecret">
@@ -131,16 +156,30 @@ export default function ProfilePage() {
                 <Character>캐릭터를 선택해 주세용</Character>
             )}
             <CharList>
-                {allChar?.map((char, index) => (
-                    <button
-                        className="charGif"
-                        key={index}
-                        value={char.id}
-                        onClick={handleCharSet}
-                    >
-                        <img src={char.gifUrl} alt="캐릭터 두상" />
-                    </button>
-                ))}
+                <div className="leftArrow arrow" onClick={handleLeft}>
+                    <IoChevronBack size={60} />
+                </div>
+                <div className="badgeWrap">
+                    <img src={badgeList[selectHouse]} alt="휘장" />
+                </div>
+                <div className="gifWrap">
+                    {allChar?.map(
+                        (char, index) =>
+                            char.badge === houseList[selectHouse] && (
+                                <button
+                                    className="charGif"
+                                    key={index}
+                                    value={char.id}
+                                    onClick={handleCharSet}
+                                >
+                                    <img src={char.gifUrl} alt="캐릭터 두상" />
+                                </button>
+                            )
+                    )}
+                </div>
+                <div className="rightArrow arrow" onClick={handleRight}>
+                    <IoChevronForward size={60} />
+                </div>
             </CharList>
         </CharacterWrap>
     );

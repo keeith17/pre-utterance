@@ -24,11 +24,11 @@ export const MyPageStyle = styled.div`
             .badge {
                 width: 30%;
                 height: 100%;
-                padding: 15px 0;
+                padding: 15px 20px;
                 display: flex;
                 justify-content: right;
                 img {
-                    width: 70%;
+                    height: 100%;
                     object-fit: cover;
                 }
             }

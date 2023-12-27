@@ -7,24 +7,15 @@ import { doc, getDoc } from "firebase/firestore";
 import { useQuery, useQueryClient } from "react-query";
 import { ButtonStyle } from "../Style";
 import { MyPageStyle } from "./MyPageBoxStyle";
-import { BsPersonHearts } from "react-icons/bs";
-import { TbPencilHeart } from "react-icons/tb";
-import { BsEnvelopeOpenHeart } from "react-icons/bs";
+import { IoPersonCircleSharp, IoCreateSharp, IoMail } from "react-icons/io5";
+import { AllCharProps } from "@/pages/profile";
 
-interface CharProps {
-    uid: string;
-    name: string;
-    nick: string;
-    gifUrl: string;
-    grade: string;
-    badge: string;
-}
 // 버튼 부분 데이터 페칭 함수
 const fetchCharData = async (userUid: string | null) => {
     if (userUid) {
         const charRef = doc(db, "character", userUid);
         const charSnap = await getDoc(charRef);
-        const data = { ...(charSnap?.data() as CharProps), uid: userUid };
+        const data = { ...(charSnap?.data() as AllCharProps), uid: userUid };
         return data;
     } else {
         throw new Error("사용자 UID가 존재하지 않습니다.");
@@ -35,7 +26,7 @@ export default function MyPageBox() {
     const queryClient = useQueryClient();
     const user = useRecoilValue(userState);
     const userUid = user.uid;
-    const { data: myChar } = useQuery<CharProps>("charData", () =>
+    const { data: myChar } = useQuery<AllCharProps>("charData", () =>
         fetchCharData(userUid)
     );
     return (
@@ -58,29 +49,29 @@ export default function MyPageBox() {
                     </div>
                     <div className="myInfoArea">
                         <div className="badge">
-                            <img src={myChar?.badge} alt="휘장" />
+                            <img src={myChar?.badgeImg} alt="휘장" />
                         </div>
                         <div className="profilePhoto">
                             <img src={myChar?.gifUrl} alt="캐릭터 두상" />
                             <p className="myname">{myChar?.name}</p>
                         </div>
                         <div className="grade">
-                            <img src={myChar?.grade} alt="계급장" />
+                            <img src={myChar?.gradeImg} alt="계급장" />
                         </div>
                     </div>
                     <div className="shortCutArea">
                         <div className="shortCutIcon">
-                            <BsPersonHearts
+                            <IoPersonCircleSharp
                                 className="icons"
                                 size={30}
                                 onClick={() => navigate("/ProfilePage")}
                             />
-                            <TbPencilHeart
+                            <IoCreateSharp
                                 className="icons"
                                 size={30}
                                 onClick={() => navigate("/ProfileEditPage")}
                             />
-                            <BsEnvelopeOpenHeart className="icons" size={30} />
+                            <IoMail className="icons" size={30} />
                         </div>
                     </div>
                 </div>

@@ -25,17 +25,21 @@ export const GlobalStyle = css`
     body {
         width: 100%;
         height: 100vh;
-        font-family: "Giants-Inline";
+        font-family: "Giants-Inline", ";
     }
 
     body {
-        font-family: "Giants-Inline";
+        font-family: "Giants-Inline", "nexonGothic";
         overflow-x: overlay;
         overflow-y: overlay;
         background: url(https://images.pexels.com/photos/1694000/pexels-photo-1694000.jpeg)
             no-repeat;
         background-size: cover;
         color: #ffffff;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none
     }
 
     ul,

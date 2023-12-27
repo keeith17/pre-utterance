@@ -114,26 +114,79 @@ export const Character = styled.div`
     .charRelation {
         width: 40%;
         height: 100%;
-        background: rgba(255, 200, 255, 0.1);
+        // background: rgba(255, 200, 255, 0.1);
     }
 `;
 export const CharList = styled.div`
     width: 100%;
     height: 22%;
-    padding: 10px;
-    background: rgba(255, 255, 200, 0.1);
+    padding: 15px 150px;
     display: flex;
-    gap: 15px;
-    .charGif {
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    .leftArrow {
+        width: 10%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
-        height: 50%;
-        border-radius: 50%;
-        overflow: hidden;
-        aspect-ratio: 1/1;
-        border: none;
-        outline: none;
-        img {
-            width: 100%;
+        transition: all 0.3s;
+        &:hover {
+            background: linear-gradient(
+                to left,
+                transparent,
+                rgba(0, 0, 0, 0.5)
+            );
+        }
+    }
+    .badgeWrap {
+        width: 30%;
+        height: 100%;
+        padding: 10px 30px;
+        display: flex;
+        justify-content: center;
+    }
+    .gifWrap {
+        width: 70%;
+        display: flex;
+        flex: 1;
+        flex-flow: wrap;
+        justify-content: flex-start;
+        gap: 15px;
+        .charGif {
+            cursor: pointer;
+            height: 45%;
+            border-radius: 50%;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            border: none;
+            outline: none;
+            img {
+                width: 100%;
+            }
+        }
+    }
+    .rightArrow {
+        width: 10%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        &:hover {
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(0, 0, 0, 0.5)
+            );
         }
     }
 `;
