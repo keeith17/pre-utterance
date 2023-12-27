@@ -1,10 +1,13 @@
 import { InputStyle } from "@/components/Style";
-import { DropdownStyle, ProfileLayout, Save, TextAreaStyle } from "./profileEditStyle";
+import { DropdownStyle, Out, ProfileLayout, Save, TextAreaStyle } from "./profileEditStyle";
 
 export default function ProfileEditPage() {
     return (
         <ProfileLayout>
             <div className="profileLayout">
+                <Out>
+                    <button className="out">X</button>
+                </Out>
                 <div className="profTitle">Personal Detail Report</div>
                 <form>
                     <div className="profGroup">
@@ -99,7 +102,7 @@ export default function ProfileEditPage() {
                     </div>
                 </form>
                 <Save>
-                <button className="save">save</button>
+                    <button className="save">save</button>
                 </Save>
             </div>
         </ProfileLayout>

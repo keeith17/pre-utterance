@@ -15,7 +15,7 @@ export const ProfileLayout = styled.div`
         display: flex;
         justify-content: center;
         font-size: 45px;
-        margin-top: 25px;
+        margin-top: 5px;
     }
 
     .profGroup {
@@ -64,6 +64,18 @@ export const TextAreaStyle = styled.textarea`
     }
 `;
 
+export const Out = styled.div`
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    
+    .out {
+        width: 25px;
+        border: 2px solid #fff;
+        margin-right: 8px;
+        margin-top: 10px;
+    }
+`
+
 export const Save = styled.div`
     display: flex;
     justify-content: flex-end; /* 오른쪽 정렬 */
@@ -71,7 +83,7 @@ export const Save = styled.div`
     .save {
         width: 50px;
         border: 2px solid #fff;
-        margin-right: 10px;
+        margin-right: 8px;
         margin-bottom: 10px;
     }
 `;
