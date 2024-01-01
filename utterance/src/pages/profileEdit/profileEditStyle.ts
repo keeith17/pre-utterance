@@ -8,23 +8,53 @@ export const ProfileLayout = styled.div`
         flex-direction: column; /* 수직 방향으로 표시 */
         border: 2.5px solid #fff;
         min-height: 900px;
-        height: 90%;
+        overflow-y: auto;
+        max-height: 90vh;
+
+        /* 수직 스크롤 바 스타일 변경 */
+        &::-webkit-scrollbar {
+        width: 15px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+        background: transparent;
+        border: 1px solid #fff;
+        border-radius: 3px;
+        }
     }
     
     .profTitle {
         display: flex;
         justify-content: center;
         font-size: 45px;
-        margin-top: 5px;
+        margin-top: 31px;
+        margin-bottom: 6px;
+    }
+
+    .profTitleLine {
+        display: flex;
+        width: 540px;
+        border: 1px solid #fff;
+        margin: 0 auto;
     }
 
     .profGroup {
-        margin-top: 30px;
+        margin-top: 80px;
     }
 
     .inputGroup {
         display: flex; /* 수평 방향으로 표시 */
-        margin-bottom: 10px;
+        margin-bottom: 37px;
+        padding: 0 130px;
+    }
+
+    .profSocialBox {
+        margin-bottom: 37px;    
+    }
+
+    .profsocial {
+        display: flex; /* 수평 방향으로 표시 */
+        margin-top: 10px;
         padding: 0 130px;
     }
 
@@ -34,9 +64,11 @@ export const ProfileLayout = styled.div`
         justify-content: center; /* 가로 중앙 정렬 */
         margin-right: 30px;
         border: 1px solid white;
+        border-radius: 12px;
         width: 180px;
         box-sizing: border-box; /* border-box를 사용하여 너비 계산 */
         height: 25px;
+        font-size: 14px;
     }
 
     .profRelationBox {
@@ -56,6 +88,8 @@ export const TextAreaStyle = styled.textarea`
     border-radius: 3px;
     caret-color: #fff;
     color: #fff;
+    text-indent: 8px;
+    padding-top: 5px;
     &:focus {
         outline: none;
     }
@@ -101,6 +135,8 @@ export const DropdownStyle = styled.select`
         color: #fff;
     }
     background-color: black;
-    width: 540px;
+    width: 525px;
+    height: 23px;
+    text-indent: 5px;
 `
 

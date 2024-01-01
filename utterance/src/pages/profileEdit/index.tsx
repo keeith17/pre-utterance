@@ -9,6 +9,7 @@ export default function ProfileEditPage() {
                     <button className="out">X</button>
                 </Out>
                 <div className="profTitle">Personal Detail Report</div>
+                <div className="profTitleLine"></div>
                 <form>
                     <div className="profGroup">
                         <div className="inputGroup">
@@ -20,8 +21,16 @@ export default function ProfileEditPage() {
                             <InputStyle fontSize=" 13px" height="23px"></InputStyle>
                         </div>
                         <div className="inputGroup">
-                            <div className="profBox">키 / 몸무게</div>
+                            <div className="profBox">나이</div>
                             <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                        </div>
+                        <div className="inputGroup">
+                            <div className="profBox">키</div>
+                            <InputStyle placeholder="숫자만 입력해 주세요" fontSize=" 13px" height="23px"></InputStyle>
+                        </div>
+                        <div className="inputGroup">
+                            <div className="profBox">몸무게</div>
+                            <InputStyle placeholder="숫자만 입력해 주세요" fontSize=" 13px" height="23px"></InputStyle>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">종족</div>
@@ -58,46 +67,51 @@ export default function ProfileEditPage() {
                             <TextAreaStyle placeholder="정보 권한 4등급에 해당되는 정보를 입력해 주세요." rows={6} cols={57} />
                         </div>
 
-                        <div className="inputGroup">
-                            <div className="profBox">소셜 네트워크 A</div>
-                            <DropdownStyle className="profWrite">
-                                <option value="1번 친구">1번 친구</option>
-                                <option value="2번 친구">2번 친구</option>
-                                <option value="3번 친구">3번 친구</option>
-                            </DropdownStyle>
+                        <div className="profSocialBox">
+                            <div className="profsocial">
+                                <div className="profBox">소셜 네트워크 A</div>
+                                <DropdownStyle className="profWrite">
+                                    <option value="1번 친구">1번 친구</option>
+                                    <option value="2번 친구">2번 친구</option>
+                                    <option value="3번 친구">3번 친구</option>
+                                </DropdownStyle>
+                            </div>
+
+                            <div className="profsocial">
+                                <div className="profRelationBox"></div>
+                                <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                            </div>
                         </div>
 
-                        <div className="inputGroup">
-                            <div className="profRelationBox"></div>
-                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                        <div className="profSocialBox">
+                            <div className="profsocial">
+                                <div className="profBox">소셜 네트워크 B</div>
+                                <DropdownStyle className="profWrite">
+                                    <option value="1번 친구">1번 친구</option>
+                                    <option value="2번 친구">2번 친구</option>
+                                    <option value="3번 친구">3번 친구</option>
+                                </DropdownStyle>
+                            </div>
+                            
+                            <div className="profsocial">
+                                <div className="profRelationBox"></div>
+                                <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                            </div>
                         </div>
 
-                        <div className="inputGroup">
-                            <div className="profBox">소셜 네트워크 B</div>
-                            <DropdownStyle className="profWrite">
-                                <option value="1번 친구">1번 친구</option>
-                                <option value="2번 친구">2번 친구</option>
-                                <option value="3번 친구">3번 친구</option>
-                            </DropdownStyle>
-                        </div>
-
-                        <div className="inputGroup">
-                            <div className="profRelationBox"></div>
-                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
-                        </div>
-
-                        <div className="inputGroup">
-                            <div className="profBox">소셜 네트워크 C</div>
-                            <DropdownStyle className="profWrite">
-                                <option value="1번 친구">1번 친구</option>
-                                <option value="2번 친구">2번 친구</option>
-                                <option value="3번 친구">3번 친구</option>
-                            </DropdownStyle>
-                        </div>
-
-                        <div className="inputGroup">
-                            <div className="profRelationBox"></div>
-                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                        <div className="profSocialBox">
+                            <div className="profsocial">
+                                <div className="profBox">소셜 네트워크 C</div>
+                                <DropdownStyle className="profWrite">
+                                    <option value="1번 친구">1번 친구</option>
+                                    <option value="2번 친구">2번 친구</option>
+                                    <option value="3번 친구">3번 친구</option>
+                                </DropdownStyle>
+                            </div>
+                            <div className="profsocial">
+                                <div className="profRelationBox"></div>
+                                <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                            </div>
                         </div>
                     </div>
                 </form>
