@@ -1,114 +1,72 @@
 import styled from "@emotion/styled";
 
 export const ProfileLayout = styled.div`
+    width: 100%;
+    height: 100%;
     .profileLayout {
         width: 800px; /* 고정된 너비 800px 설정 */
+        height: 100%;
+        padding: 60px 100px;
         margin: 0 auto; /* 가로 중앙 정렬을 위한 margin 설정 */
         display: flex;
-        flex-direction: column; /* 수직 방향으로 표시 */
-        border: 2.5px solid #fff;
-        min-height: 900px;
-        overflow-y: auto;
-        max-height: 90vh;
-
-        /* 수직 스크롤 바 스타일 변경 */
-        &::-webkit-scrollbar {
-        width: 15px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-        background: transparent;
-        border: 1px solid #fff;
-        border-radius: 3px;
-        }
-    }
-    
-    .profTitle {
-        display: flex;
+        flex-flow: wrap;
         justify-content: center;
-        font-size: 45px;
-        margin-top: 31px;
-        margin-bottom: 6px;
-    }
-
-    .profTitleLine {
-        display: flex;
-        width: 540px;
-        border: 1px solid #fff;
-        margin: 0 auto;
-    }
-
-    .profGroup {
-        margin-top: 80px;
-    }
-
-    .inputGroup {
-        display: flex; /* 수평 방향으로 표시 */
-        margin-bottom: 37px;
-        padding: 0 130px;
-    }
-
-    .profSocialBox {
-        margin-bottom: 37px;    
-    }
-
-    .profsocial {
-        display: flex; /* 수평 방향으로 표시 */
-        margin-top: 10px;
-        padding: 0 130px;
-    }
-
-    .profBox {
-        display: flex;
-        align-items: center; /* 세로 중앙 정렬 */
-        justify-content: center; /* 가로 중앙 정렬 */
-        margin-right: 30px;
-        border: 1px solid white;
-        border-radius: 12px;
-        width: 180px;
-        box-sizing: border-box; /* border-box를 사용하여 너비 계산 */
-        height: 25px;
-        font-size: 14px;
-    }
-
-    .profRelationBox {
-        display: flex;
-        align-items: center; /* 세로 중앙 정렬 */
-        justify-content: center; /* 가로 중앙 정렬 */
-        margin-right: 30px;
-        width: 180px;
-        box-sizing: border-box; /* border-box를 사용하여 너비 계산 */
-        height: 25px;
+        position: relative;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 10px;
+        .profTitle {
+            display: flex;
+            width: 100%;
+            height: 10%;
+            border-bottom: 2px solid #fff;
+            justify-content: center;
+            font-size: 45px;
+        }
+        .formWrap {
+            width: 100%;
+            height: 90%;
+            overflow: hidden;
+            margin-top: 50px;
+            .profGroup {
+                overflow-y: scroll;
+                width: 100%;
+                height: calc(100% - 50px);
+                padding-right: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 25px;
+                .inputGroup {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    gap: 15px;
+                    .profBox {
+                        width: 25%;
+                        // height: 30px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-right: 2px solid #fff;
+                        // background: rgba(255, 255, 255, 0.13);
+                        // border-radius: 5px;
+                    }
+                    .inputBox {
+                        width: 75%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
     }
 `;
 
-export const TextAreaStyle = styled.textarea`
-    background: transparent;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    caret-color: #fff;
-    color: #fff;
-    text-indent: 8px;
-    padding-top: 5px;
-    &:focus {
-        outline: none;
-    }
-    &::placeholder {
-        color: #fff;
-    }
+export const Out = styled.button`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
 `;
-
-export const Out = styled.div`
-    display: flex;
-    justify-content: flex-end; /* 오른쪽 정렬 */
-    
-    .out {
-        width: 25px;
-        border: 2px solid #fff;
-        margin-right: 8px;
-        margin-top: 10px;
-    }
-`
 
 export const Save = styled.div`
     display: flex;
@@ -121,22 +79,3 @@ export const Save = styled.div`
         margin-bottom: 10px;
     }
 `;
-
-export const DropdownStyle = styled.select`
-    background: transparent;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    caret-color: #fff;
-    color: #fff;
-    &:focus {
-        outline: none;
-    }
-    &::placeholder {
-        color: #fff;
-    }
-    background-color: black;
-    width: 525px;
-    height: 23px;
-    text-indent: 5px;
-`
-

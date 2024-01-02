@@ -1,29 +1,22 @@
 import styled from "@emotion/styled";
 interface InputProps {
     fontSize: string;
+    fontFamily: string;
     height: string;
+    border: string;
 }
 interface ButtonProps {
     fontSize: string;
 }
-export const InputStyle = styled.input<InputProps>`
-    width: 100%;
-    height: ${(props) => props.height};
-    text-indent: 10px;
-    font-size: ${(props) => props.fontSize};
-    background: transparent;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    caret-color: #fff;
-    color: #fff;
-    font-family: "Giants-Inline";
-    &:focus {
-        outline: none;
-    }
-    &::placeholder {
-        color: #fff;
-    }
-`;
+
+interface DropdownProps {
+    height: string;
+    fontFamily: string;
+}
+
+interface textAreaProps {
+    fontFamily: string;
+}
 
 export const ButtonStyle = styled.button<ButtonProps>`
     width: 100%;
@@ -39,5 +32,63 @@ export const ButtonStyle = styled.button<ButtonProps>`
     }
     &:hover {
         background: rgba(255, 255, 255, 0.1);
+    }
+`;
+export const InputStyle = styled.input<InputProps>`
+    width: 100%;
+    height: ${(props) => props.height};
+    text-indent: 10px;
+    font-size: ${(props) => props.fontSize};
+    background: transparent;
+    border: ${(props) => props.border};
+    border-radius: 3px;
+    caret-color: #fff;
+    color: #fff;
+    font-family: ${(props) => props.fontFamily};
+    &:focus {
+        outline: none;
+    }
+    &::placeholder {
+        color: #fff;
+    }
+`;
+
+export const DropdownStyle = styled.select<DropdownProps>`
+    width: 100%;
+    height: ${(props) => props.height};
+    font-family: ${(props) => props.fontFamily};
+    // background: transparent;
+    // border: 1px solid #fff;
+    background-color: transparent;
+    border: none;
+    border-radius: 3px;
+    caret-color: #fff;
+    color: #fff;
+    text-indent: 5px;
+    &:focus {
+        outline: none;
+    }
+    option {
+        color: #000;
+    }
+`;
+
+export const TextAreaStyle = styled.textarea<textAreaProps>`
+    width: 100%;
+    height: 150px;
+    padding: 8px;
+    background: transparent;
+    color: #fff;
+    font-family: ${(props) => props.fontFamily};
+    // border: 1px solid #fff;
+    border: none;
+    border-radius: 3px;
+    caret-color: #fff;
+    resize: none;
+    &:focus {
+        outline: none;
+    }
+    &::placeholder {
+        color: #fff;
     }
 `;

@@ -77,16 +77,6 @@ export const Character = styled.div`
             // display: flex;
             // flex-direction: column;
             // gap: 20px;
-            &::-webkit-scrollbar {
-                width: 10px;
-            }
-            &::-webkit-scrollbar-thumb {
-                border-radius: 5px;
-                background: rgba(255, 255, 255, 0.3);
-            }
-            &::-webkit-scrollbar-track {
-                background: transparent;
-            }
             .secret {
                 width: 100%;
                 height: 300px;
@@ -94,16 +84,6 @@ export const Character = styled.div`
                 margin-bottom: 20px;
                 border: 1px solid #fff;
                 overflow-y: auto;
-                &::-webkit-scrollbar {
-                    width: 10px;
-                }
-                &::-webkit-scrollbar-thumb {
-                    border-radius: 5px;
-                    background: rgba(255, 255, 255, 0.3);
-                }
-                &::-webkit-scrollbar-track {
-                    background: transparent;
-                }
                 p {
                     font-family: "nexonGothic";
                     text-align: justify;

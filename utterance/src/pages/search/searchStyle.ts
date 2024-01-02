@@ -59,16 +59,6 @@ export const SearcDetailWrap = styled.div`
             height: 100%;
             overflow-y: scroll;
             padding-right: 5px;
-            &::-webkit-scrollbar {
-                width: 10px;
-            }
-            &::-webkit-scrollbar-thumb {
-                border-radius: 5px;
-                background: rgba(255, 255, 255, 0.3);
-            }
-            &::-webkit-scrollbar-track {
-                background: transparent;
-            }
             img {
                 width: 100%;
             }

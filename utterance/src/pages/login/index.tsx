@@ -50,6 +50,8 @@ export default function LoginPage() {
                             placeholder="ID"
                             height="50px"
                             fontSize="15px"
+                            border="1px solid #fff"
+                            fontFamily="Giants-Inline"
                             onChange={onChange}
                         />
                         <InputStyle
@@ -60,6 +62,8 @@ export default function LoginPage() {
                             placeholder="PASSWORD"
                             height="50px"
                             fontSize="15px"
+                            border="1px solid #fff"
+                            fontFamily="Giants-Inline"
                             onChange={onChange}
                         />
                     </div>

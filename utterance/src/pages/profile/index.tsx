@@ -4,45 +4,11 @@ import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import { useLocation } from "react-router-dom";
-export interface AllCharProps {
-    badge: string;
-    badgeImg: string;
-    gifUrl: string;
-    grade: string;
-    gradeImg: string;
-    name: string;
-    nick: string;
-    id: string;
-    height: string;
-    weight: string;
-    from: string;
-    planet: string;
-    secret1: string;
-    secret2: string;
-    secret3: string;
-}
+import { useRecoilState } from "recoil";
+import { AllCharProps, selectUserState } from "@/atom";
+
 export default function ProfilePage() {
-    const location = useLocation();
-    const myChar = location.state;
-    const [selectChar, setSelectChar] = useState<AllCharProps>({
-        badge: myChar ? myChar.badge : "",
-        badgeImg: myChar ? myChar.badgeImg : "",
-        gifUrl: myChar ? myChar.gifUrl : "",
-        grade: myChar ? myChar.grade : "",
-        gradeImg: myChar ? myChar.gradeImg : "",
-        name: myChar ? myChar.name : "",
-        nick: myChar ? myChar.nick : "",
-        id: myChar ? myChar.id : "",
-        height: myChar ? myChar.height : "",
-        weight: myChar ? myChar.weight : "",
-        from: myChar ? myChar.from : "",
-        planet: myChar ? myChar.planet : "",
-        secret1: myChar ? myChar.secret1 : "",
-        secret2: myChar ? myChar.secret2 : "",
-        secret3: myChar ? myChar.secret3 : "",
-    });
-    //이 부분 recoil 써 보는 것으로
+    const [selectChar, setSelectChar] = useRecoilState(selectUserState);
     const [selectHouse, setSelectHouse] = useState<number>(1);
     const houseList: string[] = ["quasa1", "quasa2", "quasa3"];
     const badgeList: string[] = [
@@ -71,8 +37,7 @@ export default function ProfilePage() {
         "allChar",
         fetchAllCharData,
         {
-            cacheTime: 60000, // 캐시를 60초(1분) 동안 유지
-            staleTime: 50000, // 캐시된 데이터가 50초 후에 만료됨
+            staleTime: 30000, // 캐시된 데이터가 30초 후에 만료됨
         }
     );
     // 선택된 캐릭터 세팅

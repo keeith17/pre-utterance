@@ -1,123 +1,228 @@
-import { InputStyle } from "@/components/Style";
-import { DropdownStyle, Out, ProfileLayout, Save, TextAreaStyle } from "./profileEditStyle";
+import { InputStyle, TextAreaStyle, DropdownStyle } from "@/components/Style";
+import { Out, ProfileLayout, Save } from "./profileEditStyle";
+import { RiCloseLine } from "react-icons/ri";
+import { useNavigate } from "react-router";
 
 export default function ProfileEditPage() {
+    // 스타일링 통일
+    const thisHeight: string = "30px";
+    const thisFont: string = "nexonGothic";
+
+    const navigate = useNavigate();
+
     return (
         <ProfileLayout>
             <div className="profileLayout">
-                <Out>
-                    <button className="out">X</button>
+                <Out
+                    onClick={() => {
+                        navigate("/");
+                    }}
+                >
+                    <RiCloseLine size={35} />
                 </Out>
                 <div className="profTitle">Personal Detail Report</div>
-                <div className="profTitleLine"></div>
-                <form>
+                <form className="formWrap">
                     <div className="profGroup">
                         <div className="inputGroup">
                             <div className="profBox">두상</div>
-                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                            <div className="inputBox">
+                                <InputStyle
+                                    placeholder="1:1 비율의 gif 링크를 삽입해 주세요"
+                                    fontSize=" 13px"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                ></InputStyle>
+                            </div>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">이름</div>
-                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                            <div className="inputBox">
+                                <InputStyle
+                                    placeholder="뭐든 써 주세요"
+                                    fontSize=" 13px"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                ></InputStyle>
+                            </div>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">나이</div>
-                            <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                            <div className="inputBox">
+                                <InputStyle
+                                    placeholder="숫자만 입력해 주세요"
+                                    fontSize=" 13px"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                ></InputStyle>
+                            </div>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">키</div>
-                            <InputStyle placeholder="숫자만 입력해 주세요" fontSize=" 13px" height="23px"></InputStyle>
+                            <div className="inputBox">
+                                <InputStyle
+                                    placeholder="숫자만 입력해 주세요"
+                                    fontSize=" 13px"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                ></InputStyle>
+                            </div>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">몸무게</div>
-                            <InputStyle placeholder="숫자만 입력해 주세요" fontSize=" 13px" height="23px"></InputStyle>
+                            <div className="inputBox">
+                                <InputStyle
+                                    placeholder="숫자만 입력해 주세요"
+                                    fontSize=" 13px"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                ></InputStyle>
+                            </div>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">종족</div>
-                            <DropdownStyle className="profWrite">
-                                <option value="루흘">루흘</option>
-                                <option value="아스화리탈">아스화리탈</option>
-                                <option value="우고트">우고트</option>
-                                <option value="테라">테라</option>
-                                <option value="하라간">하라간</option>
-                            </DropdownStyle>
+                            <div className="inputBox">
+                                <DropdownStyle
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                >
+                                    <option value="루흘">루흘</option>
+                                    <option value="아스화리탈">
+                                        아스화리탈
+                                    </option>
+                                    <option value="우고트">우고트</option>
+                                    <option value="테라">테라</option>
+                                    <option value="하라간">하라간</option>
+                                </DropdownStyle>
+                            </div>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">행성</div>
-                            <DropdownStyle className="profWrite">
-                                <option value="소버린">소버린</option>
-                                <option value="아스화리탈">아스화리탈</option>
-                                <option value="할라">할라</option>
-                                <option value="테라">테라</option>
-                                <option value="카르툼">카르툼</option>
-                            </DropdownStyle>
+                            <div className="inputBox">
+                                <DropdownStyle
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                >
+                                    <option value="소버린">소버린</option>
+                                    <option value="아스화리탈">
+                                        아스화리탈
+                                    </option>
+                                    <option value="할라">할라</option>
+                                    <option value="테라">테라</option>
+                                    <option value="카르툼">카르툼</option>
+                                </DropdownStyle>
+                            </div>
                         </div>
                         <div className="inputGroup">
                             <div className="profBox">비밀</div>
-                            <TextAreaStyle placeholder="정보 권한 2등급에 해당되는 정보를 입력해 주세요." rows={6} cols={57} />
+                            <div className="inputBox">
+                                <TextAreaStyle
+                                    fontFamily={thisFont}
+                                    placeholder="정보 권한 2등급에 해당되는 정보를 입력해 주세요."
+                                />
+                            </div>
                         </div>
-                        
                         <div className="inputGroup">
                             <div className="profBox">기밀</div>
-                            <TextAreaStyle placeholder="정보 권한 3등급에 해당되는 정보를 입력해 주세요." rows={6} cols={57} />
+                            <div className="inputBox">
+                                <TextAreaStyle
+                                    fontFamily={thisFont}
+                                    placeholder="정보 권한 3등급에 해당되는 정보를 입력해 주세요."
+                                />
+                            </div>
                         </div>
-                        
+
                         <div className="inputGroup">
                             <div className="profBox">극비</div>
-                            <TextAreaStyle placeholder="정보 권한 4등급에 해당되는 정보를 입력해 주세요." rows={6} cols={57} />
+                            <div className="inputBox">
+                                <TextAreaStyle
+                                    fontFamily={thisFont}
+                                    placeholder="정보 권한 4등급에 해당되는 정보를 입력해 주세요."
+                                />
+                            </div>
                         </div>
 
-                        <div className="profSocialBox">
-                            <div className="profsocial">
-                                <div className="profBox">소셜 네트워크 A</div>
-                                <DropdownStyle className="profWrite">
+                        <div className="inputGroup">
+                            <div className="profBox">소셜 네트워크 A</div>
+                            <div className="inputBox">
+                                <DropdownStyle
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                >
                                     <option value="1번 친구">1번 친구</option>
                                     <option value="2번 친구">2번 친구</option>
                                     <option value="3번 친구">3번 친구</option>
                                 </DropdownStyle>
                             </div>
-
-                            <div className="profsocial">
-                                <div className="profRelationBox"></div>
-                                <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                        </div>
+                        <div className="inputGroup">
+                            <div className="profBox"></div>
+                            <div className="inputBox">
+                                <InputStyle
+                                    fontSize=" 13px"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                ></InputStyle>
                             </div>
                         </div>
-
-                        <div className="profSocialBox">
-                            <div className="profsocial">
-                                <div className="profBox">소셜 네트워크 B</div>
-                                <DropdownStyle className="profWrite">
+                        <div className="inputGroup">
+                            <div className="profBox">소셜 네트워크 B</div>
+                            <div className="inputBox">
+                                <DropdownStyle
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                >
                                     <option value="1번 친구">1번 친구</option>
                                     <option value="2번 친구">2번 친구</option>
                                     <option value="3번 친구">3번 친구</option>
                                 </DropdownStyle>
                             </div>
-                            
-                            <div className="profsocial">
-                                <div className="profRelationBox"></div>
-                                <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                        </div>
+                        <div className="inputGroup">
+                            <div className="profBox"></div>
+                            <div className="inputBox">
+                                <InputStyle
+                                    fontSize=" 13px"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                ></InputStyle>
                             </div>
                         </div>
-
-                        <div className="profSocialBox">
-                            <div className="profsocial">
-                                <div className="profBox">소셜 네트워크 C</div>
-                                <DropdownStyle className="profWrite">
+                        <div className="inputGroup">
+                            <div className="profBox">소셜 네트워크 C</div>
+                            <div className="inputBox">
+                                <DropdownStyle
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                >
                                     <option value="1번 친구">1번 친구</option>
                                     <option value="2번 친구">2번 친구</option>
                                     <option value="3번 친구">3번 친구</option>
                                 </DropdownStyle>
                             </div>
-                            <div className="profsocial">
-                                <div className="profRelationBox"></div>
-                                <InputStyle fontSize=" 13px" height="23px"></InputStyle>
+                        </div>
+                        <div className="inputGroup">
+                            <div className="profBox"></div>
+                            <div className="inputBox">
+                                <InputStyle
+                                    fontSize="13px"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                ></InputStyle>
                             </div>
                         </div>
+                        <Save>
+                            <button className="save">save</button>
+                        </Save>
                     </div>
                 </form>
-                <Save>
-                    <button className="save">save</button>
-                </Save>
             </div>
         </ProfileLayout>
     );

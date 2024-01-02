@@ -1,5 +1,5 @@
-import { userState } from "@/atom";
-import { useRecoilValue } from "recoil";
+import { AllCharProps, selectUserState, userState } from "@/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app, db } from "@/firebaseApp";
@@ -8,7 +8,6 @@ import { useQuery, useQueryClient } from "react-query";
 import { ButtonStyle } from "../Style";
 import { MyPageStyle } from "./MyPageBoxStyle";
 import { IoPersonCircleSharp, IoCreateSharp, IoMail } from "react-icons/io5";
-import { AllCharProps } from "@/pages/profile";
 
 // 버튼 부분 데이터 페칭 함수
 const fetchCharData = async (userUid: string | null) => {
@@ -26,13 +25,18 @@ export default function MyPageBox() {
     const queryClient = useQueryClient();
     const user = useRecoilValue(userState);
     const userUid = user.uid;
+    const setSelectChar = useSetRecoilState(selectUserState);
+
+    //내 캐릭터 정보
     const { data: myChar } = useQuery<AllCharProps>("charData", () =>
         fetchCharData(userUid)
     );
-    const handleButtonClick = () => {
-        navigate("/ProfilePage", {
-            state: myChar,
-        });
+
+    const handleProfileClick = () => {
+        if (myChar) {
+            setSelectChar(myChar);
+        }
+        navigate("/ProfilePage");
     };
     return (
         <MyPageStyle>
@@ -69,7 +73,7 @@ export default function MyPageBox() {
                             <IoPersonCircleSharp
                                 className="icons"
                                 size={30}
-                                onClick={handleButtonClick}
+                                onClick={handleProfileClick}
                             />
                             <IoCreateSharp
                                 className="icons"

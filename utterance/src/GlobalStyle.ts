@@ -97,4 +97,15 @@ export const GlobalStyle = css`
         position: fixed;
         z-index: 0;
     }
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
 `;

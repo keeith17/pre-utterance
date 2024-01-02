@@ -114,6 +114,8 @@ export default function SearchPage() {
                             type="text"
                             height="54px"
                             fontSize="18px"
+                            border="1px solid #fff"
+                            fontFamily="Giants-Inline"
                             onChange={onChangeSearch}
                             placeholder="무엇이 궁금하신가요?"
                         />
@@ -138,6 +140,8 @@ export default function SearchPage() {
                                 height="54px"
                                 fontSize="18px"
                                 name="name"
+                                border="1px solid #fff"
+                                fontFamily="Giants-Inline"
                                 onChange={onChange}
                                 placeholder="임시 캐릭터명 입력"
                             />
@@ -146,6 +150,8 @@ export default function SearchPage() {
                                 height="54px"
                                 fontSize="18px"
                                 name="nick"
+                                border="1px solid #fff"
+                                fontFamily="Giants-Inline"
                                 onChange={onChange}
                                 placeholder="익명 밴드 닉네임 입력"
                             />
