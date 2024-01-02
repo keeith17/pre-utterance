@@ -6,8 +6,12 @@ import { useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { useRecoilState } from "recoil";
 import { AllCharProps, selectUserState } from "@/atom";
+import { Out } from "@/components/Style";
+import { RiCloseLine } from "react-icons/ri";
+import { useNavigate } from "react-router";
 
 export default function ProfilePage() {
+    const navigate = useNavigate();
     const [selectChar, setSelectChar] = useRecoilState(selectUserState);
     const [selectHouse, setSelectHouse] = useState<number>(1);
     const houseList: string[] = ["quasa1", "quasa2", "quasa3"];
@@ -75,6 +79,13 @@ export default function ProfilePage() {
     };
     return (
         <CharacterWrap>
+            <Out
+                onClick={() => {
+                    navigate("/");
+                }}
+            >
+                <RiCloseLine size={35} />
+            </Out>
             {selectChar.id ? (
                 <Character>
                     <div className="charContent">

@@ -61,13 +61,6 @@ export const ProfileLayout = styled.div`
     }
 `;
 
-export const Out = styled.button`
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-`;
-
 export const Save = styled.div`
     display: flex;
     justify-content: flex-end; /* 오른쪽 정렬 */

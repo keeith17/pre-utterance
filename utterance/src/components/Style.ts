@@ -34,6 +34,14 @@ export const ButtonStyle = styled.button<ButtonProps>`
         background: rgba(255, 255, 255, 0.1);
     }
 `;
+
+export const Out = styled.button`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+`;
+
 export const InputStyle = styled.input<InputProps>`
     width: 100%;
     height: ${(props) => props.height};

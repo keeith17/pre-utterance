@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const CharacterWrap = styled.div`
     width: 100%;
     height: 100%;
+    position: relative;
     padding-right: 10px;
 `;
 

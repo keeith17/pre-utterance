@@ -1,5 +1,10 @@
-import { InputStyle, TextAreaStyle, DropdownStyle } from "@/components/Style";
-import { Out, ProfileLayout, Save } from "./profileEditStyle";
+import {
+    InputStyle,
+    TextAreaStyle,
+    DropdownStyle,
+    Out,
+} from "@/components/Style";
+import { ProfileLayout, Save } from "./profileEditStyle";
 import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
 
