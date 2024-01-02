@@ -27,7 +27,7 @@ export default function App() {
         });
     }, [auth]);
 
-    //상호작용 이후에 유튜브를 로드함...
+    //상호작용 이후에 유튜브를 로드함....
     const [video, setVideo] = useState<boolean>(false);
     const handleClick = () => {
         setVideo(true);
