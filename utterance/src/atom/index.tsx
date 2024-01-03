@@ -23,11 +23,44 @@ export interface AllCharProps {
     secret1: string;
     secret2: string;
     secret3: string;
+    rela1: string;
+    desc1: string;
+    rela2: string;
+    desc2: string;
+    rela3: string;
+    desc3: string;
 }
 
 export const userState = atom<authUserProps>({
     key: "userState",
     default: { uid: null, email: null, displayName: null, photoURL: null },
+});
+
+export const myCharState = atom<AllCharProps>({
+    key: "myCharState",
+    default: {
+        id: "",
+        nick: "",
+        gifUrl: "",
+        badge: "",
+        badgeImg: "",
+        grade: "",
+        gradeImg: "",
+        name: "",
+        height: "",
+        weight: "",
+        from: "",
+        planet: "",
+        secret1: "",
+        secret2: "",
+        secret3: "",
+        rela1: "",
+        desc1: "",
+        rela2: "",
+        desc2: "",
+        rela3: "",
+        desc3: "",
+    },
 });
 
 export const selectUserState = atom<AllCharProps>({
@@ -48,5 +81,11 @@ export const selectUserState = atom<AllCharProps>({
         secret1: "",
         secret2: "",
         secret3: "",
+        rela1: "",
+        desc1: "",
+        rela2: "",
+        desc2: "",
+        rela3: "",
+        desc3: "",
     },
 });

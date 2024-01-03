@@ -13,7 +13,10 @@ import { useNavigate } from "react-router";
 export default function ProfilePage() {
     const navigate = useNavigate();
     const [selectChar, setSelectChar] = useRecoilState(selectUserState);
-    const [selectHouse, setSelectHouse] = useState<number>(1);
+    const [selectHouse, setSelectHouse] = useState<number>(
+        parseInt(selectChar.badge.slice(5, 6)) - 1 || 0
+    );
+    console.log(selectHouse);
     const houseList: string[] = ["quasa1", "quasa2", "quasa3"];
     const badgeList: string[] = [
         "https://i.imgur.com/KEchdrQ.png",
@@ -72,6 +75,12 @@ export default function ProfilePage() {
                         secret1: hereChar.secret1,
                         secret2: hereChar.secret2,
                         secret3: hereChar.secret3,
+                        rela1: hereChar.rela1,
+                        desc1: hereChar.desc1,
+                        rela2: hereChar.rela2,
+                        desc2: hereChar.desc2,
+                        rela3: hereChar.rela3,
+                        desc3: hereChar.desc3,
                     });
                 }
             }
@@ -103,8 +112,7 @@ export default function ProfilePage() {
                                     kg
                                 </div>
                                 <div className="charName">
-                                    {selectChar.from} &nbsp;
-                                    {selectChar.planet}
+                                    {selectChar.from} / {selectChar.planet}
                                 </div>
                             </div>
                             <div className="charBadge">

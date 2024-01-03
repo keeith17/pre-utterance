@@ -1,4 +1,4 @@
-import { AllCharProps, selectUserState, userState } from "@/atom";
+import { AllCharProps, myCharState, selectUserState, userState } from "@/atom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -9,29 +9,36 @@ import { ButtonStyle } from "../Style";
 import { MyPageStyle } from "./MyPageBoxStyle";
 import { IoPersonCircleSharp, IoCreateSharp, IoMail } from "react-icons/io5";
 
-// 버튼 부분 데이터 페칭 함수
-const fetchCharData = async (userUid: string | null) => {
-    if (userUid) {
-        const charRef = doc(db, "character", userUid);
-        const charSnap = await getDoc(charRef);
-        const data = { ...(charSnap?.data() as AllCharProps), id: userUid };
-        return data;
-    } else {
-        throw new Error("사용자 UID가 존재하지 않습니다.");
-    }
-};
 export default function MyPageBox() {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const user = useRecoilValue(userState);
     const userUid = user.uid;
     const setSelectChar = useSetRecoilState(selectUserState);
+    const setMyChar = useSetRecoilState(myCharState);
 
-    //내 캐릭터 정보
-    const { data: myChar } = useQuery<AllCharProps>("charData", () =>
-        fetchCharData(userUid)
+    // 내 캐릭터 정보 세팅 함수
+    const fetchCharData = async (userUid: string | null) => {
+        if (userUid) {
+            const charRef = doc(db, "character", userUid);
+            const charSnap = await getDoc(charRef);
+            const data = { ...(charSnap?.data() as AllCharProps), id: userUid };
+            setMyChar(data);
+            return data;
+        } else {
+            throw new Error("사용자 UID가 존재하지 않습니다.");
+        }
+    };
+    // 내 캐릭터 정보
+    const { data: myChar } = useQuery<AllCharProps>(
+        "charData",
+        () => fetchCharData(userUid),
+        {
+            staleTime: 60000,
+        }
     );
 
+    // 프로필 열람 페이지로 이동
     const handleProfileClick = () => {
         if (myChar) {
             setSelectChar(myChar);
@@ -48,8 +55,8 @@ export default function MyPageBox() {
                             type="button"
                             onClick={async () => {
                                 const auth = getAuth(app);
+                                await queryClient.invalidateQueries("charData");
                                 await signOut(auth);
-                                await queryClient.invalidateQueries(`charData`);
                                 navigate("/LoginPage");
                             }}
                         >
@@ -92,8 +99,8 @@ export default function MyPageBox() {
                             type="button"
                             onClick={async () => {
                                 const auth = getAuth(app);
+                                await queryClient.invalidateQueries("charData");
                                 await signOut(auth);
-                                await queryClient.invalidateQueries(`charData`);
                                 navigate("/LoginPage");
                             }}
                         >

@@ -3,17 +3,148 @@ import {
     TextAreaStyle,
     DropdownStyle,
     Out,
+    ButtonStyle,
 } from "@/components/Style";
 import { ProfileLayout, Save } from "./profileEditStyle";
 import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/firebaseApp";
+import { useRecoilValue } from "recoil";
+import { myCharState, userState } from "@/atom";
+import { useState } from "react";
+import { useQueryClient } from "react-query";
+
+interface InputCharProps {
+    gifUrl: string;
+    name: string;
+    height: string;
+    weight: string;
+    from: string;
+    planet: string;
+    secret1: string;
+    secret2: string;
+    secret3: string;
+    rela1: string;
+    desc1: string;
+    rela2: string;
+    desc2: string;
+    rela3: string;
+    desc3: string;
+}
 
 export default function ProfileEditPage() {
+    const queryClient = useQueryClient();
     // 스타일링 통일
     const thisHeight: string = "30px";
     const thisFont: string = "nexonGothic";
-
+    // 현재 접속 유저 정보
+    const user = useRecoilValue(userState);
+    // 현재 접속 캐릭터 정보
+    const myChar = useRecoilValue(myCharState);
     const navigate = useNavigate();
+    const [input, setInput] = useState<InputCharProps>({
+        gifUrl: myChar?.gifUrl,
+        name: myChar?.name,
+        height: myChar?.height,
+        weight: myChar?.weight,
+        from: myChar?.from,
+        planet: myChar?.planet,
+        secret1: myChar?.secret1,
+        secret2: myChar?.secret2,
+        secret3: myChar?.secret3,
+        rela1: myChar?.rela1,
+        desc1: myChar?.desc1,
+        rela2: myChar?.rela2,
+        desc2: myChar?.desc2,
+        rela3: myChar?.rela3,
+        desc3: myChar?.desc3,
+    });
+    console.log("myChar", myChar);
+    console.log("input", input);
+    const handleChange = (
+        e:
+            | React.ChangeEvent<HTMLInputElement>
+            | React.ChangeEvent<HTMLSelectElement>
+            | React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
+        const {
+            target: { name, value },
+        } = e;
+        if (name === "gifUrl") {
+            setInput({ ...input, gifUrl: value });
+        }
+        if (name === "name") {
+            setInput({ ...input, name: value });
+        }
+        if (name === "height") {
+            setInput({ ...input, height: value });
+        }
+        if (name === "weight") {
+            setInput({ ...input, weight: value });
+        }
+        if (name === "from") {
+            setInput({ ...input, from: value });
+        }
+        if (name === "planet") {
+            setInput({ ...input, planet: value });
+        }
+        if (name === "secret1") {
+            setInput({ ...input, secret1: value });
+        }
+        if (name === "secret2") {
+            setInput({ ...input, secret2: value });
+        }
+        if (name === "secret3") {
+            setInput({ ...input, secret3: value });
+        }
+        if (name === "rela1") {
+            setInput({ ...input, rela1: value });
+        }
+        if (name === "desc1") {
+            setInput({ ...input, desc1: value });
+        }
+        if (name === "rela2") {
+            setInput({ ...input, rela2: value });
+        }
+        if (name === "desc2") {
+            setInput({ ...input, desc2: value });
+        }
+        if (name === "rela3") {
+            setInput({ ...input, rela3: value });
+        }
+        if (name === "desc3") {
+            setInput({ ...input, desc3: value });
+        }
+    };
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            if (user.uid) {
+                const postRef = doc(db, "character", user?.uid);
+                await updateDoc(postRef, {
+                    gifUrl: input.gifUrl,
+                    name: input.name,
+                    height: input.height,
+                    weight: input.weight,
+                    from: input.from,
+                    planet: input.planet,
+                    secret1: input.secret1,
+                    secret2: input.secret2,
+                    secret3: input.secret3,
+                    rela1: input.rela1,
+                    desc1: input.desc1,
+                    rela2: input.rela2,
+                    desc2: input.desc2,
+                    rela3: input.rela3,
+                    desc3: input.desc3,
+                });
+                await queryClient.invalidateQueries("charData");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     return (
         <ProfileLayout>
@@ -26,7 +157,7 @@ export default function ProfileEditPage() {
                     <RiCloseLine size={35} />
                 </Out>
                 <div className="profTitle">Personal Detail Report</div>
-                <form className="formWrap">
+                <form className="formWrap" onSubmit={handleSubmit}>
                     <div className="profGroup">
                         <div className="inputGroup">
                             <div className="profBox">두상</div>
@@ -37,6 +168,9 @@ export default function ProfileEditPage() {
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    value={input.gifUrl}
+                                    name="gifUrl"
+                                    onChange={handleChange}
                                 ></InputStyle>
                             </div>
                         </div>
@@ -49,6 +183,9 @@ export default function ProfileEditPage() {
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    value={input.name}
+                                    name="name"
+                                    onChange={handleChange}
                                 ></InputStyle>
                             </div>
                         </div>
@@ -61,6 +198,8 @@ export default function ProfileEditPage() {
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    // name="name" 나이 보류
+                                    // onChange={handleChange}
                                 ></InputStyle>
                             </div>
                         </div>
@@ -73,6 +212,9 @@ export default function ProfileEditPage() {
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    value={input.height}
+                                    name="height"
+                                    onChange={handleChange}
                                 ></InputStyle>
                             </div>
                         </div>
@@ -85,6 +227,9 @@ export default function ProfileEditPage() {
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    value={input.weight}
+                                    name="weight"
+                                    onChange={handleChange}
                                 ></InputStyle>
                             </div>
                         </div>
@@ -94,7 +239,13 @@ export default function ProfileEditPage() {
                                 <DropdownStyle
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    value={input.from}
+                                    name="from"
+                                    onChange={handleChange}
                                 >
+                                    <option value="종족 없음">
+                                        종족을 선택해주세요.
+                                    </option>
                                     <option value="루흘">루흘</option>
                                     <option value="아스화리탈">
                                         아스화리탈
@@ -111,7 +262,13 @@ export default function ProfileEditPage() {
                                 <DropdownStyle
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    value={input.planet}
+                                    name="planet"
+                                    onChange={handleChange}
                                 >
+                                    <option value="행성 없음">
+                                        행성을 선택해 주세요.
+                                    </option>
                                     <option value="소버린">소버린</option>
                                     <option value="아스화리탈">
                                         아스화리탈
@@ -128,6 +285,9 @@ export default function ProfileEditPage() {
                                 <TextAreaStyle
                                     fontFamily={thisFont}
                                     placeholder="정보 권한 2등급에 해당되는 정보를 입력해 주세요."
+                                    value={input.secret1}
+                                    name="secret1"
+                                    onChange={handleChange}
                                 />
                             </div>
                         </div>
@@ -137,6 +297,9 @@ export default function ProfileEditPage() {
                                 <TextAreaStyle
                                     fontFamily={thisFont}
                                     placeholder="정보 권한 3등급에 해당되는 정보를 입력해 주세요."
+                                    value={input.secret2}
+                                    name="secret2"
+                                    onChange={handleChange}
                                 />
                             </div>
                         </div>
@@ -147,31 +310,35 @@ export default function ProfileEditPage() {
                                 <TextAreaStyle
                                     fontFamily={thisFont}
                                     placeholder="정보 권한 4등급에 해당되는 정보를 입력해 주세요."
+                                    value={input.secret3}
+                                    name="secret3"
+                                    onChange={handleChange}
                                 />
                             </div>
                         </div>
-
                         <div className="inputGroup">
                             <div className="profBox">소셜 네트워크 A</div>
                             <div className="inputBox">
                                 <DropdownStyle
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    value={input.rela1}
+                                    name="rela1"
+                                    onChange={handleChange}
                                 >
                                     <option value="1번 친구">1번 친구</option>
                                     <option value="2번 친구">2번 친구</option>
                                     <option value="3번 친구">3번 친구</option>
                                 </DropdownStyle>
-                            </div>
-                        </div>
-                        <div className="inputGroup">
-                            <div className="profBox"></div>
-                            <div className="inputBox">
                                 <InputStyle
                                     fontSize=" 13px"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc1}
+                                    name="desc1"
+                                    onChange={handleChange}
                                 ></InputStyle>
                             </div>
                         </div>
@@ -181,21 +348,23 @@ export default function ProfileEditPage() {
                                 <DropdownStyle
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    value={input.rela2}
+                                    name="rela2"
+                                    onChange={handleChange}
                                 >
                                     <option value="1번 친구">1번 친구</option>
                                     <option value="2번 친구">2번 친구</option>
                                     <option value="3번 친구">3번 친구</option>
                                 </DropdownStyle>
-                            </div>
-                        </div>
-                        <div className="inputGroup">
-                            <div className="profBox"></div>
-                            <div className="inputBox">
                                 <InputStyle
                                     fontSize=" 13px"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc2}
+                                    name="desc2"
+                                    onChange={handleChange}
                                 ></InputStyle>
                             </div>
                         </div>
@@ -205,28 +374,33 @@ export default function ProfileEditPage() {
                                 <DropdownStyle
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    value={input.rela3}
+                                    name="rela3"
+                                    onChange={handleChange}
                                 >
                                     <option value="1번 친구">1번 친구</option>
                                     <option value="2번 친구">2번 친구</option>
                                     <option value="3번 친구">3번 친구</option>
                                 </DropdownStyle>
-                            </div>
-                        </div>
-                        <div className="inputGroup">
-                            <div className="profBox"></div>
-                            <div className="inputBox">
                                 <InputStyle
                                     fontSize="13px"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc3}
+                                    name="desc3"
+                                    onChange={handleChange}
                                 ></InputStyle>
                             </div>
                         </div>
-                        <Save>
-                            <button className="save">save</button>
-                        </Save>
                     </div>
+                    <Save>
+                        <ButtonStyle fontSize="13px">미리 보기</ButtonStyle>
+                        <ButtonStyle type="submit" fontSize="13px">
+                            저장
+                        </ButtonStyle>
+                    </Save>
                 </form>
             </div>
         </ProfileLayout>

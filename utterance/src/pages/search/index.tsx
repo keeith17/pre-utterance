@@ -58,6 +58,7 @@ export default function SearchPage() {
         ["char", userId],
         () => getChar(userId),
         {
+            staleTime: 60000 * 60,
             enabled: !!userId, // 쿼리 활성화 여부를 유저 ID의 존재 여부에 따라 설정
         }
     );
@@ -99,7 +100,10 @@ export default function SearchPage() {
     //버튼 정보 가지고 오는 부분
     const { data: buttons } = useQuery<GetButtonProps[]>(
         "buttonData",
-        fetchButtonData
+        fetchButtonData,
+        {
+            staleTime: 60000,
+        }
     );
 
     return (

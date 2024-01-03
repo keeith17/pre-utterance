@@ -4,8 +4,10 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "@/firebaseApp";
 import { useNavigate } from "react-router-dom";
 import { InputStyle } from "@/components/Style";
+import { useQueryClient } from "react-query";
 
 export default function LoginPage() {
+    const queryClient = useQueryClient();
     const navigate = useNavigate();
     //이메일, 비밀번호 변수
     const [serial, setSerial] = useState<string>("");
@@ -29,6 +31,7 @@ export default function LoginPage() {
             const auth = getAuth(app);
             await signInWithEmailAndPassword(auth, serial, password);
             navigate("/");
+            await queryClient.invalidateQueries("charData");
         } catch (error) {
             console.log(error);
         }
