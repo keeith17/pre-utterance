@@ -17,20 +17,23 @@ export default function ProfilePage() {
         parseInt(selectChar.badge.slice(5, 6)) - 1 || 0
     );
     // 이것도 전역으로 빼야 할 것 같기도 함
-    console.log(selectHouse);
-    const houseList: string[] = ["quasa1", "quasa2", "quasa3"];
-    const badgeList: string[] = [
+    const [houseList, setHouseList] = useState<string[]>([
+        "quasa1",
+        "quasa2",
+        "quasa3",
+    ]);
+    const [badgeList, setBadgeList] = useState<string[]>([
         "https://i.imgur.com/KEchdrQ.png",
         "https://i.imgur.com/PRPLtc3.png",
         "https://i.imgur.com/JAj1OK7.png",
-    ];
+    ]);
     const handleRight = () => {
-        if (selectHouse < 2) setSelectHouse(selectHouse + 1);
+        if (selectHouse < houseList.length - 1) setSelectHouse(selectHouse + 1);
         else setSelectHouse(0);
     };
     const handleLeft = () => {
         if (selectHouse > 0) setSelectHouse(selectHouse - 1);
-        else setSelectHouse(2);
+        else setSelectHouse(houseList.length - 1);
     };
     // 전체 캐릭터 데이터 받아 오는 부분
     const fetchAllCharData = async () => {
@@ -39,8 +42,20 @@ export default function ProfilePage() {
             id: doc.id,
             ...doc.data(),
         })) as AllCharProps[];
+        for (const char of data) {
+            if (char.badge) {
+                if (!houseList.includes(char.badge)) {
+                    setHouseList([...houseList, char.badge]);
+                }
+                if (!badgeList.includes(char.badgeImg)) {
+                    setBadgeList([...badgeList, char.badgeImg]);
+                }
+            }
+        }
         return data;
     };
+    console.log("house", houseList);
+    console.log("badge", badgeList);
     const { data: allChar } = useQuery<AllCharProps[]>(
         "allChar",
         fetchAllCharData,
