@@ -9,7 +9,7 @@ import {
     setDoc,
 } from "firebase/firestore";
 import { db } from "@/firebaseApp";
-import { useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import { userState } from "@/atom";
 import Loader from "@/components/loader/Loader";
@@ -23,6 +23,10 @@ export interface GetButtonProps {
     link: string;
     name: string;
     subKey: string[];
+}
+interface defaultInfo {
+    name: string;
+    nick: string;
 }
 // 버튼 부분 데이터 페칭 함수
 const fetchButtonData = async () => {
@@ -71,22 +75,34 @@ export default function SearchPage() {
         if (name === "name") setChar(value);
         if (name === "nick") setNick(value);
     };
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
+    const mutation = useMutation(
+        // 첫 번째 매개변수: 비동기 함수, 서버에 요청을 보내는 역할
+        async (defaultInfo: defaultInfo) => {
             if (user?.uid) {
                 const charRef = doc(db, "character", user?.uid);
                 await setDoc(charRef, {
-                    name: char,
-                    nick: nick,
+                    name: defaultInfo.name,
+                    nick: defaultInfo.nick,
                 });
                 await queryClient.invalidateQueries(`char`);
                 await queryClient.invalidateQueries(`charData`);
                 navigate("/");
             }
-        } catch (error) {
-            console.log(error);
+        },
+        {
+            onError: (error) => {
+                console.error("POST 실패:", error);
+            },
         }
+    );
+
+    //뮤테이션으로 변경해야 됨
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        mutation.mutate({
+            name: char,
+            nick: nick,
+        });
     };
 
     //검색 창 상태

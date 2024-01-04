@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 export const ProfileLayout = styled.div`
     width: 100%;
     height: 100%;
-    position: relative;
     .profileLayout {
         width: 800px; /* 고정된 너비 800px 설정 */
         height: 100%;
+        position: relative;
         padding: 70px 90px;
         margin: 0 auto; /* 가로 중앙 정렬을 위한 margin 설정 */
         display: flex;
@@ -66,11 +66,11 @@ export const ProfileLayout = styled.div`
 
 export const Save = styled.div`
     width: 15%;
-    height: 15%;
+    height: 12%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     position: absolute;
-    bottom: 4%;
-    right: 4%;
+    bottom: 2%;
+    right: -20%;
 `;

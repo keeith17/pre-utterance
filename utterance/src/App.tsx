@@ -8,6 +8,8 @@ import YouTube, { YouTubeProps } from "react-youtube";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Layout } from "./components/Layout";
 import Loader from "./components/loader/Loader";
+import { useRecoilValue } from "recoil";
+import { bgmState } from "./atom";
 
 export default function App() {
     //전체 로그인 관리
@@ -16,6 +18,7 @@ export default function App() {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
         !!auth?.currentUser
     );
+    const bgm = useRecoilValue(bgmState);
     useEffect(() => {
         onAuthStateChanged(auth, (user: User | null) => {
             if (user) {
@@ -43,21 +46,6 @@ export default function App() {
     }, []);
 
     //유튜브 로드 옵션
-    const style: YouTubeProps["style"] = {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        zIndex: 0,
-        display: "none",
-    };
-    const [muted, setMuted] = useState<number>(0);
-    const muteChange = () => {
-        if (muted === 0) {
-            setMuted(1);
-        } else {
-            setMuted(0);
-        }
-    };
     const options: YouTubeProps["opts"] = {
         width: "150",
         height: "150",
@@ -72,23 +60,21 @@ export default function App() {
             playlist: "jcEw1Bsbnq0,Cp5y1hvtKPQ,NaLuuHmnb0Y",
             playsinline: 1,
             enablejsapi: 1,
-            mute: muted,
+            mute: bgm,
         },
     };
-
-    //임시 뮤트 버튼
-    const myStyle: React.CSSProperties = {
+    //유튜브 로드 옵션
+    const style: YouTubeProps["style"] = {
         position: "absolute",
-        top: 300,
-        right: 0,
-        zIndex: 10,
+        top: 0,
+        left: 0,
+        zIndex: 0,
+        display: "none",
     };
+
     return (
         <>
             <Global styles={GlobalStyle} />
-            <button onClick={muteChange} style={myStyle}>
-                배경음악
-            </button>
             {video && (
                 <YouTube videoId="jcEw1Bsbnq0" opts={options} style={style} />
             )}

@@ -8,12 +8,12 @@ import {
 import { ProfileLayout, Save } from "./profileEditStyle";
 import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebaseApp";
 import { useRecoilValue } from "recoil";
-import { myCharState, userState } from "@/atom";
+import { userState } from "@/atom";
 import { useState } from "react";
-import { useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 interface InputCharProps {
     gifUrl: string;
@@ -35,33 +35,72 @@ interface InputCharProps {
 
 export default function ProfileEditPage() {
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
     // 스타일링 통일
     const thisHeight: string = "30px";
     const thisFont: string = "nexonGothic";
     // 현재 접속 유저 정보
     const user = useRecoilValue(userState);
-    // 현재 접속 캐릭터 정보
-    const myChar = useRecoilValue(myCharState);
-    const navigate = useNavigate();
+    const userUid = user.uid;
+
+    // 내 캐릭터 정보 세팅
+    const fetchCharData = async (userUid: string | null) => {
+        if (userUid) {
+            const charRef = doc(db, "character", userUid);
+            const charSnap = await getDoc(charRef);
+            const data = {
+                ...(charSnap?.data() as InputCharProps),
+                id: userUid,
+            };
+            setInput({
+                gifUrl: data.gifUrl,
+                name: data.name,
+                height: data.height,
+                weight: data.weight,
+                from: data.from,
+                planet: data.planet,
+                secret1: data.secret1,
+                secret2: data.secret2,
+                secret3: data.secret3,
+                rela1: data.rela1,
+                desc1: data.desc1,
+                rela2: data.rela2,
+                desc2: data.desc2,
+                rela3: data.rela3,
+                desc3: data.desc3,
+            });
+            return data;
+        } else {
+            throw new Error("사용자 UID가 존재하지 않습니다.");
+        }
+    };
+    // 내 캐릭터 정보
+    const { data: myChar } = useQuery<InputCharProps>(
+        "charData",
+        () => fetchCharData(userUid),
+        {
+            staleTime: 60000,
+        }
+    );
+
     const [input, setInput] = useState<InputCharProps>({
-        gifUrl: myChar?.gifUrl,
-        name: myChar?.name,
-        height: myChar?.height,
-        weight: myChar?.weight,
-        from: myChar?.from,
-        planet: myChar?.planet,
-        secret1: myChar?.secret1,
-        secret2: myChar?.secret2,
-        secret3: myChar?.secret3,
-        rela1: myChar?.rela1,
-        desc1: myChar?.desc1,
-        rela2: myChar?.rela2,
-        desc2: myChar?.desc2,
-        rela3: myChar?.rela3,
-        desc3: myChar?.desc3,
+        gifUrl: myChar?.gifUrl || "",
+        name: myChar?.name || "",
+        height: myChar?.height || "",
+        weight: myChar?.weight || "",
+        from: myChar?.from || "",
+        planet: myChar?.planet || "",
+        secret1: myChar?.secret1 || "",
+        secret2: myChar?.secret2 || "",
+        secret3: myChar?.secret3 || "",
+        rela1: myChar?.rela1 || "",
+        desc1: myChar?.desc1 || "",
+        rela2: myChar?.rela2 || "",
+        desc2: myChar?.desc2 || "",
+        rela3: myChar?.rela3 || "",
+        desc3: myChar?.desc3 || "",
     });
-    console.log("myChar", myChar);
-    console.log("input", input);
+
     const handleChange = (
         e:
             | React.ChangeEvent<HTMLInputElement>
@@ -117,9 +156,9 @@ export default function ProfileEditPage() {
             setInput({ ...input, desc3: value });
         }
     };
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
+    const mutation = useMutation(
+        // 첫 번째 매개변수: 비동기 함수, 서버에 요청을 보내는 역할
+        async (input: InputCharProps) => {
             if (user.uid) {
                 const postRef = doc(db, "character", user?.uid);
                 await updateDoc(postRef, {
@@ -141,9 +180,16 @@ export default function ProfileEditPage() {
                 });
                 await queryClient.invalidateQueries("charData");
             }
-        } catch (e) {
-            console.log(e);
+        },
+        {
+            onError: (error) => {
+                console.error("POST 실패:", error);
+            },
         }
+    );
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        mutation.mutate(input);
     };
 
     return (
@@ -186,20 +232,6 @@ export default function ProfileEditPage() {
                                     value={input.name}
                                     name="name"
                                     onChange={handleChange}
-                                ></InputStyle>
-                            </div>
-                        </div>
-                        <div className="inputGroup">
-                            <div className="profBox">나이</div>
-                            <div className="inputBox">
-                                <InputStyle
-                                    placeholder="숫자만 입력해 주세요"
-                                    fontSize=" 13px"
-                                    border="none"
-                                    height={thisHeight}
-                                    fontFamily={thisFont}
-                                    // name="name" 나이 보류
-                                    // onChange={handleChange}
                                 ></InputStyle>
                             </div>
                         </div>

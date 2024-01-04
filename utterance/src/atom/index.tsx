@@ -36,33 +36,6 @@ export const userState = atom<authUserProps>({
     default: { uid: null, email: null, displayName: null, photoURL: null },
 });
 
-export const myCharState = atom<AllCharProps>({
-    key: "myCharState",
-    default: {
-        id: "",
-        nick: "",
-        gifUrl: "",
-        badge: "",
-        badgeImg: "",
-        grade: "",
-        gradeImg: "",
-        name: "",
-        height: "",
-        weight: "",
-        from: "",
-        planet: "",
-        secret1: "",
-        secret2: "",
-        secret3: "",
-        rela1: "",
-        desc1: "",
-        rela2: "",
-        desc2: "",
-        rela3: "",
-        desc3: "",
-    },
-});
-
 export const selectUserState = atom<AllCharProps>({
     key: "selectUserState",
     default: {
@@ -88,4 +61,9 @@ export const selectUserState = atom<AllCharProps>({
         rela3: "",
         desc3: "",
     },
+});
+
+export const bgmState = atom<number>({
+    key: "bgmState",
+    default: 0,
 });

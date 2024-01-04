@@ -1,5 +1,5 @@
-import { AllCharProps, myCharState, selectUserState, userState } from "@/atom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { AllCharProps, bgmState, selectUserState, userState } from "@/atom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app, db } from "@/firebaseApp";
@@ -8,6 +8,7 @@ import { useQuery, useQueryClient } from "react-query";
 import { ButtonStyle } from "../Style";
 import { MyPageStyle } from "./MyPageBoxStyle";
 import { IoPersonCircleSharp, IoCreateSharp, IoMail } from "react-icons/io5";
+import { MdOutlineMusicNote, MdOutlineMusicOff } from "react-icons/md";
 
 export default function MyPageBox() {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function MyPageBox() {
     const user = useRecoilValue(userState);
     const userUid = user.uid;
     const setSelectChar = useSetRecoilState(selectUserState);
-    const setMyChar = useSetRecoilState(myCharState);
+    const [bgm, setBgm] = useRecoilState(bgmState);
 
     // 내 캐릭터 정보 세팅 함수
     const fetchCharData = async (userUid: string | null) => {
@@ -23,7 +24,6 @@ export default function MyPageBox() {
             const charRef = doc(db, "character", userUid);
             const charSnap = await getDoc(charRef);
             const data = { ...(charSnap?.data() as AllCharProps), id: userUid };
-            setMyChar(data);
             return data;
         } else {
             throw new Error("사용자 UID가 존재하지 않습니다.");
@@ -45,6 +45,16 @@ export default function MyPageBox() {
         }
         navigate("/ProfilePage");
     };
+
+    //bgm 조정
+    const muteChange = () => {
+        if (bgm === 0) {
+            setBgm(1);
+        } else {
+            setBgm(0);
+        }
+    };
+
     return (
         <MyPageStyle>
             {myChar?.nick ? (
@@ -88,6 +98,13 @@ export default function MyPageBox() {
                                 onClick={() => navigate("/ProfileEditPage")}
                             />
                             <IoMail className="icons" size={30} />
+                            <div className="icons" onClick={muteChange}>
+                                {bgm === 0 ? (
+                                    <MdOutlineMusicNote size={30} />
+                                ) : (
+                                    <MdOutlineMusicOff size={30} />
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

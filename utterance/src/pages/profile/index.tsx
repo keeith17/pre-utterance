@@ -16,6 +16,7 @@ export default function ProfilePage() {
     const [selectHouse, setSelectHouse] = useState<number>(
         parseInt(selectChar.badge.slice(5, 6)) - 1 || 0
     );
+    // 이것도 전역으로 빼야 할 것 같기도 함
     console.log(selectHouse);
     const houseList: string[] = ["quasa1", "quasa2", "quasa3"];
     const badgeList: string[] = [
