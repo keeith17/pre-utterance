@@ -165,7 +165,7 @@ export default function MyPageBox() {
                                     name="pause"
                                     onClick={imsiOnClick}
                                 >
-                                    <MdOutlineMusicOff size={30} />
+                                    <MdOutlineMusicNote size={30} />
                                 </button>
                             ) : (
                                 <button
@@ -173,7 +173,7 @@ export default function MyPageBox() {
                                     name="restart"
                                     onClick={imsiOnClick}
                                 >
-                                    <MdOutlineMusicNote size={30} />
+                                    <MdOutlineMusicOff size={30} />
                                 </button>
                             )}
                         </div>
