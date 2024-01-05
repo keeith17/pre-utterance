@@ -1,5 +1,5 @@
-import { AllCharProps, bgmState, selectUserState, userState } from "@/atom";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { AllCharProps, selectUserState, userState, videoState } from "@/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app, db } from "@/firebaseApp";
@@ -9,14 +9,20 @@ import { ButtonStyle } from "../Style";
 import { MyPageStyle } from "./MyPageBoxStyle";
 import { IoPersonCircleSharp, IoCreateSharp, IoMail } from "react-icons/io5";
 import { MdOutlineMusicNote, MdOutlineMusicOff } from "react-icons/md";
+import { useRef, useState } from "react";
+import YouTube, { YouTubeProps } from "react-youtube";
 
 export default function MyPageBox() {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const user = useRecoilValue(userState);
     const userUid = user.uid;
+
+    const video = useRecoilValue(videoState);
+    const [bgm, setBgm] = useState<boolean>(true);
     const setSelectChar = useSetRecoilState(selectUserState);
-    const [bgm, setBgm] = useRecoilState(bgmState);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const playerRef = useRef<any>(null);
 
     // 내 캐릭터 정보 세팅 함수
     const fetchCharData = async (userUid: string | null) => {
@@ -46,17 +52,72 @@ export default function MyPageBox() {
         navigate("/ProfilePage");
     };
 
-    //bgm 조정
-    const muteChange = () => {
-        if (bgm === 0) {
-            setBgm(1);
-        } else {
-            setBgm(0);
+    //유튜브 로드 옵션
+    const options: YouTubeProps["opts"] = {
+        width: "150",
+        height: "150",
+        volume: 1,
+        playerVars: {
+            autoplay: 1,
+            modestbranding: 1,
+            rel: 0,
+            loop: 1,
+            fs: 0,
+            controls: 1,
+            disablekb: 1,
+            playlist: "jcEw1Bsbnq0,Cp5y1hvtKPQ,NaLuuHmnb0Y",
+            playsinline: 1,
+            enablejsapi: 1,
+            mute: 0,
+        },
+    };
+    //유튜브 로드 옵션
+    const style: YouTubeProps["style"] = {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        zIndex: 0,
+        display: "none",
+    };
+    const handleReady: YouTubeProps["onReady"] = (e) => {
+        playerRef.current = e.target;
+        e.target.setVolume(50);
+    };
+
+    const imsiOnClick = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        const {
+            currentTarget: { name },
+        } = e;
+        if (playerRef.current) {
+            if (name === "prev") {
+                playerRef.current.previousVideo();
+            }
+            if (name === "next") {
+                playerRef.current.nextVideo();
+            }
+            if (name === "pause") {
+                playerRef.current.pauseVideo();
+                setBgm(false);
+            }
+            if (name === "restart") {
+                playerRef.current.playVideo();
+                setBgm(true);
+            }
         }
     };
 
     return (
         <MyPageStyle>
+            {video && (
+                <YouTube
+                    videoId="jcEw1Bsbnq0"
+                    opts={options}
+                    style={style}
+                    onReady={handleReady}
+                />
+            )}
             {myChar?.nick ? (
                 <div className="myPageBox">
                     <div className="logoutArea">
@@ -98,13 +159,23 @@ export default function MyPageBox() {
                                 onClick={() => navigate("/ProfileEditPage")}
                             />
                             <IoMail className="icons" size={30} />
-                            <div className="icons" onClick={muteChange}>
-                                {bgm === 0 ? (
-                                    <MdOutlineMusicNote size={30} />
-                                ) : (
+                            {bgm ? (
+                                <button
+                                    className="icons"
+                                    name="pause"
+                                    onClick={imsiOnClick}
+                                >
                                     <MdOutlineMusicOff size={30} />
-                                )}
-                            </div>
+                                </button>
+                            ) : (
+                                <button
+                                    className="icons"
+                                    name="restart"
+                                    onClick={imsiOnClick}
+                                >
+                                    <MdOutlineMusicNote size={30} />
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

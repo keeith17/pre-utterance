@@ -67,3 +67,8 @@ export const bgmState = atom<number>({
     key: "bgmState",
     default: 0,
 });
+
+export const videoState = atom<boolean>({
+    key: "videoState",
+    default: false,
+});

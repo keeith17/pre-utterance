@@ -79,6 +79,8 @@ export const MyPageStyle = styled.div`
                 .icons {
                     cursor: pointer;
                     transition: all 0.2s;
+                    border: none;
+                    outline: none;
                     &:hover {
                         color: pink;
                     }
