@@ -25,11 +25,12 @@ export const GlobalStyle = css`
     body {
         width: 100%;
         height: 100vh;
-        font-family: "Giants-Inline", "nexonGothic";
     }
 
     body {
         font-family: "Giants-Inline", "nexonGothic";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
         overflow-x: overlay;
         overflow-y: overlay;
         background: url(https://images.pexels.com/photos/1694000/pexels-photo-1694000.jpeg)
