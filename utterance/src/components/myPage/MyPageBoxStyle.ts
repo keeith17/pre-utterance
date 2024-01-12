@@ -55,7 +55,7 @@ export const MyPageStyle = styled.div`
             .grade {
                 width: 30%;
                 height: 100%;
-                padding: 5px 0;
+                padding: 30px 0 20px 0;
                 display: flex;
                 justify-content: left;
                 img {
