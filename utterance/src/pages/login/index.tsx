@@ -42,7 +42,9 @@ export default function LoginPage() {
                 <source src={"/videos/Untitled.mp4"} type="video/mp4" />
             </video>
             <div className="login">
-                <div className="logo">프로젝트 PANDORA</div>
+                <div className="logo">
+                    <img src="/images/logo.webp" alt="로고" />
+                </div>
                 <InfoArea onSubmit={onSubmit}>
                     <div className="info">
                         <InputStyle
@@ -51,7 +53,7 @@ export default function LoginPage() {
                             name="serial"
                             className="loginInfo"
                             placeholder="ID"
-                            height="50px"
+                            height="40px"
                             fontSize="15px"
                             border="1px solid #fff"
                             fontFamily="Giants-Inline"
@@ -63,7 +65,7 @@ export default function LoginPage() {
                             name="password"
                             className="loginInfo"
                             placeholder="PASSWORD"
-                            height="50px"
+                            height="40px"
                             fontSize="15px"
                             border="1px solid #fff"
                             fontFamily="Giants-Inline"

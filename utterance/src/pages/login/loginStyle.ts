@@ -5,21 +5,25 @@ export const LoginWrap = styled.div`
     height: 100vh;
     display: flex;
     .login {
-        width: 530px;
-        height: 280px;
+        width: 480px;
+        height: 240px;
         margin: auto;
         // background: rgba(255, 255, 255, 0.2);
-        border: 1px solid #fff;
+        // border: 1px solid #fff;
         position: relative;
         display: flex;
         .logo {
-            width: 400px;
+            width: 600px;
             font-size: 50px;
             text-align: center;
             position: absolute;
-            top: -30%;
+            top: -150%;
             left: 50%;
-            transform: translateX(-200px);
+            transform: translateX(-300px);
+            z-index: 0;
+            img {
+                width: 100%;
+            }
         }
     }
 `;
@@ -30,16 +34,18 @@ export const InfoArea = styled.form`
     padding: 0 30px;
     display: flex;
     justify-content: space-between;
-
+    position: relative;
+    z-index: 1;
     .info {
-        width: 330px;
+        width: 320px;
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
     .submit {
-        width: 125px;
+        width: 85px;
+        height: 100%;
         .loginSubmit {
             width: 100%;
             height: 100%;

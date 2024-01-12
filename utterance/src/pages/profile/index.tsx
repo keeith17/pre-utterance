@@ -54,8 +54,7 @@ export default function ProfilePage() {
         }
         return data;
     };
-    console.log("house", houseList);
-    console.log("badge", badgeList);
+
     const { data: allChar } = useQuery<AllCharProps[]>(
         "allChar",
         fetchAllCharData,
