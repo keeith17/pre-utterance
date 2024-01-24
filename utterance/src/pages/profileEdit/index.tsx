@@ -195,6 +195,11 @@ export default function ProfileEditPage() {
     return (
         <ProfileLayout>
             <div className="profileLayout">
+                <img
+                    src="/images/profile_write/mainframe/mainframe_968x1043.webp"
+                    alt="mainframe_968x1043"
+                    className="mainframe"
+                />
                 <Out
                     onClick={() => {
                         navigate("/");
@@ -202,7 +207,15 @@ export default function ProfileEditPage() {
                 >
                     <RiCloseLine size={35} />
                 </Out>
-                <div className="profTitle">Personal Detail Report</div>
+                <div className="profTitle">
+                    <div className="titleBox">
+                        <img
+                            src="/images/profile_write/title/title_465x17.webp"
+                            className="title"
+                            alt="title_465x17"
+                        />
+                    </div>
+                </div>
                 <form className="formWrap" onSubmit={handleSubmit}>
                     <div className="profGroup">
                         <div className="inputGroup">

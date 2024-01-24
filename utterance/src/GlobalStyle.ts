@@ -115,11 +115,11 @@ export const GlobalStyle = css`
     }
 
     &::-webkit-scrollbar {
-        width: 10px;
+        width: 5px;
     }
     &::-webkit-scrollbar-thumb {
         border-radius: 2px;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.8);
     }
     &::-webkit-scrollbar-track {
         background: transparent;
