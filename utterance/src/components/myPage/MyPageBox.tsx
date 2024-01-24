@@ -1,5 +1,5 @@
-import { AllCharProps, selectUserState, userState, videoState } from "@/atom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { AllCharProps, userState, videoState } from "@/atom";
+import { useRecoilValue } from "recoil";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app, db } from "@/firebaseApp";
@@ -7,8 +7,6 @@ import { doc, getDoc } from "firebase/firestore";
 import { useQuery, useQueryClient } from "react-query";
 import { ButtonStyle } from "../Style";
 import { MyPageStyle } from "./MyPageBoxStyle";
-import { IoPersonCircleSharp, IoCreateSharp, IoMail } from "react-icons/io5";
-import { MdOutlineMusicNote, MdOutlineMusicOff } from "react-icons/md";
 import { useRef, useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 
@@ -20,7 +18,7 @@ export default function MyPageBox() {
 
     const video = useRecoilValue(videoState);
     const [bgm, setBgm] = useState<boolean>(true);
-    const setSelectChar = useSetRecoilState(selectUserState);
+    // const setSelectChar = useSetRecoilState(selectUserState);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const playerRef = useRef<any>(null);
 
@@ -45,12 +43,12 @@ export default function MyPageBox() {
     );
 
     // 프로필 열람 페이지로 이동
-    const handleProfileClick = () => {
-        if (myChar) {
-            setSelectChar(myChar);
-        }
-        navigate("/ProfilePage");
-    };
+    // const handleProfileClick = () => {
+    //     if (myChar) {
+    //         setSelectChar(myChar);
+    //     }
+    //     navigate("/ProfilePage");
+    // };
 
     //유튜브 로드 옵션
     const options: YouTubeProps["opts"] = {
