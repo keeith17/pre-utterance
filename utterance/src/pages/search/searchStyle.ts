@@ -46,6 +46,9 @@ export const SearcWrap = styled.div`
         position: fixed;
         bottom: 0;
         left: 0;
+        img {
+            width: calc(100vw - 23%);
+        }
     }
 `;
 
