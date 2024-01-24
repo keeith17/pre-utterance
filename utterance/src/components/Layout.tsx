@@ -6,7 +6,6 @@ import NoticeBox from "./notice/NoticeBox";
 const LayoutStyle = styled.div`
     width: 100%;
     height: 100%;
-    padding: 10px;
     display: flex;
     justify-content: space-between;
     position: relative;

@@ -120,62 +120,73 @@ export default function MyPageBox() {
             )}
             {myChar?.nick ? (
                 <div className="myPageBox">
-                    <div className="logoutArea">
-                        <ButtonStyle
-                            fontSize="12px"
-                            type="button"
-                            onClick={async () => {
-                                const auth = getAuth(app);
-                                await queryClient.invalidateQueries("charData");
-                                await signOut(auth);
-                                navigate("/LoginPage");
-                            }}
-                        >
-                            Logout
-                        </ButtonStyle>
-                    </div>
-                    <div className="myInfoArea">
-                        <div className="badge">
-                            <img src={myChar?.badgeImg} alt="휘장" />
-                        </div>
-                        <div className="profilePhoto">
-                            <img src={myChar?.gifUrl} alt="캐릭터 두상" />
-                            <p className="myname">{myChar?.name}</p>
-                        </div>
-                        <div className="grade">
-                            <img src={myChar?.gradeImg} alt="계급장" />
-                        </div>
-                    </div>
-                    <div className="shortCutArea">
-                        <div className="shortCutIcon">
-                            <IoPersonCircleSharp
-                                className="icons"
-                                size={30}
-                                onClick={handleProfileClick}
-                            />
-                            <IoCreateSharp
-                                className="icons"
-                                size={30}
-                                onClick={() => navigate("/ProfileEditPage")}
-                            />
-                            <IoMail className="icons" size={30} />
-                            {bgm ? (
-                                <button
-                                    className="icons"
-                                    name="pause"
-                                    onClick={imsiOnClick}
-                                >
-                                    <MdOutlineMusicNote size={30} />
-                                </button>
-                            ) : (
-                                <button
-                                    className="icons"
-                                    name="restart"
-                                    onClick={imsiOnClick}
-                                >
-                                    <MdOutlineMusicOff size={30} />
-                                </button>
-                            )}
+                    <div className="contentArea">
+                        <div className="myInfoArea">
+                            <div className="profilePhoto">
+                                <img src={myChar?.gifUrl} alt="캐릭터 두상" />
+                            </div>
+                            <div className="shortCutArea">
+                                <div className="texts">
+                                    <div className="grade">
+                                        <img
+                                            src={myChar?.gradeImg}
+                                            alt="계급장"
+                                        />
+                                    </div>
+                                    <div className="gradeName">
+                                        {myChar?.grade} 등급
+                                    </div>
+                                    <div className="myName">{myChar?.name}</div>
+                                </div>
+                                <div className="icons">
+                                    {bgm ? (
+                                        <button
+                                            name="pause"
+                                            onClick={imsiOnClick}
+                                        >
+                                            <img
+                                                src="/images/main/icon/icon_music_on_26x26.webp"
+                                                alt="musicOn"
+                                            />
+                                        </button>
+                                    ) : (
+                                        <button
+                                            name="restart"
+                                            onClick={imsiOnClick}
+                                        >
+                                            <img
+                                                src="/images/main/icon/icon_music_26x26.webp"
+                                                alt="musicOn"
+                                            />
+                                        </button>
+                                    )}
+                                    <button
+                                        onClick={() =>
+                                            navigate("/ProfileEditPage")
+                                        }
+                                    >
+                                        <img
+                                            src="/images/main/icon/icon_modify_26x26.webp"
+                                            alt="musicOn"
+                                        />
+                                    </button>
+                                    <button
+                                        onClick={async () => {
+                                            const auth = getAuth(app);
+                                            await queryClient.invalidateQueries(
+                                                "charData"
+                                            );
+                                            await signOut(auth);
+                                            navigate("/LoginPage");
+                                        }}
+                                    >
+                                        <img
+                                            src="/images/main/icon/icon_logout_26x26.webp"
+                                            alt="musicOn"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

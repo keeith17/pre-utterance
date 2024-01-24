@@ -1,6 +1,9 @@
 import { css } from "@emotion/react";
 import giantsInline from "./assets/fonts/Giants-Inline.ttf";
 import nexonGothic from "./assets/fonts/NEXON_Lv2_Gothic_Light.ttf";
+import spaceAge from "./assets/fonts/space_age.ttf";
+
+export const defaultColor = "#5535b0";
 
 export const GlobalStyle = css`
     @font-face {
@@ -12,6 +15,18 @@ export const GlobalStyle = css`
         font-family: "nexonGothic";
         src: url(${nexonGothic}) format("truetype");
         font-display: swap;
+    }
+    @font-face {
+        font-family: "spaceAge";
+        src: url(${spaceAge}) format("truetype");
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "neurimboGothic";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/neurimboGothicRegular.woff2")
+            format("woff2");
+        font-weight: normal;
+        font-style: normal;
     }
 
     * {
@@ -28,12 +43,12 @@ export const GlobalStyle = css`
     }
 
     body {
-        font-family: "Giants-Inline", "nexonGothic";
+        font-family: "neurimboGothic", "nexonGothic", "Giants-Inline";
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         overflow-x: overlay;
         overflow-y: overlay;
-        background: url(https://images.pexels.com/photos/1694000/pexels-photo-1694000.jpeg)
+        background: url(/images/main/background_1920x1080.webp) 50% 50%
             no-repeat;
         background-size: cover;
         color: #ffffff;

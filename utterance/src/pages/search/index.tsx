@@ -16,6 +16,7 @@ import Loader from "@/components/loader/Loader";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ResultButton from "@/components/resultButton/resultButton";
+import { defaultColor } from "@/GlobalStyle";
 
 //버튼 부분 데이터 타입 설정
 export interface GetButtonProps {
@@ -129,16 +130,24 @@ export default function SearchPage() {
                     <Loader />
                 ) : haveCharacter ? (
                     <div className="content">
-                        <div className="pandora">Πανδώρα</div>
-                        <InputStyle
-                            type="text"
-                            height="54px"
-                            fontSize="18px"
-                            border="1px solid #fff"
-                            fontFamily="Giants-Inline"
-                            onChange={onChangeSearch}
-                            placeholder="무엇이 궁금하신가요?"
-                        />
+                        <div className="pandora">
+                            <img
+                                src="/images/main/main/pandora_510x76.webp"
+                                alt="pandora_510x76"
+                            />
+                        </div>
+                        <div className="inputBox">
+                            <InputStyle
+                                type="text"
+                                height="44px"
+                                fontSize="18px"
+                                border={`1px solid ${defaultColor}`}
+                                fontFamily="nexonGothic"
+                                onChange={onChangeSearch}
+                                placeholder="SEARCH"
+                            />
+                        </div>
+
                         <div className="linkButton">
                             {buttons?.map(
                                 (button) =>
@@ -183,6 +192,12 @@ export default function SearchPage() {
                         </form>
                     </div>
                 )}
+            </div>
+            <div className="underBar">
+                <img
+                    src="/images/main/main/underbar_1476x76.webp"
+                    alt="underbar_1476x76"
+                />
             </div>
         </SearcWrap>
     );

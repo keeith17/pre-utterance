@@ -5,6 +5,7 @@ import { app } from "@/firebaseApp";
 import { useNavigate } from "react-router-dom";
 import { InputStyle } from "@/components/Style";
 import { useQueryClient } from "react-query";
+import { defaultColor } from "@/GlobalStyle";
 
 export default function LoginPage() {
     const queryClient = useQueryClient();
@@ -41,9 +42,16 @@ export default function LoginPage() {
             <video width="100%" muted autoPlay loop>
                 <source src={"/videos/Untitled.mp4"} type="video/mp4" />
             </video>
+            <div className="y_rotate">
+                <img
+                    src="/images/index/y_rotate.webp"
+                    alt="y_rotate"
+                    height={800}
+                />
+            </div>
             <div className="login">
                 <div className="logo">
-                    <img src="/images/logo.webp" alt="로고" />
+                    <img src="/images/index/logo.webp" alt="로고" />
                 </div>
                 <InfoArea onSubmit={onSubmit}>
                     <div className="info">
@@ -53,28 +61,28 @@ export default function LoginPage() {
                             name="serial"
                             className="loginInfo"
                             placeholder="ID"
-                            height="40px"
+                            height="45px"
                             fontSize="15px"
-                            border="1px solid #fff"
-                            fontFamily="Giants-Inline"
+                            border={`1px solid ${defaultColor}`}
+                            fontFamily="nexonGothic"
                             onChange={onChange}
                         />
                         <InputStyle
-                            type="text"
+                            type="password"
                             id="password"
                             name="password"
                             className="loginInfo"
                             placeholder="PASSWORD"
-                            height="40px"
+                            height="45px"
                             fontSize="15px"
-                            border="1px solid #fff"
-                            fontFamily="Giants-Inline"
+                            border={`1px solid ${defaultColor}`}
+                            fontFamily="nexonGothic"
                             onChange={onChange}
                         />
                     </div>
                     <div className="submit">
                         <button type="submit" className="loginSubmit">
-                            로그인
+                            Login
                         </button>
                     </div>
                 </InfoArea>

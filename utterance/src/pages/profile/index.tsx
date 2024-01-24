@@ -14,7 +14,7 @@ export default function ProfilePage() {
     const navigate = useNavigate();
     const [selectChar, setSelectChar] = useRecoilState(selectUserState);
     const [selectHouse, setSelectHouse] = useState<number>(
-        parseInt(selectChar.badge.slice(5, 6)) - 1 || 0
+        selectChar.badge ? parseInt(selectChar.badge.slice(5, 6)) - 1 : 0
     );
     // 이것도 전역으로 빼야 할 것 같기도 함
     const [houseList, setHouseList] = useState<string[]>([
@@ -23,7 +23,7 @@ export default function ProfilePage() {
         "quasa3",
     ]);
     const [badgeList, setBadgeList] = useState<string[]>([
-        "https://i.imgur.com/KEchdrQ.png",
+        "https://i.imgur.com/IrbjZek.png",
         "https://i.imgur.com/PRPLtc3.png",
         "https://i.imgur.com/JAj1OK7.png",
     ]);

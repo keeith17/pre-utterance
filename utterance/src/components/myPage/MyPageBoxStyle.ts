@@ -7,85 +7,86 @@ export const MyPageStyle = styled.div`
         width: 100%;
         height: 100%;
         position: relative;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.2);
-        .logoutArea {
-            width: 100%;
-            height: 12%;
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            padding: 0 0 0 85%;
-        }
-        .myInfoArea {
-            width: 100%;
-            height: 70%;
-            display: flex;
-            .badge {
-                width: 30%;
-                height: 100%;
-                padding: 15px 20px;
-                display: flex;
-                justify-content: right;
-                img {
-                    height: 100%;
-                    object-fit: cover;
-                }
-            }
-            .profilePhoto {
-                height: 100%;
-                aspect-ratio: 1 / 1;
-                padding: 15px;
-                position: relative;
-                img {
-                    width: 100%;
-                    object-fit: cover;
-                    border-radius: 50%;
-                }
-                .myname {
-                    width: 100%;
-                    height: 10%;
-                    position: absolute;
-                    bottom: -10px;
-                    left: 0;
-                    text-align: center;
-                    font-family: "nexonGothic";
-                }
-            }
-            .grade {
-                width: 30%;
-                height: 100%;
-                padding: 30px 0 20px 0;
-                display: flex;
-                justify-content: left;
-                img {
-                    width: 70%;
-                    object-fit: cover;
-                }
-            }
-        }
-        .shortCutArea {
-            width: 100%;
-            height: 30%;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            .shortCutIcon {
+        background: url(/images/main/frame/frame_442x271.webp) no-repeat;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .contentArea {
+            width: 85%;
+            height: 60%;
+            padding: 5px 0 7px 5px;
+            .myInfoArea {
                 width: 100%;
+                height: 100%;
                 display: flex;
-                justify-content: center;
-                gap: 15px;
-                .icons {
-                    cursor: pointer;
-                    transition: all 0.2s;
-                    border: none;
-                    outline: none;
-                    &:hover {
-                        color: pink;
+                .profilePhoto {
+                    width: 28%;
+                    height: 100%;
+                    position: relative;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        border: 1px solid #fff;
+                        object-fit: cover;
+                    }
+                }
+                .shortCutArea {
+                    width: 72%;
+                    height: 100%;
+                    .texts {
+                        width: 100%;
+                        height: 50%;
+                        padding: 0 10px;
+                        .grade {
+                            width: 100%;
+                            img {
+                                width: 30px;
+                            }
+                        }
+                        .gradeName {
+                            line-height: 20px;
+                        }
+                        .myName {
+                            line-height: 20px;
+                            font-size: 25px;
+                        }
+                    }
+                    .icons {
+                        height: 50%;
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: flex-end;
+                        gap: 5px;
+                        button {
+                            border: none;
+                        }
                     }
                 }
             }
         }
+        // .shortCutArea {
+        //     width: 100%;
+        //     height: 30%;
+        //     padding: 10px;
+        //     display: flex;
+        //     justify-content: center;
+        //     align-items: flex-end;
+        //     .shortCutIcon {
+        //         width: 100%;
+        //         display: flex;
+        //         justify-content: center;
+        //         gap: 15px;
+        //         .icons {
+        //             cursor: pointer;
+        //             transition: all 0.2s;
+        //             border: none;
+        //             outline: none;
+        //             &:hover {
+        //                 color: pink;
+        //             }
+        //         }
+        //     }
+        // }
     }
 `;

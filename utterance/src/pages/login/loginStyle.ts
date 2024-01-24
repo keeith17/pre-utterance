@@ -1,61 +1,68 @@
+import { defaultColor } from "@/GlobalStyle";
 import styled from "@emotion/styled";
 
 export const LoginWrap = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
+    align-items: center;
+    .y_rotate {
+        position: absolute;
+    }
     .login {
         width: 480px;
-        height: 240px;
+        height: 565px;
         margin: auto;
-        // background: rgba(255, 255, 255, 0.2);
-        // border: 1px solid #fff;
+        padding-bottom: 30px;
         position: relative;
-        display: flex;
+        // display: flex;
         .logo {
-            width: 600px;
-            font-size: 50px;
-            text-align: center;
-            position: absolute;
-            top: -150%;
-            left: 50%;
-            transform: translateX(-300px);
-            z-index: 0;
-            img {
-                width: 100%;
-            }
+            display: flex;
+            justify-content: center;
+            padding-bottom: 35px;
         }
     }
 `;
 export const InfoArea = styled.form`
     width: 100%;
-    height: 40%;
+    height: 246px;
+    background: url(/images/index/login_frame.webp) no-repeat 50% 50%;
+    background-size: cover;
     margin: auto;
     padding: 0 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     position: relative;
     z-index: 1;
     .info {
-        width: 320px;
-        height: 100%;
+        width: 250px;
+        height: 40%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        input {
+            &::placeholder {
+                font-family: "spaceAge";
+            }
+        }
     }
     .submit {
-        width: 85px;
-        height: 100%;
+        width: 100px;
+        height: 40%;
         .loginSubmit {
             width: 100%;
             height: 100%;
-            border: 1px solid #fff;
+            border: 1px solid ${defaultColor};
+            background: ${defaultColor};
             border-radius: 3px;
             color: #fff;
             font-size: 20px;
             transition: all 0.1s;
+            font-family: spaceAge;
             &:hover {
-                background: rgba(255, 255, 255, 0.1);
+                background: #8852fd;
             }
         }
     }
