@@ -39,9 +39,9 @@ export default function LoginPage() {
     };
     return (
         <LoginWrap>
-            <video width="100%" muted autoPlay loop>
+            {/* <video width="100%" muted autoPlay loop>
                 <source src={"/videos/Untitled.mp4"} type="video/mp4" />
-            </video>
+            </video> */}
             <div className="y_rotate">
                 <img
                     src="/images/index/y_rotate.webp"

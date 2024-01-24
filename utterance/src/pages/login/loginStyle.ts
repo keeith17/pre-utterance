@@ -6,8 +6,12 @@ export const LoginWrap = styled.div`
     height: 100vh;
     display: flex;
     align-items: center;
+    position: relative;
+    background: url(/images/loginbackground.webp) no-repeat 50% 0;
+    background-size: cover;
     .y_rotate {
         position: absolute;
+        left: calc(50% - 453px);
     }
     .login {
         width: 480px;
