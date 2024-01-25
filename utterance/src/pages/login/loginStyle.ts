@@ -8,7 +8,7 @@ export const LoginWrap = styled.div`
     align-items: center;
     position: relative;
     background: url(/images/loginbackground.webp) no-repeat 50% 0;
-    background-size: cover;
+    background-size: 100% 100%;
     .y_rotate {
         position: absolute;
         left: calc(50% - 453px);
@@ -31,7 +31,7 @@ export const InfoArea = styled.form`
     width: 100%;
     height: 246px;
     background: url(/images/index/login_frame.webp) no-repeat 50% 50%;
-    background-size: cover;
+    background-size: 100% 100%;
     margin: auto;
     padding: 0 30px;
     display: flex;

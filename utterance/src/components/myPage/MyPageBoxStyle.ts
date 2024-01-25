@@ -8,7 +8,7 @@ export const MyPageStyle = styled.div`
         height: 100%;
         position: relative;
         background: url(/images/main/frame/frame_442x271.webp) no-repeat;
-        background-size: cover;
+        background-size: 100% 100%;
         display: flex;
         justify-content: center;
         align-items: center;

@@ -50,7 +50,7 @@ export const GlobalStyle = css`
         overflow-y: overlay;
         background: url(/images/main/background_1920x1080.webp) 50% 50%
             no-repeat;
-        background-size: cover;
+        background-size: 100% 100%;
         color: #ffffff;
         -webkit-user-select: none;
         -moz-user-select: none;
