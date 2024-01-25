@@ -4,32 +4,104 @@ import styled from "@emotion/styled";
 export const LoginWrap = styled.div`
     width: 100%;
     height: 100vh;
+    overflow: hidden;
     display: flex;
     align-items: center;
     position: relative;
     background: url(/images/loginbackground.webp) no-repeat 50% 0;
     background-size: 100% 100%;
+    // .yImsi {
+    //     width: 100%;
+    //     position: absolute;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //     padding-right: 2.5%;
+    //     img {
+    //         width: 40%;
+    //     }
+    //     animation: rotate 12s linear infinite;
+    //     // background: pink;
+    // }
+    // .yImsi2 {
+    //     width: 100%;
+    //     position: absolute;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //     padding-right: 2.5%;
+    //     img {
+    //         width: 40%;
+    //     }
+    //     animation: rotate 30s linear infinite;
+    //     // background: pink;
+    // }
     .y_rotate {
+        width: 100%;
         position: absolute;
-        left: calc(50% - 453px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 2.5%;
+        img {
+            width: 50%;
+        }
+        animation: rotate 20s linear infinite;
+        // background: pink;
+    }
+    @keyframes rotate {
+        // 0% {
+        //     transform: perspective(2000px) rotateX(0deg) rotateY(0deg);
+        // }
+        // 12.5% {
+        //     transform: perspective(2000px) rotateX(45deg) rotateY(-135deg);
+        // }
+        // 25% {
+        //     transform: perspective(2000px) rotateX(90deg) rotateY(-270deg);
+        // }
+        // 37.5% {
+        //     transform: perspective(2000px) rotateX(135deg) rotateY(-405deg);
+        // }
+        // 50% {
+        //     transform: perspective(2000px) rotateX(180deg) rotateY(-540deg);
+        // }
+        // 62.5% {
+        //     transform: perspective(2000px) rotateX(225deg) rotateY(-675deg);
+        // }
+        // 75% {
+        //     transform: perspective(2000px) rotateX(270deg) rotateY(-810deg);
+        // }
+        // 87.5% {
+        //     transform: perspective(2000px) rotateX(315deg) rotateY(-945deg);
+        // }
+        // 100% {
+        //     transform: perspective(2000px) rotateX(360deg) rotateY(-1080deg);
+        // }
+        to {
+            transform: perspective(2000px) rotateZ(360deg);
+        }
     }
     .login {
-        width: 480px;
+        width: 20%;
         height: 565px;
         margin: auto;
         padding-bottom: 30px;
         position: relative;
         // display: flex;
         .logo {
+            width: 100%;
             display: flex;
             justify-content: center;
-            padding-bottom: 35px;
+            padding-bottom: 30px;
+            img {
+                width: 90%;
+            }
         }
     }
 `;
 export const InfoArea = styled.form`
     width: 100%;
-    height: 246px;
+    height: 45%;
     background: url(/images/index/login_frame.webp) no-repeat 50% 50%;
     background-size: 100% 100%;
     margin: auto;

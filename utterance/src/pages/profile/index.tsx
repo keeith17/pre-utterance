@@ -62,6 +62,30 @@ export default function ProfilePage() {
             staleTime: 30000, // 캐시된 데이터가 30초 후에 만료됨
         }
     );
+
+    //관계 uid -> profileImage
+    const uidToProfile = (uid: string) => {
+        if (allChar) {
+            for (const char of allChar) {
+                if (char.id === uid) {
+                    return char.gifUrl;
+                }
+            }
+            return "none";
+        }
+    };
+    // uid -> 이름
+    const uidToName = (uid: string) => {
+        if (allChar) {
+            for (const char of allChar) {
+                if (char.id === uid) {
+                    return char.name;
+                }
+            }
+            return "none";
+        }
+    };
+
     // 선택된 캐릭터 세팅
     const handleCharSet = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -115,19 +139,42 @@ export default function ProfilePage() {
                     <div className="charContent">
                         <div className="charDefault">
                             <div className="headGif">
-                                <img src={selectChar.gifUrl} alt="캐릭터두상" />
+                                <img
+                                    src="/images/profile/doosang.webp"
+                                    className="headGifFrame"
+                                    alt="두상 프레임"
+                                />
+                                <img
+                                    src={selectChar.gifUrl}
+                                    className="head"
+                                    alt="캐릭터두상"
+                                />
                             </div>
                             <div className="charInfo">
-                                <div className="charName">
-                                    <img src={selectChar.grade} alt="" />
-                                    {selectChar.name}
+                                <div className="charWrap">
+                                    <div className="charDiv charName">
+                                        {selectChar.name}
+                                    </div>
+                                    <div className="charDiv charKimom">
+                                        {selectChar.height}cm /{" "}
+                                        {selectChar.weight}
+                                        kg
+                                    </div>
+                                    <div className="charDiv planet">
+                                        <div className="charFrom">
+                                            {selectChar.from}
+                                        </div>
+                                        <div className="charPlanet">
+                                            {selectChar.planet}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="charName">
-                                    {selectChar.height}cm / {selectChar.weight}
-                                    kg
-                                </div>
-                                <div className="charName">
-                                    {selectChar.from} / {selectChar.planet}
+                                <div className="imgBox">
+                                    <img
+                                        src={selectChar.gradeImg}
+                                        alt=""
+                                        className="gradeImg"
+                                    />
                                 </div>
                             </div>
                             <div className="charBadge">
@@ -137,23 +184,134 @@ export default function ProfilePage() {
                                 />
                             </div>
                         </div>
-                        <div className="charSecret">
-                            <div className="secret secret1">
-                                <p
-                                    dangerouslySetInnerHTML={{
-                                        __html: selectChar.secret1,
-                                    }}
-                                ></p>
-                            </div>
-                            <div className="secret secret2">
-                                <p>{selectChar.secret2}</p>
-                            </div>
-                            <div className="secret secret3">
-                                <p>{selectChar.secret3}</p>
+                        <div className="charSecretWrap">
+                            <div className="charSecret">
+                                <div className="secret secret1">
+                                    <p>{selectChar.secret1}</p>
+                                </div>
+                                <div className="secret secret2">
+                                    <p>{selectChar.secret2}</p>
+                                </div>
+                                <div className="secret secret3">
+                                    <p>{selectChar.secret3}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="charRelation"></div>
+                    <div className="charRelation">
+                        <div className="relations relation1">
+                            <div className="relationInfo">
+                                <div className="relaPhoto">
+                                    <div className="imgBox">
+                                        <img
+                                            src={uidToProfile(selectChar.rela1)}
+                                            className="headRela"
+                                            alt="관계1두상"
+                                        />
+                                        <img
+                                            src="/images/profile/gwangyedoosang.webp"
+                                            className="headFrame"
+                                            alt="headFrame"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="relaContent">
+                                    <div className="textBox">
+                                        <p>{selectChar.desc1}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="relationName">
+                                <div className="nameBox">
+                                    {uidToName(selectChar.rela1)}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relations relation2">
+                            <div className="relationInfo">
+                                <div className="relaPhoto">
+                                    <div className="imgBox">
+                                        <img
+                                            src={uidToProfile(selectChar.rela1)}
+                                            className="headRela"
+                                            alt="관계1두상"
+                                        />
+                                        <img
+                                            src="/images/profile/gwangyedoosang.webp"
+                                            className="headFrame"
+                                            alt="headFrame"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="relaContent">
+                                    <div className="textBox">
+                                        <p>{selectChar.desc1}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="relationName">
+                                <div className="nameBox">
+                                    {uidToName(selectChar.rela1)}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relations relation3">
+                            <div className="relationInfo">
+                                <div className="relaPhoto">
+                                    <div className="imgBox">
+                                        <img
+                                            src={uidToProfile(selectChar.rela1)}
+                                            className="headRela"
+                                            alt="관계1두상"
+                                        />
+                                        <img
+                                            src="/images/profile/gwangyedoosang.webp"
+                                            className="headFrame"
+                                            alt="headFrame"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="relaContent">
+                                    <div className="textBox">
+                                        <p>{selectChar.desc1}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="relationName">
+                                <div className="nameBox">
+                                    {uidToName(selectChar.rela1)}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relations relation4">
+                            <div className="relationInfo">
+                                <div className="relaPhoto">
+                                    <div className="imgBox">
+                                        <img
+                                            src={uidToProfile(selectChar.rela1)}
+                                            className="headRela"
+                                            alt="관계1두상"
+                                        />
+                                        <img
+                                            src="/images/profile/gwangyedoosang.webp"
+                                            className="headFrame"
+                                            alt="headFrame"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="relaContent">
+                                    <div className="textBox">
+                                        <p>{selectChar.desc1}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="relationName">
+                                <div className="nameBox">
+                                    {uidToName(selectChar.rela1)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </Character>
             ) : (
                 <Character>캐릭터를 선택해 주세용</Character>

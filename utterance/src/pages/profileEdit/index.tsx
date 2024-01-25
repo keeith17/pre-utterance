@@ -182,6 +182,10 @@ export default function ProfileEditPage() {
             }
         },
         {
+            onSuccess: () => {
+                alert("저장 성공 임시");
+                navigate("/ProfilePage");
+            },
             onError: (error) => {
                 console.error("POST 실패:", error);
             },
@@ -195,11 +199,11 @@ export default function ProfileEditPage() {
     return (
         <ProfileLayout>
             <div className="profileLayout">
-                <img
+                {/* <img
                     src="/images/profile_write/mainframe/mainframe_968x1043.webp"
                     alt="mainframe_968x1043"
                     className="mainframe"
-                />
+                /> */}
                 <Out
                     onClick={() => {
                         navigate("/");

@@ -24,6 +24,7 @@ export const MyPageStyle = styled.div`
                     width: 28%;
                     height: 100%;
                     position: relative;
+                    cursor: pointer;
                     img {
                         width: 100%;
                         height: 100%;
