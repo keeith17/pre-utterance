@@ -120,6 +120,7 @@ export const SearcDetailWrap = styled.div`
     .contentArea {
         width: 70%;
         height: 100%;
+        padding: 2%;
         .guideWrap {
             width: 100%;
             height: 100%;

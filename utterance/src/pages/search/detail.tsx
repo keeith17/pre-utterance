@@ -2,8 +2,10 @@ import { db } from "@/firebaseApp";
 import { doc, getDoc } from "firebase/firestore";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { SearcDetailWrap } from "./searchStyle";
+import { Out } from "@/components/Style";
+import { RiCloseLine } from "react-icons/ri";
 
 export interface oneButtonProps {
     category: string;
@@ -12,6 +14,7 @@ export interface oneButtonProps {
 
 export default function SearchDetailPage() {
     const params = useParams<{ id: string }>();
+    const navigate = useNavigate();
     const [selectedData, setSelectedData] = useState<string>("");
     const [selectedImage, setSelectedImage] = useState<string>("");
 
@@ -54,6 +57,13 @@ export default function SearchDetailPage() {
     };
     return (
         <SearcDetailWrap>
+            <Out
+                onClick={() => {
+                    navigate("/");
+                }}
+            >
+                <RiCloseLine size={35} />
+            </Out>
             <div className="buttonArea">
                 <div className="buttonBox">
                     {searchData &&
