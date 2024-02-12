@@ -57,17 +57,68 @@ export const SearcDetailWrap = styled.div`
     height: 100%;
     padding-right: 10px;
     display: flex;
+    background: url(/images/world/menu/decoration_168x1080.webp) 0 50% no-repeat;
+    background-size: auto 100%;
     .buttonArea {
-        width: 40%;
+        width: 30%;
         height: 100%;
-        .buttonWrap {
+        background: url(/images/world/menu/pda_214x726.webp) 0 50% no-repeat;
+        background-size: auto 68%;
+        display: flex;
+        align-items: flex-end;
+        .buttonBox {
             width: 100%;
-            height: 50px;
-            padding: 5px 200px;
+            height: 75%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5%;
+            .buttonWrap {
+                width: 60%;
+                height: 8%;
+                button {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    outline: none;
+                    background: url(/images/world/menu/menu_266x61.webp) 0 50%
+                        no-repeat;
+                    background-size: auto 100%;
+                    padding-left: 30%;
+                    p {
+                        font-size: 28px;
+                        // background: red;
+                        padding-top: 1px;
+                        color: black;
+                        font-family: "neurimboGothic";
+                    }
+                }
+                &.selected {
+                    width: 60%;
+                    height: 8%;
+                    button {
+                        width: 100%;
+                        height: 100%;
+                        border: none;
+                        outline: none;
+                        background: url(/images/world/menu/menu_hover_266x61.webp)
+                            0 50% no-repeat;
+                        background-size: auto 100%;
+                        padding-left: 30%;
+                        p {
+                            font-size: 28px;
+                            // background: red;
+                            padding-top: 1px;
+                            color: white;
+                            font-family: "neurimboGothic";
+                        }
+                    }
+                }
+            }
         }
     }
     .contentArea {
-        width: 60%;
+        width: 70%;
         height: 100%;
         .guideWrap {
             width: 100%;

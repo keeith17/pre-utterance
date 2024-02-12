@@ -17,10 +17,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ResultButton from "@/components/resultButton/resultButton";
 import { defaultColor } from "@/GlobalStyle";
+import { oneButtonProps } from "./detail";
 
 //버튼 부분 데이터 타입 설정
 export interface GetButtonProps {
     id: string;
+    content: oneButtonProps[];
+    default: string;
+    defaultImage: string;
     link: string;
     name: string;
     subKey: string[];
