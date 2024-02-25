@@ -10,73 +10,117 @@ export const LoginWrap = styled.div`
     position: relative;
     background: url(/images/loginbackground.webp) no-repeat 50% 0;
     background-size: 100% 100%;
-    // .yImsi {
-    //     width: 100%;
-    //     position: absolute;
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //     padding-right: 2.5%;
-    //     img {
-    //         width: 40%;
-    //     }
-    //     animation: rotate 12s linear infinite;
-    //     // background: pink;
-    // }
-    // .yImsi2 {
-    //     width: 100%;
-    //     position: absolute;
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-    //     padding-right: 2.5%;
-    //     img {
-    //         width: 40%;
-    //     }
-    //     animation: rotate 30s linear infinite;
-    //     // background: pink;
-    // }
+    .yImsi {
+        width: 100%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 35%;
+        }
+        animation: turn1 12s linear infinite;
+        // background: pink;
+    }
+    .yImsi2 {
+        width: 100%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 38%;
+        }
+        animation: turn2 30s linear infinite;
+        // background: pink;
+    }
+    .yImsi3 {
+        width: 100%;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 32%;
+        }
+        animation: rotate 30s linear infinite;
+        // background: pink;
+    }
     .y_rotate {
         width: 100%;
         position: absolute;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-right: 2.5%;
+        padding: 22%;
         img {
             width: 50%;
         }
-        animation: rotate 20s linear infinite;
+        // animation: rotate 20s linear infinite;
         // background: pink;
     }
+
+    @keyframes turn1 {
+        0% {
+            transform: perspective(2000px) rotateX(0deg) rotateY(0deg);
+        }
+        12.5% {
+            transform: perspective(2000px) rotateX(45deg) rotateY(-135deg);
+        }
+        25% {
+            transform: perspective(2000px) rotateX(90deg) rotateY(-270deg);
+        }
+        37.5% {
+            transform: perspective(2000px) rotateX(135deg) rotateY(-405deg);
+        }
+        50% {
+            transform: perspective(2000px) rotateX(180deg) rotateY(-540deg);
+        }
+        62.5% {
+            transform: perspective(2000px) rotateX(225deg) rotateY(-675deg);
+        }
+        75% {
+            transform: perspective(2000px) rotateX(270deg) rotateY(-810deg);
+        }
+        87.5% {
+            transform: perspective(2000px) rotateX(315deg) rotateY(-945deg);
+        }
+        100% {
+            transform: perspective(2000px) rotateX(360deg) rotateY(-1080deg);
+        }
+    }
+
+    @keyframes turn2 {
+        0% {
+            transform: perspective(2000px) rotateX(90deg) rotateY(-270deg);
+        }
+        12.5% {
+            transform: perspective(2000px) rotateX(135deg) rotateY(-405deg);
+        }
+        25% {
+            transform: perspective(2000px) rotateX(180deg) rotateY(-540deg);
+        }
+        37.5% {
+            transform: perspective(2000px) rotateX(225deg) rotateY(-675deg);
+        }
+        50% {
+            transform: perspective(2000px) rotateX(270deg) rotateY(-810deg);
+        }
+        62.5% {
+            transform: perspective(2000px) rotateX(315deg) rotateY(-945deg);
+        }
+        75% {
+            transform: perspective(2000px) rotateX(360deg) rotateY(-1080deg);
+        }
+        87.5% {
+            transform: perspective(2000px) rotateX(405deg) rotateY(-1215deg);
+        }
+        100% {
+            transform: perspective(2000px) rotateX(450deg) rotateY(-1350deg);
+        }
+    }
+
     @keyframes rotate {
-        // 0% {
-        //     transform: perspective(2000px) rotateX(0deg) rotateY(0deg);
-        // }
-        // 12.5% {
-        //     transform: perspective(2000px) rotateX(45deg) rotateY(-135deg);
-        // }
-        // 25% {
-        //     transform: perspective(2000px) rotateX(90deg) rotateY(-270deg);
-        // }
-        // 37.5% {
-        //     transform: perspective(2000px) rotateX(135deg) rotateY(-405deg);
-        // }
-        // 50% {
-        //     transform: perspective(2000px) rotateX(180deg) rotateY(-540deg);
-        // }
-        // 62.5% {
-        //     transform: perspective(2000px) rotateX(225deg) rotateY(-675deg);
-        // }
-        // 75% {
-        //     transform: perspective(2000px) rotateX(270deg) rotateY(-810deg);
-        // }
-        // 87.5% {
-        //     transform: perspective(2000px) rotateX(315deg) rotateY(-945deg);
-        // }
-        // 100% {
-        //     transform: perspective(2000px) rotateX(360deg) rotateY(-1080deg);
-        // }
         to {
             transform: perspective(2000px) rotateZ(360deg);
         }

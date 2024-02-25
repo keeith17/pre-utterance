@@ -29,16 +29,18 @@ export const Character = styled.div`
                     position: absolute;
                     top: 15px;
                     left: 15px;
-                    height: 90%;
                 }
                 .headGifFrame {
                     z-index: 2;
+                    height: 90%;
                 }
                 .head {
+                    height: 72%;
                     z-index: 1;
-                    object-fit: cover;
-                    aspect-ratio: 1/1;
-                    padding: 28px;
+                    margin: 10%;
+                    border: 1px solid rgba(255, 255, 255, 0.7);
+                    // object-fit: cover;
+                    // aspect-ratio: 1/1;
                     // clip-path: polygon(
                     //     0% 0%,
                     //     50% 0%,

@@ -42,23 +42,30 @@ export default function LoginPage() {
             {/* <video width="100%" muted autoPlay loop>
                 <source src={"/videos/Untitled.mp4"} type="video/mp4" />
             </video> */}
-            {/* <div className="yImsi">
+            <div className="yImsi">
                 <img
-                    src="/images/index/indexorbit.webp"
+                    src="/images/index/ewcircle2.webp"
                     alt="y_rotate"
                     // height={500}
                 />
             </div>
             <div className="yImsi2">
                 <img
-                    src="/images/index/indexorbit.webp"
+                    src="/images/index/circle2.webp"
                     alt="y_rotate"
                     // height={500}
                 />
-            </div> */}
+            </div>
+            <div className="yImsi3">
+                <img
+                    src="/images/index/noongeum.webp"
+                    alt="y_rotate"
+                    // height={500}
+                />
+            </div>
             <div className="y_rotate">
                 <img
-                    src="/images/index/y_rotate.webp"
+                    src="/images/index/indexin.webp"
                     alt="y_rotate"
                     // height={500}
                 />

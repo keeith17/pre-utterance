@@ -199,7 +199,7 @@ export default function SearchPage() {
             </div>
             <div className="underBar">
                 <img
-                    src="/images/main/main/underbar_1476x76.webp"
+                    src="/images/main/main/bottombar.svg"
                     alt="underbar_1476x76"
                 />
             </div>
