@@ -11,7 +11,7 @@ import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
 import { userState } from "@/atom";
 import { useRecoilValue } from "recoil";
-import { FaRegComment, FaUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 
 export interface CommentProps {
     id: string;
