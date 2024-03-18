@@ -9,9 +9,9 @@ import {
 import { NoticeStyle, PostBoxStyle } from "./NoticeBoxStyle";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
-import { userState } from "@/atom";
-import { useRecoilValue } from "recoil";
-import { FaUserCircle } from "react-icons/fa";
+// import { userState } from "@/atom";
+// import { useRecoilValue } from "recoil";
+// import { FaUserCircle } from "react-icons/fa";
 
 export interface CommentProps {
     id: string;
@@ -39,7 +39,7 @@ export interface PostProps {
 }
 
 export default function NoticeBox() {
-    const user = useRecoilValue(userState);
+    // const user = useRecoilValue(userState);
     //공지 데이터 받아오기
     const fetchNoticeData = async () => {
         try {
@@ -72,7 +72,7 @@ export default function NoticeBox() {
                             <PostBoxStyle key={index}>
                                 <div className="profile">
                                     <div className="postFlex">
-                                        {user?.photoURL ? (
+                                        {/* {user?.photoURL ? (
                                             <div className="imgBox">
                                                 <img
                                                     src={
@@ -98,7 +98,8 @@ export default function NoticeBox() {
                                                     {post?.createdAt.slice(6)}
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> */}
+                                        📢🚨
                                     </div>
                                     <div className="postContent">
                                         {post?.content}
