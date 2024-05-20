@@ -71,36 +71,7 @@ export default function NoticeBox() {
                         noticePosts?.map((post: PostProps, index: number) => (
                             <PostBoxStyle key={index}>
                                 <div className="profile">
-                                    <div className="postFlex">
-                                        {/* {user?.photoURL ? (
-                                            <div className="imgBox">
-                                                <img
-                                                    src={
-                                                        post.profileUrl
-                                                            ? post.profileUrl
-                                                            : "PROFILE_DEFAULT_URL"
-                                                    }
-                                                    alt="profile"
-                                                    className="img"
-                                                />
-                                            </div>
-                                        ) : (
-                                            <FaUserCircle className="icon" />
-                                        )}
-                                        <div className="flexBetween">
-                                            <div className="postFlex">
-                                                <div className="email">
-                                                    {post?.nickname
-                                                        ? post?.nickname
-                                                        : "no name"}
-                                                </div>
-                                                <div className="createdAt">
-                                                    {post?.createdAt.slice(6)}
-                                                </div>
-                                            </div>
-                                        </div> */}
-                                        📢🚨
-                                    </div>
+                                    <div className="postFlex">📢🚨</div>
                                     <div className="postContent">
                                         {post?.content}
                                     </div>

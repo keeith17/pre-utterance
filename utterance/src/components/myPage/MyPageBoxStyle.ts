@@ -66,6 +66,11 @@ export const MyPageStyle = styled.div`
                 }
             }
         }
+        .logoutArea {
+            position: absolute;
+            top: 20%;
+            right: 10%;
+        }
         // .shortCutArea {
         //     width: 100%;
         //     height: 30%;
