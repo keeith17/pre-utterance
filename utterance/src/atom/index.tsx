@@ -15,6 +15,7 @@ export interface AllCharProps {
     gradeImg: string;
     name: string;
     nick: string;
+    credit: number;
     id: string;
     height: string;
     weight: string;
@@ -46,6 +47,7 @@ export const selectUserState = atom<AllCharProps>({
         badgeImg: "",
         grade: "",
         gradeImg: "",
+        credit: 0,
         name: "",
         height: "",
         weight: "",

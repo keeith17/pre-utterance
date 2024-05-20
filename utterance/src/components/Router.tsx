@@ -5,6 +5,7 @@ import ProfilePage from "@/pages/profile";
 import AddIdPage from "@/pages/admin/addId";
 import SearchDetailPage from "@/pages/search/detail";
 import ProfileEditPage from "@/pages/profileEdit";
+import Control from "@/pages/admin/control";
 
 interface RouterProps {
     isAuthenticated: boolean;
@@ -22,6 +23,7 @@ export default function Router({ isAuthenticated }: RouterProps) {
                         path="/ProfileEditPage"
                         element={<ProfileEditPage />}
                     />
+                    <Route path="/admin/control" element={<Control />} />
                 </>
             ) : (
                 <>

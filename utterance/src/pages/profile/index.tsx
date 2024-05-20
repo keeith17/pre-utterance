@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { CharList, Character, CharacterWrap } from "./profileStyle";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
@@ -37,7 +37,9 @@ export default function ProfilePage() {
     };
     // 전체 캐릭터 데이터 받아 오는 부분
     const fetchAllCharData = async () => {
-        const allCharSnapshot = await getDocs(collection(db, "character"));
+        const charRef = collection(db, "character");
+        const charQuery = query(charRef, orderBy("name", "asc"));
+        const allCharSnapshot = await getDocs(charQuery);
         const data: AllCharProps[] = allCharSnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),

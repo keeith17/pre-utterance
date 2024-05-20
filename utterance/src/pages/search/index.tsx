@@ -32,6 +32,11 @@ export interface GetButtonProps {
 interface defaultInfo {
     name: string;
     nick: string;
+    badge: string;
+    badgeImg: string;
+    grade: string;
+    gradeImg: string;
+    credit: number;
 }
 // 버튼 부분 데이터 페칭 함수
 const fetchButtonData = async () => {
@@ -88,6 +93,11 @@ export default function SearchPage() {
                 await setDoc(charRef, {
                     name: defaultInfo.name,
                     nick: defaultInfo.nick,
+                    badge: defaultInfo.badge,
+                    badgeImg: defaultInfo.badgeImg,
+                    grade: defaultInfo.grade,
+                    gradeImg: defaultInfo.gradeImg,
+                    credit: defaultInfo.credit,
                 });
                 await queryClient.invalidateQueries(`char`);
                 await queryClient.invalidateQueries(`charData`);
@@ -107,6 +117,11 @@ export default function SearchPage() {
         mutation.mutate({
             name: char,
             nick: nick,
+            badge: "quasa4",
+            badgeImg: "/images/seederEdit.webp",
+            grade: "0",
+            gradeImg: "/images/seederEdit.webp",
+            credit: 100,
         });
     };
 
