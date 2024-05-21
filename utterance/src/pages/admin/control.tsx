@@ -9,7 +9,7 @@ import {
 import { ControlStyle } from "./adminStyle";
 import { db } from "@/firebaseApp";
 import { AllCharProps } from "@/atom";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { ButtonStyle, DropdownStyle, InputStyle } from "@/components/Style";
 import { useState } from "react";
 
@@ -26,11 +26,11 @@ interface GradeUpdatesProps {
     };
 }
 export default function Control() {
+    const queryClient = useQueryClient();
     const [updates, setUpdates] = useState<MoneyUpdatesProps[]>([]);
-
     const [gradeUpdates, setGradeUpdates] = useState<GradeUpdatesProps[]>([]);
-
     const [mode, setMode] = useState<string>("moneyadd");
+
     const fetchAllCharData = async () => {
         try {
             const charRef = collection(db, "character");
@@ -114,6 +114,7 @@ export default function Control() {
 
             try {
                 await batch.commit();
+                await queryClient.invalidateQueries("allChar");
                 console.log("Batch write successfully committed!");
             } catch (error) {
                 console.error("Error writing batch: ", error);
@@ -127,6 +128,7 @@ export default function Control() {
 
             try {
                 await batch.commit();
+                await queryClient.invalidateQueries("allChar");
                 console.log("Batch write successfully committed!");
             } catch (error) {
                 console.error("Error writing batch: ", error);
@@ -139,6 +141,7 @@ export default function Control() {
             <div className="buttonWrap">
                 <ButtonStyle
                     fontSize="15px"
+                    className={mode === "moneyadd" ? "on" : ""}
                     onClick={() => {
                         setMode("moneyadd");
                         setUpdates([]);
@@ -148,6 +151,7 @@ export default function Control() {
                 </ButtonStyle>
                 <ButtonStyle
                     fontSize="15px"
+                    className={mode === "moneysub" ? "on" : ""}
                     onClick={() => {
                         setMode("moneysub");
                         setUpdates([]);
@@ -157,6 +161,7 @@ export default function Control() {
                 </ButtonStyle>
                 <ButtonStyle
                     fontSize="15px"
+                    className={mode === "grade" ? "on" : ""}
                     onClick={() => {
                         setMode("grade");
                         setUpdates([]);
@@ -165,74 +170,80 @@ export default function Control() {
                     등급
                 </ButtonStyle>
             </div>
-            {allChar && mode === "moneyadd"
-                ? allChar?.map((character, index) => (
-                      <li className="eachlow" key={index}>
-                          <div className="charname">{character?.name}</div>
-                          <div className="money">
-                              {(character?.credit || 0) + "Q"}
-                          </div>
-                          <div className="makeMoney">
-                              <InputStyle
-                                  fontSize="13px"
-                                  fontFamily="nexonGothic"
-                                  height="20px"
-                                  border="1px solid #fff"
-                                  name={character.id}
-                                  onChange={handleChange}
-                              />
-                          </div>
-                          <div className="leftMoney">
-                              {searchLeftCredit(character.id) ||
-                                  character.credit}
-                          </div>
-                      </li>
-                  ))
-                : mode === "moneysub"
-                ? allChar?.map((character, index) => (
-                      <li className="eachlow" key={index}>
-                          <div className="charname">{character?.name}</div>
-                          <div className="money">
-                              {(character?.credit || 0) + "Q"}
-                          </div>
-                          <div className="makeMoney">
-                              <InputStyle
-                                  fontSize="13px"
-                                  fontFamily="nexonGothic"
-                                  height="20px"
-                                  border="1px solid #fff"
-                                  name={character.id}
-                                  onChange={handleChange}
-                              />
-                          </div>
-                          <div className="leftMoney">
-                              {searchLeftCredit(character.id) ||
-                                  character.credit}
-                          </div>
-                      </li>
-                  ))
-                : allChar?.map((character, index) => (
-                      <li className="eachlow" key={index}>
-                          <div className="charname">{character?.name}</div>
-                          <div className="grade">
-                              <DropdownStyle
-                                  height="30px"
-                                  fontFamily="nexonGothic"
-                                  name={character.id}
-                                  defaultValue={character?.grade}
-                                  onChange={handleChange}
-                              >
-                                  <option value="0">0 등급</option>
-                                  <option value="1">1 등급</option>
-                                  <option value="2">2 등급</option>
-                                  <option value="3">3 등급</option>
-                                  {/* <option>
+            <ul className="centerWrap">
+                {allChar &&
+                    mode === "moneyadd" &&
+                    allChar?.map((character, index) => (
+                        <li className="eachlow" key={index}>
+                            <div className="charname">{character?.name}</div>
+                            <div className="money">
+                                {(character?.credit || 0) + " Q"}
+                            </div>
+                            <div className="makeMoney">
+                                <InputStyle
+                                    fontSize="13px"
+                                    fontFamily="nexonGothic"
+                                    height="30px"
+                                    border="1px solid #fff"
+                                    name={character.id}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="leftMoney">
+                                {(searchLeftCredit(character.id) ||
+                                    character.credit) + " Q"}
+                            </div>
+                        </li>
+                    ))}
+                {allChar &&
+                    mode === "moneysub" &&
+                    allChar?.map((character, index) => (
+                        <li className="eachlow" key={index}>
+                            <div className="charname">{character?.name}</div>
+                            <div className="money">
+                                {(character?.credit || 0) + " Q"}
+                            </div>
+                            <div className="makeMoney">
+                                <InputStyle
+                                    fontSize="13px"
+                                    fontFamily="nexonGothic"
+                                    height="30px"
+                                    border="1px solid #fff"
+                                    name={character.id}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="leftMoney">
+                                {(searchLeftCredit(character.id) ||
+                                    character.credit) + " Q"}
+                            </div>
+                        </li>
+                    ))}
+                {allChar &&
+                    mode === "grade" &&
+                    allChar?.map((character, index) => (
+                        <li className="eachlow" key={index}>
+                            <div className="charname">{character?.name}</div>
+                            <div className="grade">
+                                <DropdownStyle
+                                    height="30px"
+                                    fontFamily="nexonGothic"
+                                    name={character.id}
+                                    defaultValue={character?.grade}
+                                    onChange={handleChange}
+                                >
+                                    <option value="0">0 등급</option>
+                                    <option value="1">1 등급</option>
+                                    <option value="2">2 등급</option>
+                                    <option value="3">3 등급</option>
+                                    {/* <option>
                                       {(character?.grade || 0) + "등급"}
                                   </option> */}
-                              </DropdownStyle>
-                          </div>
-                      </li>
-                  ))}
+                                </DropdownStyle>
+                            </div>
+                        </li>
+                    ))}
+            </ul>
             <div className="buttonWrap">
                 <ButtonStyle fontSize="15px" onClick={handleSubmit}>
                     저장!
