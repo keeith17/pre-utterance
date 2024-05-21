@@ -445,8 +445,8 @@ export default function ProfileEditPage() {
                         </div>
                     </div>
                     <Save>
-                        <ButtonStyle fontSize="13px">미리 보기</ButtonStyle>
-                        <ButtonStyle type="submit" fontSize="13px">
+                        <ButtonStyle fontSize="15px">미리 보기</ButtonStyle>
+                        <ButtonStyle type="submit" fontSize="15px">
                             저장
                         </ButtonStyle>
                     </Save>

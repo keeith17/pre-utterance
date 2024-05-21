@@ -90,12 +90,20 @@ export const ProfileLayout = styled.div`
 `;
 
 export const Save = styled.div`
-    width: 15%;
-    height: 12%;
+    width: 5%;
+    height: 15%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     position: absolute;
-    bottom: 2%;
+    bottom: 50%;
     right: 5%;
+    button {
+        background: white;
+        color: black;
+        font-weight: 700;
+        &:hover {
+            color: white;
+        }
+    }
 `;
