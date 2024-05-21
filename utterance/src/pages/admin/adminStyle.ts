@@ -12,7 +12,7 @@ export const ControlStyle = styled.ul`
         }
     }
     .buttonWrap {
-        width: 80px;
+        width: 200px;
         height: 40px;
         display: flex;
     }

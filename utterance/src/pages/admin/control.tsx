@@ -13,15 +13,24 @@ import { useQuery } from "react-query";
 import { ButtonStyle, DropdownStyle, InputStyle } from "@/components/Style";
 import { useState } from "react";
 
-interface UpdatesProps {
+interface MoneyUpdatesProps {
     id: string;
     data: {
         [credit: string]: number;
     };
 }
+interface GradeUpdatesProps {
+    id: string;
+    data: {
+        [grade: string]: string;
+    };
+}
 export default function Control() {
-    const [updates, setUpdates] = useState<UpdatesProps[]>([]);
-    const [mode, setMode] = useState<string>("money");
+    const [updates, setUpdates] = useState<MoneyUpdatesProps[]>([]);
+
+    const [gradeUpdates, setGradeUpdates] = useState<GradeUpdatesProps[]>([]);
+
+    const [mode, setMode] = useState<string>("moneyadd");
     const fetchAllCharData = async () => {
         try {
             const charRef = collection(db, "character");
@@ -59,16 +68,36 @@ export default function Control() {
             }
         }
     };
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (
+        e:
+            | React.ChangeEvent<HTMLInputElement>
+            | React.ChangeEvent<HTMLSelectElement>
+    ) => {
         const {
             target: { name, value },
         } = e;
         // const tempArr = updates.filter((update) => update.id !== name);
         const myCredit = searchCredit(name);
         if (myCredit) {
-            setUpdates([
-                ...updates.filter((update) => update.id !== name),
-                { id: name, data: { credit: myCredit + Number(value) } },
+            if (mode === "moneyadd") {
+                setUpdates([
+                    ...updates.filter((update) => update.id !== name),
+                    { id: name, data: { credit: myCredit + Number(value) } },
+                ]);
+            }
+            if (mode === "moneysub") {
+                setUpdates([
+                    ...updates.filter((update) => update.id !== name),
+                    { id: name, data: { credit: myCredit - Number(value) } },
+                ]);
+            }
+        }
+        if (mode === "grade") {
+            setGradeUpdates([
+                ...gradeUpdates.filter(
+                    (gradeUpdates) => gradeUpdates.id !== name
+                ),
+                { id: name, data: { grade: value } },
             ]);
         }
         // setUpdates([...updates, { id: name, data: { credit: value } }]);
@@ -77,16 +106,31 @@ export default function Control() {
     const handleSubmit = async () => {
         const batch = writeBatch(db);
 
-        updates.forEach((update) => {
-            const docRef = doc(db, "character", update.id);
-            batch.update(docRef, update.data);
-        });
+        if (mode === "moneyadd" || mode === "moneysub") {
+            updates.forEach((update) => {
+                const docRef = doc(db, "character", update.id);
+                batch.update(docRef, update.data);
+            });
 
-        try {
-            await batch.commit();
-            console.log("Batch write successfully committed!");
-        } catch (error) {
-            console.error("Error writing batch: ", error);
+            try {
+                await batch.commit();
+                console.log("Batch write successfully committed!");
+            } catch (error) {
+                console.error("Error writing batch: ", error);
+            }
+        }
+        if (mode === "grade") {
+            gradeUpdates.forEach((update) => {
+                const docRef = doc(db, "character", update.id);
+                batch.update(docRef, update.data);
+            });
+
+            try {
+                await batch.commit();
+                console.log("Batch write successfully committed!");
+            } catch (error) {
+                console.error("Error writing batch: ", error);
+            }
         }
     };
 
@@ -96,11 +140,20 @@ export default function Control() {
                 <ButtonStyle
                     fontSize="15px"
                     onClick={() => {
-                        setMode("money");
+                        setMode("moneyadd");
                         setUpdates([]);
                     }}
                 >
-                    재화
+                    재화 추가
+                </ButtonStyle>
+                <ButtonStyle
+                    fontSize="15px"
+                    onClick={() => {
+                        setMode("moneysub");
+                        setUpdates([]);
+                    }}
+                >
+                    재화 차감
                 </ButtonStyle>
                 <ButtonStyle
                     fontSize="15px"
@@ -112,7 +165,30 @@ export default function Control() {
                     등급
                 </ButtonStyle>
             </div>
-            {allChar && mode === "money"
+            {allChar && mode === "moneyadd"
+                ? allChar?.map((character, index) => (
+                      <li className="eachlow" key={index}>
+                          <div className="charname">{character?.name}</div>
+                          <div className="money">
+                              {(character?.credit || 0) + "Q"}
+                          </div>
+                          <div className="makeMoney">
+                              <InputStyle
+                                  fontSize="13px"
+                                  fontFamily="nexonGothic"
+                                  height="20px"
+                                  border="1px solid #fff"
+                                  name={character.id}
+                                  onChange={handleChange}
+                              />
+                          </div>
+                          <div className="leftMoney">
+                              {searchLeftCredit(character.id) ||
+                                  character.credit}
+                          </div>
+                      </li>
+                  ))
+                : mode === "moneysub"
                 ? allChar?.map((character, index) => (
                       <li className="eachlow" key={index}>
                           <div className="charname">{character?.name}</div>
@@ -142,31 +218,14 @@ export default function Control() {
                               <DropdownStyle
                                   height="30px"
                                   fontFamily="nexonGothic"
+                                  name={character.id}
+                                  defaultValue={character?.grade}
+                                  onChange={handleChange}
                               >
-                                  <option
-                                      value="0"
-                                      selected={character?.grade === "0"}
-                                  >
-                                      0 등급
-                                  </option>
-                                  <option
-                                      value="1"
-                                      selected={character?.grade === "1"}
-                                  >
-                                      1 등급
-                                  </option>
-                                  <option
-                                      value="2"
-                                      selected={character?.grade === "2"}
-                                  >
-                                      2 등급
-                                  </option>
-                                  <option
-                                      value="3"
-                                      selected={character?.grade === "3"}
-                                  >
-                                      3 등급
-                                  </option>
+                                  <option value="0">0 등급</option>
+                                  <option value="1">1 등급</option>
+                                  <option value="2">2 등급</option>
+                                  <option value="3">3 등급</option>
                                   {/* <option>
                                       {(character?.grade || 0) + "등급"}
                                   </option> */}
