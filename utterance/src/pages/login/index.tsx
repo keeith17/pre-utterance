@@ -13,6 +13,7 @@ export default function LoginPage() {
     //이메일, 비밀번호 변수
     const [serial, setSerial] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [error, setError] = useState<boolean>(false);
     //입력된 이메일, 비밀번호 값 변경
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
@@ -34,6 +35,7 @@ export default function LoginPage() {
             navigate("/");
             await queryClient.invalidateQueries("charData");
         } catch (error) {
+            setError(true);
             console.log(error);
         }
     };
@@ -100,6 +102,11 @@ export default function LoginPage() {
                             fontFamily="nexonGothic"
                             onChange={onChange}
                         />
+                        {error && (
+                            <div className="wrong">
+                                로그인 정보를 다시 확인해 주세요.
+                            </div>
+                        )}
                     </div>
                     <div className="submit">
                         <button type="submit" className="loginSubmit">

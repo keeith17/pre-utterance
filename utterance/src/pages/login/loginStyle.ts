@@ -1,4 +1,4 @@
-import { defaultColor } from "@/GlobalStyle";
+import { dangerColor, defaultColor } from "@/GlobalStyle";
 import styled from "@emotion/styled";
 
 export const LoginWrap = styled.div`
@@ -162,10 +162,18 @@ export const InfoArea = styled.form`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        position: relative;
         input {
             &::placeholder {
                 font-family: "spaceAge";
             }
+        }
+        .wrong {
+            color: ${dangerColor};
+            position: absolute;
+            bottom: -20px;
+            left: 5px;
+            font-size: 13px;
         }
     }
     .submit {
