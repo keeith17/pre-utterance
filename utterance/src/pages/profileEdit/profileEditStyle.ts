@@ -91,7 +91,7 @@ export const ProfileLayout = styled.div`
 
 export const Save = styled.div`
     width: 5%;
-    height: 15%;
+    height: 5%;
     display: flex;
     flex-direction: column;
     gap: 20px;

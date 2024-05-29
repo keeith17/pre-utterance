@@ -8,10 +8,18 @@ import {
 import { ProfileLayout, Save } from "./profileEditStyle";
 import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    orderBy,
+    query,
+    updateDoc,
+} from "firebase/firestore";
 import { db } from "@/firebaseApp";
-import { useRecoilValue } from "recoil";
-import { userState } from "@/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { AllCharProps, selectUserState, userState } from "@/atom";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
@@ -36,6 +44,7 @@ interface InputCharProps {
 export default function ProfileEditPage() {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
+    const setSelectChar = useSetRecoilState(selectUserState);
     // 스타일링 통일
     const thisHeight: string = "30px";
     const thisFont: string = "nexonGothic";
@@ -43,13 +52,25 @@ export default function ProfileEditPage() {
     const user = useRecoilValue(userState);
     const userUid = user.uid;
 
+    // uid -> 이름
+    const uidToName = (uid: string) => {
+        if (allChar) {
+            for (const char of allChar) {
+                if (char.id === uid) {
+                    return char.name;
+                }
+            }
+            return "none";
+        }
+    };
+
     // 내 캐릭터 정보 세팅
     const fetchCharData = async (userUid: string | null) => {
         if (userUid) {
             const charRef = doc(db, "character", userUid);
             const charSnap = await getDoc(charRef);
             const data = {
-                ...(charSnap?.data() as InputCharProps),
+                ...(charSnap?.data() as AllCharProps),
                 id: userUid,
             };
             setInput({
@@ -75,11 +96,32 @@ export default function ProfileEditPage() {
         }
     };
     // 내 캐릭터 정보
-    const { data: myChar } = useQuery<InputCharProps>(
+    const { data: myChar } = useQuery<AllCharProps>(
         "charData",
         () => fetchCharData(userUid),
         {
             staleTime: 60000,
+        }
+    );
+
+    // 전체 캐릭터 데이터 받아 오는 부분
+    const fetchAllCharData = async () => {
+        const charRef = collection(db, "character");
+        const charQuery = query(charRef, orderBy("name", "asc"));
+        const allCharSnapshot = await getDocs(charQuery);
+        const data: AllCharProps[] = allCharSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        })) as AllCharProps[];
+
+        return data;
+    };
+
+    const { data: allChar } = useQuery<AllCharProps[]>(
+        "allChar",
+        fetchAllCharData,
+        {
+            staleTime: 30000, // 캐시된 데이터가 30초 후에 만료됨
         }
     );
 
@@ -184,6 +226,30 @@ export default function ProfileEditPage() {
         {
             onSuccess: () => {
                 alert("저장 성공 임시");
+                setSelectChar({
+                    id: myChar?.id || "",
+                    nick: myChar?.nick || "",
+                    gifUrl: input?.gifUrl || "",
+                    badge: myChar?.badge || "",
+                    badgeImg: myChar?.badgeImg || "",
+                    grade: myChar?.grade || "",
+                    gradeImg: myChar?.gradeImg || "",
+                    credit: myChar?.credit || 0,
+                    name: input.name || "",
+                    height: input.height || "",
+                    weight: input.weight || "",
+                    from: input.from || "",
+                    planet: input.planet || "",
+                    secret1: input.secret1 || "",
+                    secret2: input.secret2 || "",
+                    secret3: input.secret3 || "",
+                    rela1: input.rela1 || "",
+                    desc1: input.desc1 || "",
+                    rela2: input.rela2 || "",
+                    desc2: input.desc2 || "",
+                    rela3: input.rela3 || "",
+                    desc3: input.desc3 || "",
+                });
                 navigate("/ProfilePage");
             },
             onError: (error) => {
@@ -375,9 +441,11 @@ export default function ProfileEditPage() {
                                     name="rela1"
                                     onChange={handleChange}
                                 >
-                                    <option value="1번 친구">1번 친구</option>
-                                    <option value="2번 친구">2번 친구</option>
-                                    <option value="3번 친구">3번 친구</option>
+                                    {allChar?.map((char, index) => (
+                                        <option key={index} value={char.id}>
+                                            {uidToName(char.id)}
+                                        </option>
+                                    ))}
                                 </DropdownStyle>
                                 <InputStyle
                                     fontSize=" 13px"
@@ -401,9 +469,11 @@ export default function ProfileEditPage() {
                                     name="rela2"
                                     onChange={handleChange}
                                 >
-                                    <option value="1번 친구">1번 친구</option>
-                                    <option value="2번 친구">2번 친구</option>
-                                    <option value="3번 친구">3번 친구</option>
+                                    {allChar?.map((char, index) => (
+                                        <option key={index} value={char.id}>
+                                            {uidToName(char.id)}
+                                        </option>
+                                    ))}
                                 </DropdownStyle>
                                 <InputStyle
                                     fontSize=" 13px"
@@ -427,9 +497,11 @@ export default function ProfileEditPage() {
                                     name="rela3"
                                     onChange={handleChange}
                                 >
-                                    <option value="1번 친구">1번 친구</option>
-                                    <option value="2번 친구">2번 친구</option>
-                                    <option value="3번 친구">3번 친구</option>
+                                    {allChar?.map((char, index) => (
+                                        <option key={index} value={char.id}>
+                                            {uidToName(char.id)}
+                                        </option>
+                                    ))}
                                 </DropdownStyle>
                                 <InputStyle
                                     fontSize="13px"
@@ -445,8 +517,7 @@ export default function ProfileEditPage() {
                         </div>
                     </div>
                     <Save>
-                        <ButtonStyle fontSize="15px">미리 보기</ButtonStyle>
-                        <ButtonStyle type="submit" fontSize="15px">
+                        <ButtonStyle type="submit" fontSize="17px">
                             저장
                         </ButtonStyle>
                     </Save>

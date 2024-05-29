@@ -28,7 +28,7 @@ export const ButtonStyle = styled.button<ButtonProps>`
     border-radius: 3px;
     color: #fff;
     font-size: ${(props) => props.fontSize};
-    font-family: "Giants-Inline";
+    font-family: "neurimboGothic";
     transition: all 0.1s;
     &.selected {
         color: red;

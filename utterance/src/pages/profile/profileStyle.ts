@@ -151,18 +151,19 @@ export const Character = styled.div`
             height: 65%;
             background: url(/images/profile/maimframe.webp) 60% 50% no-repeat;
             background-size: 96% 95%;
-            padding: 40px 45px 50px 45px;
+            padding: 3.9% 4.3% 4.8% 4.3%;
             .charSecret {
                 width: 100%;
                 height: 100%;
                 overflow-y: scroll;
-                padding-right: 5px;
+                padding-right: 0.5%;
                 // display: flex;
                 // flex-direction: column;
                 // gap: 20px;
                 .secret {
                     width: 100%;
-                    height: 250px;
+                    height: 57%;
+                    // height: 250px;
                     margin-bottom: 15px;
                     display: flex;
                     align-items: flex-end;
@@ -258,11 +259,20 @@ export const Character = styled.div`
                 .nameBox {
                     width: 50%;
                     height: 100%;
-                    padding-left: 50px;
-                    padding-top: 8px;
+                    display: flex;
+                    justify-content: flex-end;
+                    // padding-left: 50px;
+                    // padding-top: 8px;
                     background: url(/images/profile/gwangyename.webp) 0 100%
                         no-repeat;
                     background-size: 100% 100%;
+                    p {
+                        width: 83%;
+                        height: 78%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
                 }
             }
         }

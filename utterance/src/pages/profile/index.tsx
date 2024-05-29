@@ -23,9 +23,9 @@ export default function ProfilePage() {
         "quasa3",
     ]);
     const [badgeList, setBadgeList] = useState<string[]>([
-        "https://i.imgur.com/IrbjZek.png",
-        "https://i.imgur.com/PRPLtc3.png",
-        "https://i.imgur.com/JAj1OK7.png",
+        "/images/etc/badge1.png",
+        "/images/etc/badge2.png",
+        "/images/etc/badge3.png",
     ]);
     const handleRight = () => {
         if (selectHouse < houseList.length - 1) setSelectHouse(selectHouse + 1);
@@ -225,7 +225,7 @@ export default function ProfilePage() {
                             </div>
                             <div className="relationName">
                                 <div className="nameBox">
-                                    {uidToName(selectChar.rela1)}
+                                    <p>{uidToName(selectChar.rela1)}</p>
                                 </div>
                             </div>
                         </div>
@@ -234,7 +234,7 @@ export default function ProfilePage() {
                                 <div className="relaPhoto">
                                     <div className="imgBox">
                                         <img
-                                            src={uidToProfile(selectChar.rela1)}
+                                            src={uidToProfile(selectChar.rela2)}
                                             className="headRela"
                                             alt="관계1두상"
                                         />
@@ -247,13 +247,13 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="relaContent">
                                     <div className="textBox">
-                                        <p>{selectChar.desc1}</p>
+                                        <p>{selectChar.desc2}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="relationName">
                                 <div className="nameBox">
-                                    {uidToName(selectChar.rela1)}
+                                    <p>{uidToName(selectChar.rela2)}</p>
                                 </div>
                             </div>
                         </div>
@@ -262,7 +262,7 @@ export default function ProfilePage() {
                                 <div className="relaPhoto">
                                     <div className="imgBox">
                                         <img
-                                            src={uidToProfile(selectChar.rela1)}
+                                            src={uidToProfile(selectChar.rela3)}
                                             className="headRela"
                                             alt="관계1두상"
                                         />
@@ -275,13 +275,13 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="relaContent">
                                     <div className="textBox">
-                                        <p>{selectChar.desc1}</p>
+                                        <p>{selectChar.desc3}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="relationName">
                                 <div className="nameBox">
-                                    {uidToName(selectChar.rela1)}
+                                    <p>{uidToName(selectChar.rela3)}</p>
                                 </div>
                             </div>
                         </div>
@@ -290,7 +290,7 @@ export default function ProfilePage() {
                                 <div className="relaPhoto">
                                     <div className="imgBox">
                                         <img
-                                            src={uidToProfile(selectChar.rela1)}
+                                            src={uidToProfile(selectChar.rela3)}
                                             className="headRela"
                                             alt="관계1두상"
                                         />
@@ -303,13 +303,13 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="relaContent">
                                     <div className="textBox">
-                                        <p>{selectChar.desc1}</p>
+                                        <p>{selectChar.desc3}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="relationName">
                                 <div className="nameBox">
-                                    {uidToName(selectChar.rela1)}
+                                    <p>{uidToName(selectChar.rela3)}</p>
                                 </div>
                             </div>
                         </div>
