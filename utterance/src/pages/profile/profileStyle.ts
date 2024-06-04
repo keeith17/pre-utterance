@@ -142,7 +142,7 @@ export const Character = styled.div`
                     border: 1px solid #fff;
                     position: absolute;
                     bottom: 8%;
-                    right: 16%;
+                    right: 8%;
                     .gradeImg {
                         height: 100%;
                     }
