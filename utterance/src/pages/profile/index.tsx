@@ -5,7 +5,12 @@ import { useQuery } from "react-query";
 import { useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { useRecoilState } from "recoil";
-import { AllCharProps, selectUserState } from "@/atom";
+import {
+    AllCharProps,
+    houseBadgeState,
+    houseState,
+    selectUserState,
+} from "@/atom";
 import { Out } from "@/components/Style";
 import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
@@ -17,16 +22,8 @@ export default function ProfilePage() {
         selectChar.badge ? parseInt(selectChar.badge.slice(5, 6)) - 1 : 0
     );
     // 이것도 전역으로 빼야 할 것 같기도 함
-    const [houseList, setHouseList] = useState<string[]>([
-        "quasa1",
-        "quasa2",
-        "quasa3",
-    ]);
-    const [badgeList, setBadgeList] = useState<string[]>([
-        "/images/etc/badge1.png",
-        "/images/etc/badge2.png",
-        "/images/etc/badge3.png",
-    ]);
+    const [houseList, setHouseList] = useRecoilState(houseState);
+    const [badgeList, setBadgeList] = useRecoilState(houseBadgeState);
     const handleRight = () => {
         if (selectHouse < houseList.length - 1) setSelectHouse(selectHouse + 1);
         else setSelectHouse(0);
@@ -179,12 +176,15 @@ export default function ProfilePage() {
                                     />
                                 </div>
                             </div>
-                            <div className="charBadge">
+                            <div className="synapsePacker">
+                                <div className="packerBack"></div>
+                            </div>
+                            {/* <div className="charBadge">
                                 <img
                                     src={selectChar.badgeImg}
                                     alt="기숙사휘장"
                                 />
-                            </div>
+                            </div> */}
                         </div>
                         <div className="charSecretWrap">
                             <div className="charSecret">
@@ -316,7 +316,9 @@ export default function ProfilePage() {
                     </div>
                 </Character>
             ) : (
-                <Character>캐릭터를 선택해 주세용</Character>
+                <Character>
+                    <div className="selectDoc">Select Document...</div>
+                </Character>
             )}
             <CharList>
                 <div className="leftArrow arrow" onClick={handleLeft}>

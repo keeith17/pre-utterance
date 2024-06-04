@@ -40,6 +40,7 @@ export const ButtonStyle = styled.button<ButtonProps>`
 
 export const Out = styled.button`
     position: absolute;
+    z-index: 10;
     top: 10px;
     right: 10px;
     border: none;

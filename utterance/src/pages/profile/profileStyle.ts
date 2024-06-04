@@ -11,6 +11,26 @@ export const Character = styled.div`
     width: 100%;
     height: 78%;
     display: flex;
+    .selectDoc {
+        width: 100%;
+        height: 100%;
+        padding: 3%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        font-size: 40px;
+        animation: slowBlink 1.4s infinite;
+        @keyframes slowBlink {
+            0%,
+            49% {
+                opacity: 1;
+            }
+            50%,
+            100% {
+                opacity: 0;
+            }
+        }
+    }
     .charContent {
         width: 65%;
         height: 100%;
@@ -21,14 +41,14 @@ export const Character = styled.div`
             .headGif {
                 width: 24%;
                 height: 100%;
-                padding: 15px;
+                padding: 1.3%;
                 display: flex;
                 justify-content: left;
                 position: relative;
                 img {
                     position: absolute;
-                    top: 15px;
-                    left: 15px;
+                    top: 5.5%;
+                    left: 6.1%;
                 }
                 .headGifFrame {
                     z-index: 2;
@@ -51,22 +71,26 @@ export const Character = styled.div`
                 }
             }
             .charInfo {
-                width: 35%;
+                width: 32%;
                 height: 100%;
-                background: url(/images/profile/infoframe.webp) 0% 50% no-repeat;
-                background-size: 85% 85%;
-                padding: 35px 15px 90px 40px;
+                display: flex;
+                align-items: center;
                 position: relative;
                 .charWrap {
-                    width: 84%;
-                    height: 100%;
+                    width: 92%;
+                    height: 85%;
+                    padding: 4% 3%;
+                    background: url(/images/profile/infoframe.webp) 0% 50%
+                        no-repeat;
+                    background-size: 100% 100%;
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between;
-                    gap: 5px;
+                    align-items: flex-end;
+                    // justify-content: space-between;
+                    gap: 3%;
                     .charDiv {
-                        width: 100%;
-                        height: 33.333%;
+                        width: 90%;
+                        height: 22.5%;
                         // padding: 15px 15px 25px 15px;
                         font-size: 18px;
                         display: flex;
@@ -114,13 +138,13 @@ export const Character = styled.div`
                     }
                 }
                 .imgBox {
-                    width: 50px;
+                    height: 15%;
                     border: 1px solid #fff;
                     position: absolute;
-                    bottom: 25px;
-                    right: 55px;
+                    bottom: 8%;
+                    right: 16%;
                     .gradeImg {
-                        width: 48px;
+                        height: 100%;
                     }
                 }
             }
@@ -143,6 +167,18 @@ export const Character = styled.div`
                     100% {
                         transform: perspective(2000px) rotateY(-360deg);
                     }
+                }
+            }
+            .synapsePacker {
+                width: 41.5%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                .packerBack {
+                    width: 100%;
+                    height: 90%;
+                    background: url(/images/profile/whijangframe.webp) no-repeat;
+                    background-size: 100% 100%;
                 }
             }
         }
