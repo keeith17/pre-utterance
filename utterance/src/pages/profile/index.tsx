@@ -1,5 +1,10 @@
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import { CharList, Character, CharacterWrap } from "./profileStyle";
+import {
+    CharList,
+    Character,
+    CharacterWrap,
+    SynapsePacker,
+} from "./profileStyle";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
 import { useState } from "react";
@@ -14,20 +19,22 @@ import {
 import { Out } from "@/components/Style";
 import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
-
+import { PackerList } from "@/components/profile/packerList";
 export default function ProfilePage() {
     const navigate = useNavigate();
     const [selectChar, setSelectChar] = useRecoilState(selectUserState);
     const [selectHouse, setSelectHouse] = useState<number>(
         selectChar.badge ? parseInt(selectChar.badge.slice(5, 6)) - 1 : 0
     );
-    // 이것도 전역으로 빼야 할 것 같기도 함
+    // 이것도 전역으로 빼야 할 것 같기도 함 -> 결국 뺌
     const [houseList, setHouseList] = useRecoilState(houseState);
     const [badgeList, setBadgeList] = useRecoilState(houseBadgeState);
     const handleRight = () => {
         if (selectHouse < houseList.length - 1) setSelectHouse(selectHouse + 1);
         else setSelectHouse(0);
     };
+    const [modal, setModal] = useState<boolean>(false);
+    const imsi = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"];
     const handleLeft = () => {
         if (selectHouse > 0) setSelectHouse(selectHouse - 1);
         else setSelectHouse(houseList.length - 1);
@@ -135,6 +142,7 @@ export default function ProfilePage() {
             </Out>
             {selectChar.id ? (
                 <Character>
+                    {modal && <PackerList setModal={setModal} />}
                     <div className="charContent">
                         <div className="charDefault">
                             <div className="headGif">
@@ -176,9 +184,48 @@ export default function ProfilePage() {
                                     />
                                 </div>
                             </div>
-                            <div className="synapsePacker">
-                                <div className="packerBack"></div>
-                            </div>
+                            <SynapsePacker>
+                                <div className="packerBack">
+                                    <div className="database">
+                                        <div
+                                            className="db db1"
+                                            onClick={() => setModal(true)}
+                                        >
+                                            <p className="dbTitle">DB1</p>
+                                            <div className="gage">
+                                                {imsi.map((record) => (
+                                                    <div
+                                                        key={record}
+                                                        className="count"
+                                                    ></div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="db db2">
+                                            <p className="dbTitle">DB2</p>
+                                            <div className="gage">
+                                                {imsi.map((record) => (
+                                                    <div
+                                                        key={record}
+                                                        className="count"
+                                                    ></div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="db db3">
+                                            <p className="dbTitle">DB3</p>
+                                            <div className="gage">
+                                                {imsi.map((record) => (
+                                                    <div
+                                                        key={record}
+                                                        className="count"
+                                                    ></div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </SynapsePacker>
                             {/* <div className="charBadge">
                                 <img
                                     src={selectChar.badgeImg}

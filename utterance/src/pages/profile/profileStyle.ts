@@ -11,6 +11,7 @@ export const Character = styled.div`
     width: 100%;
     height: 78%;
     display: flex;
+    position: relative;
     .selectDoc {
         width: 100%;
         height: 100%;
@@ -96,7 +97,7 @@ export const Character = styled.div`
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        padding-bottom: 10px;
+                        padding-bottom: 2%;
                         &.charName {
                             background: url(/images/profile/infoname.webp)
                                 no-repeat;
@@ -116,7 +117,7 @@ export const Character = styled.div`
                                 width: 50%;
                                 height: 100%;
                                 display: flex;
-                                padding-bottom: 10px;
+                                padding-bottom: 2%;
                                 justify-content: center;
                                 align-items: center;
                                 background: url(/images/profile/jongjok.webp)
@@ -127,7 +128,7 @@ export const Character = styled.div`
                                 width: 50%;
                                 height: 100%;
                                 display: flex;
-                                padding-bottom: 10px;
+                                padding-bottom: 2%;
                                 justify-content: center;
                                 align-items: center;
                                 background: url(/images/profile/hangsung.webp)
@@ -167,18 +168,6 @@ export const Character = styled.div`
                     100% {
                         transform: perspective(2000px) rotateY(-360deg);
                     }
-                }
-            }
-            .synapsePacker {
-                width: 41.5%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                .packerBack {
-                    width: 100%;
-                    height: 90%;
-                    background: url(/images/profile/whijangframe.webp) no-repeat;
-                    background-size: 100% 100%;
                 }
             }
         }
@@ -308,6 +297,70 @@ export const Character = styled.div`
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                    }
+                }
+            }
+        }
+    }
+`;
+export const SynapsePacker = styled.div`
+    width: 41.5%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .packerBack {
+        width: 100%;
+        height: 90%;
+        padding: 16% 12% 14% 12%;
+        background: url(/images/profile/whijangframe.webp) no-repeat;
+        background-size: 100% 100%;
+        .database {
+            width: 100%;
+            height: 100%;
+            color: #444;
+            .db {
+                width: 100%;
+                height: 33.333%;
+                display: flex;
+                align-items: center;
+                gap: 3%;
+                &.db1 {
+                    .gage {
+                        .count {
+                            background: #ffe599;
+                        }
+                    }
+                }
+                &.db2 {
+                    .gage {
+                        .count {
+                            background: #d0e0e3;
+                        }
+                    }
+                }
+                &.db3 {
+                    .gage {
+                        .count {
+                            background: #ead1db;
+                        }
+                    }
+                }
+                .dbTitle {
+                    width: 10%;
+                    padding-top: 1%;
+                    text-align: center;
+                }
+                .gage {
+                    width: 90%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    gap: 1.7%;
+                    .count {
+                        width: 3.8%;
+                        height: 60%;
+                        border: 1px solid #aaa;
+                        background: pink;
                     }
                 }
             }
