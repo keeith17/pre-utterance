@@ -116,7 +116,7 @@ export const GlobalStyle = css`
     }
 
     &::-webkit-scrollbar {
-        width: 5px;
+        width: 0.3vw;
     }
     &::-webkit-scrollbar-thumb {
         border-radius: 2px;
