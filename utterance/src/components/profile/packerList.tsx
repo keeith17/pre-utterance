@@ -1,7 +1,7 @@
 import { RiCloseLine } from "react-icons/ri";
 import { ButtonStyle, Out } from "../Style";
 import { ExtractBox, ListBox, NameBox, PackerListModal } from "./pacekrStyle";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DataProps, PackerWrite } from "./packerWrite";
 import { useRecoilValue } from "recoil";
 import { selectUserState, userState } from "@/atom";
@@ -18,6 +18,8 @@ export const PackerList: React.FC<PackerListProps> = ({ setModal, packer }) => {
     const [write, setWrite] = useState<boolean>(false);
     const selectChar = useRecoilValue(selectUserState);
     const user = useRecoilValue(userState);
+    const modalRef = useRef<HTMLDivElement>(null);
+
     const fetchData = async () => {
         if (selectChar.id) {
             try {
@@ -43,8 +45,22 @@ export const PackerList: React.FC<PackerListProps> = ({ setModal, packer }) => {
     const { data } = useQuery([packer, selectChar.id], fetchData, {
         staleTime: 30000,
     });
+
+    const handleClickOutside = (e: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+            setModal(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return (
-        <PackerListModal>
+        <PackerListModal ref={modalRef}>
             <Out onClick={() => setModal(false)}>
                 <RiCloseLine size={25} color="black" />
             </Out>
