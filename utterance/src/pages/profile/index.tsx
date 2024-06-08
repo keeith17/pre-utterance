@@ -20,6 +20,7 @@ import { Out } from "@/components/Style";
 import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
 import { PackerList } from "@/components/profile/packerList";
+import { DataProps } from "@/components/profile/packerWrite";
 export default function ProfilePage() {
     const navigate = useNavigate();
     const [selectChar, setSelectChar] = useRecoilState(selectUserState);
@@ -34,7 +35,7 @@ export default function ProfilePage() {
         else setSelectHouse(0);
     };
     const [modal, setModal] = useState<boolean>(false);
-    const imsi = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"];
+    const [packer, setPacker] = useState<string>("database1");
     const handleLeft = () => {
         if (selectHouse > 0) setSelectHouse(selectHouse - 1);
         else setSelectHouse(houseList.length - 1);
@@ -66,6 +67,95 @@ export default function ProfilePage() {
         fetchAllCharData,
         {
             staleTime: 30000, // 캐시된 데이터가 30초 후에 만료됨
+        }
+    );
+
+    // 선택된 시냅스 패커 가지고 오기.....
+    const fetchData1 = async () => {
+        if (selectChar.id) {
+            try {
+                const docRef = collection(
+                    db,
+                    "database",
+                    selectChar.id,
+                    "database1"
+                );
+                const docQuery = query(docRef, orderBy("createdAt", "desc"));
+                const docSnapshot = await getDocs(docQuery);
+                const data: DataProps[] = docSnapshot.docs.map((doc) => ({
+                    ...doc.data(),
+                    id: doc.id,
+                })) as DataProps[];
+                return data;
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+            }
+        }
+    };
+
+    const { data: SynapsePacker1 } = useQuery(
+        ["database1", selectChar.id],
+        fetchData1,
+        {
+            staleTime: 60000,
+        }
+    );
+    const fetchData2 = async () => {
+        if (selectChar.id) {
+            try {
+                const docRef = collection(
+                    db,
+                    "database",
+                    selectChar.id,
+                    "database2"
+                );
+                const docQuery = query(docRef, orderBy("createdAt", "desc"));
+                const docSnapshot = await getDocs(docQuery);
+                const data: DataProps[] = docSnapshot.docs.map((doc) => ({
+                    ...doc.data(),
+                    id: doc.id,
+                })) as DataProps[];
+                return data;
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+            }
+        }
+    };
+
+    const { data: SynapsePacker2 } = useQuery(
+        ["database2", selectChar.id],
+        fetchData2,
+        {
+            staleTime: 60000,
+        }
+    );
+    const fetchData3 = async () => {
+        if (selectChar.id) {
+            try {
+                const docRef = collection(
+                    db,
+                    "database",
+                    selectChar.id,
+                    "database3"
+                );
+                const docQuery = query(docRef, orderBy("createdAt", "desc"));
+                const docSnapshot = await getDocs(docQuery);
+                const data: DataProps[] = docSnapshot.docs.map((doc) => ({
+                    ...doc.data(),
+                    id: doc.id,
+                })) as DataProps[];
+                return data;
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+            }
+        }
+    };
+
+    const { data: SynapsePacker3 } = useQuery(
+        ["database3", selectChar.id],
+        fetchData3,
+        {
+            staleTime: 60000,
         }
     );
 
@@ -142,7 +232,9 @@ export default function ProfilePage() {
             </Out>
             {selectChar.id ? (
                 <Character>
-                    {modal && <PackerList setModal={setModal} />}
+                    {modal && (
+                        <PackerList setModal={setModal} packer={packer} />
+                    )}
                     <div className="charContent">
                         <div className="charDefault">
                             <div className="headGif">
@@ -189,38 +281,59 @@ export default function ProfilePage() {
                                     <div className="database">
                                         <div
                                             className="db db1"
-                                            onClick={() => setModal(true)}
+                                            onClick={() => {
+                                                setModal(true);
+                                                setPacker("database1");
+                                            }}
                                         >
                                             <p className="dbTitle">DB1</p>
                                             <div className="gage">
-                                                {imsi.map((record) => (
-                                                    <div
-                                                        key={record}
-                                                        className="count"
-                                                    ></div>
-                                                ))}
+                                                {SynapsePacker1?.map(
+                                                    (record) => (
+                                                        <div
+                                                            key={record.id}
+                                                            className="count"
+                                                        ></div>
+                                                    )
+                                                )}
                                             </div>
                                         </div>
-                                        <div className="db db2">
+                                        <div
+                                            className="db db2"
+                                            onClick={() => {
+                                                setModal(true);
+                                                setPacker("database2");
+                                            }}
+                                        >
                                             <p className="dbTitle">DB2</p>
                                             <div className="gage">
-                                                {imsi.map((record) => (
-                                                    <div
-                                                        key={record}
-                                                        className="count"
-                                                    ></div>
-                                                ))}
+                                                {SynapsePacker2?.map(
+                                                    (record) => (
+                                                        <div
+                                                            key={record.id}
+                                                            className="count"
+                                                        ></div>
+                                                    )
+                                                )}
                                             </div>
                                         </div>
-                                        <div className="db db3">
+                                        <div
+                                            className="db db3"
+                                            onClick={() => {
+                                                setModal(true);
+                                                setPacker("database3");
+                                            }}
+                                        >
                                             <p className="dbTitle">DB3</p>
                                             <div className="gage">
-                                                {imsi.map((record) => (
-                                                    <div
-                                                        key={record}
-                                                        className="count"
-                                                    ></div>
-                                                ))}
+                                                {SynapsePacker3?.map(
+                                                    (record) => (
+                                                        <div
+                                                            key={record.id}
+                                                            className="count"
+                                                        ></div>
+                                                    )
+                                                )}
                                             </div>
                                         </div>
                                     </div>

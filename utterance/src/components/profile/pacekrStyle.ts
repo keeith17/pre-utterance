@@ -6,8 +6,8 @@ export const PackerListModal = styled.div`
     width: 30%;
     height: 90%;
     position: absolute;
-    top: 5%;
-    left: 5%;
+    top: 20%;
+    left: 10%;
     padding: 0.5%;
     background: white;
     z-index: 20;
@@ -53,6 +53,11 @@ export const ListBox = styled.div`
         border: 3px solid #eaeaea;
         border-radius: 5px;
         margin-bottom: 2%;
+        .listTitle {
+        }
+        .listPreview {
+            // white-space: pre-wrap;
+        }
     }
 `;
 
@@ -80,7 +85,7 @@ export const PackerWriteModal = styled.div`
     height: 100%;
     position: absolute;
     top: 0;
-    left: 105%;
+    left: 102%;
     padding: 2%;
     background: white;
     z-index: 25;
@@ -124,6 +129,7 @@ export const WriteBodyBox = styled.div`
         caret-color: black;
         color: black;
         font-size: 0.8vw;
+        padding: 1.5%;
         &::-webkit-scrollbar-thumb {
             border-radius: 2px;
             background: #eaeaea;

@@ -2,46 +2,74 @@ import { RiCloseLine } from "react-icons/ri";
 import { ButtonStyle, Out } from "../Style";
 import { ExtractBox, ListBox, NameBox, PackerListModal } from "./pacekrStyle";
 import { useState } from "react";
-import { PackerWrite } from "./packerWrite";
+import { DataProps, PackerWrite } from "./packerWrite";
 import { useRecoilValue } from "recoil";
 import { selectUserState, userState } from "@/atom";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { db } from "@/firebaseApp";
+import { useQuery } from "react-query";
 
 interface PackerListProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
+    packer: string;
 }
 
-export const PackerList: React.FC<PackerListProps> = ({ setModal }) => {
+export const PackerList: React.FC<PackerListProps> = ({ setModal, packer }) => {
     const [write, setWrite] = useState<boolean>(false);
     const selectChar = useRecoilValue(selectUserState);
     const user = useRecoilValue(userState);
+    const fetchData = async () => {
+        if (selectChar.id) {
+            try {
+                const docRef = collection(
+                    db,
+                    "database",
+                    selectChar.id,
+                    packer
+                );
+                const docQuery = query(docRef, orderBy("createdAt", "desc"));
+                const docSnapshot = await getDocs(docQuery);
+                const data: DataProps[] = docSnapshot.docs.map((doc) => ({
+                    ...doc.data(),
+                    id: doc.id,
+                })) as DataProps[];
+                return data;
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+            }
+        }
+    };
+
+    const { data } = useQuery([packer, selectChar.id], fetchData, {
+        staleTime: 30000,
+    });
     return (
         <PackerListModal>
             <Out onClick={() => setModal(false)}>
                 <RiCloseLine size={25} color="black" />
             </Out>
-            {write && <PackerWrite setWrite={setWrite} />}
+            {write && <PackerWrite setWrite={setWrite} packer={packer} />}
             <NameBox>
-                <p className="mainTitle">DATA BASE 1</p>
+                <p className="mainTitle">{packer.toUpperCase()}</p>
                 <p className="subTitle">보안이 취약한 데이터베이스입니다.</p>
             </NameBox>
             <ListBox>
-                <div className="oneBox"></div>
-                <div className="oneBox"></div>
-                <div className="oneBox"></div>
-                <div className="oneBox"></div>
-                <div className="oneBox"></div>
-                <div className="oneBox"></div>
-                <div className="oneBox"></div>
-                <div className="oneBox"></div>
-                <div className="oneBox"></div>
-                <div className="oneBox"></div>
+                {data &&
+                    data.map((record) => (
+                        <div className="oneBox" key={record.id}>
+                            <div className="listTitle">{record.title}</div>
+                            <div className="listPreview">{record.content}</div>
+                        </div>
+                    ))}
             </ListBox>
             <ExtractBox>
                 <div className="buttonWrap">
                     {selectChar.id === user.uid && (
                         <ButtonStyle
                             fontSize={"0.8vw"}
-                            onClick={() => setWrite(true)}
+                            onClick={() => {
+                                setWrite(true);
+                            }}
                         >
                             EXTRACT
                         </ButtonStyle>
