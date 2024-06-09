@@ -221,6 +221,66 @@ export default function ProfilePage() {
             }
         }
     };
+
+    const packerColor = (packerNum: number, index: number) => {
+        if (packerNum === 1) {
+            if (SynapsePacker1) {
+                if (SynapsePacker1.length <= 15) {
+                    return "count count1";
+                } else if (SynapsePacker1.length <= 30) {
+                    if (SynapsePacker1.length % 15 > index) {
+                        return "count count2";
+                    } else {
+                        return "count count1";
+                    }
+                } else if (SynapsePacker1.length <= 45) {
+                    if (SynapsePacker1.length % 15 > index) {
+                        return "count count3";
+                    } else {
+                        return "count count2";
+                    }
+                }
+            }
+        }
+        if (packerNum === 2) {
+            if (SynapsePacker2) {
+                if (SynapsePacker2.length <= 15) {
+                    return "count count1";
+                } else if (SynapsePacker2.length <= 30) {
+                    if (SynapsePacker2.length % 15 > index) {
+                        return "count count2";
+                    } else {
+                        return "count count1";
+                    }
+                } else if (SynapsePacker2.length <= 45) {
+                    if (SynapsePacker2.length % 15 > index) {
+                        return "count count3";
+                    } else {
+                        return "count count2";
+                    }
+                }
+            }
+        }
+        if (packerNum === 3) {
+            if (SynapsePacker3) {
+                if (SynapsePacker3.length <= 15) {
+                    return "count count1";
+                } else if (SynapsePacker3.length <= 30) {
+                    if (SynapsePacker3.length % 15 > index) {
+                        return "count count2";
+                    } else {
+                        return "count count1";
+                    }
+                } else if (SynapsePacker3.length <= 45) {
+                    if (SynapsePacker3.length % 15 > index) {
+                        return "count count3";
+                    } else {
+                        return "count count2";
+                    }
+                }
+            }
+        }
+    };
     return (
         <CharacterWrap>
             <Out
@@ -288,14 +348,18 @@ export default function ProfilePage() {
                                         >
                                             <p className="dbTitle">DB1</p>
                                             <div className="gage">
-                                                {SynapsePacker1?.map(
-                                                    (record) => (
-                                                        <div
-                                                            key={record.id}
-                                                            className="count"
-                                                        ></div>
-                                                    )
-                                                )}
+                                                {SynapsePacker1?.slice(
+                                                    0,
+                                                    15
+                                                ).map((record, index) => (
+                                                    <div
+                                                        key={record.id}
+                                                        className={packerColor(
+                                                            1,
+                                                            index
+                                                        )}
+                                                    />
+                                                ))}
                                             </div>
                                         </div>
                                         <div
@@ -307,14 +371,18 @@ export default function ProfilePage() {
                                         >
                                             <p className="dbTitle">DB2</p>
                                             <div className="gage">
-                                                {SynapsePacker2?.map(
-                                                    (record) => (
-                                                        <div
-                                                            key={record.id}
-                                                            className="count"
-                                                        ></div>
-                                                    )
-                                                )}
+                                                {SynapsePacker2?.slice(
+                                                    0,
+                                                    15
+                                                ).map((record, index) => (
+                                                    <div
+                                                        key={record.id}
+                                                        className={packerColor(
+                                                            2,
+                                                            index
+                                                        )}
+                                                    />
+                                                ))}
                                             </div>
                                         </div>
                                         <div
@@ -326,14 +394,18 @@ export default function ProfilePage() {
                                         >
                                             <p className="dbTitle">DB3</p>
                                             <div className="gage">
-                                                {SynapsePacker3?.map(
-                                                    (record) => (
-                                                        <div
-                                                            key={record.id}
-                                                            className="count"
-                                                        ></div>
-                                                    )
-                                                )}
+                                                {SynapsePacker3?.slice(
+                                                    0,
+                                                    15
+                                                ).map((record, index) => (
+                                                    <div
+                                                        key={record.id}
+                                                        className={packerColor(
+                                                            3,
+                                                            index
+                                                        )}
+                                                    />
+                                                ))}
                                             </div>
                                         </div>
                                     </div>

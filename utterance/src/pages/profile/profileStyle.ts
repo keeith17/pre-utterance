@@ -328,22 +328,40 @@ export const SynapsePacker = styled.div`
                 gap: 3%;
                 &.db1 {
                     .gage {
-                        .count {
-                            background: #ffe599;
+                        .count1 {
+                            background: #89eeff;
+                        }
+                        .count2 {
+                            background: #0089a0;
+                        }
+                        .count3 {
+                            background: #ff0000;
                         }
                     }
                 }
                 &.db2 {
                     .gage {
-                        .count {
-                            background: #d0e0e3;
+                        .count1 {
+                            background: #fdbe8b;
+                        }
+                        .count2 {
+                            background: #fc7406;
+                        }
+                        .count3 {
+                            background: #ff0000;
                         }
                     }
                 }
                 &.db3 {
                     .gage {
-                        .count {
-                            background: #ead1db;
+                        .count1 {
+                            background: #e3dfd4;
+                        }
+                        .count2 {
+                            background: #2b271c;
+                        }
+                        .count3 {
+                            background: #ff0000;
                         }
                     }
                 }
