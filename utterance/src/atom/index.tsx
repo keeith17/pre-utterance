@@ -82,7 +82,8 @@ export const houseState = atom<string[]>({
 export const houseBadgeState = atom<string[]>({
     key: "houseBadgeState",
     default: [
-        "/images/etc/badge1.png",
+        // "/images/etc/badge1.png",
+        "/images/example.gif",
         "/images/etc/badge2.png",
         "/images/etc/badge3.png",
     ],
