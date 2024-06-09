@@ -305,6 +305,7 @@ export const Character = styled.div`
         }
     }
 `;
+
 export const SynapsePacker = styled.div`
     width: 41.5%;
     height: 100%;
