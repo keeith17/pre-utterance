@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 
 const ResultButtonStyle = styled.div`
-    border-radius: 10px;
+    border-radius: 0.5vw;
     font-family: nexonGothic;
     background: rgba(255, 255, 255, 0.2);
     a {
         display: inline-block;
-        padding: 7px 21px;
+        padding: 0.27vw 0.8vw;
         font-family: nexonGothic;
         font-weight: 500;
         color: #fff;

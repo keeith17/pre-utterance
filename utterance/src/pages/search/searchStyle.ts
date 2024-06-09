@@ -8,20 +8,24 @@ export const SearcWrap = styled.div`
         height: 100%;
         display: flex;
         .content {
-            width: 50%;
+            width: 30%;
             height: 40%;
-            margin: auto auto 360px auto;
+            margin: auto auto 18.3% auto;
             .pandora {
+                width: 100%;
                 font-size: 70px;
                 text-align: center;
-                padding: 20px;
+                padding: 2.3%;
+                img {
+                    width: 100%;
+                }
             }
             .inputBox {
                 width: 100%;
                 display: flex;
                 justify-content: center;
                 input {
-                    width: 610px;
+                    width: 100%;
                     background: rgba(0, 0, 0, 0.7);
                     &::placeholder {
                         font-family: "spaceAge";
@@ -30,14 +34,14 @@ export const SearcWrap = styled.div`
             }
             .linkButton {
                 display: flex;
-                gap: 10px;
+                gap: 2%;
                 justify-content: center;
-                margin-top: 20px;
+                margin-top: 3%;
             }
             form {
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
+                gap: 2%;
             }
         }
     }

@@ -158,8 +158,8 @@ export default function SearchPage() {
                         <div className="inputBox">
                             <InputStyle
                                 type="text"
-                                height="44px"
-                                fontSize="18px"
+                                height="1.9vw"
+                                fontSize="0.75vw"
                                 border={`1px solid ${defaultColor}`}
                                 fontFamily="nexonGothic"
                                 onChange={onChangeSearch}
