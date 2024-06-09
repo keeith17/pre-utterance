@@ -8,7 +8,6 @@ import { selectUserState, userState } from "@/atom";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
-import { PackerDetail } from "./packerDetail";
 
 interface PackerListProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
