@@ -23,11 +23,11 @@ export const PostBoxStyle = styled.div`
     border: 1px solid rgba(255, 255, 255, 0.5);
     background: rgba(75, 31, 165, 0.4);
     .profile {
-        padding: 10px 10px;
+        padding: 2% 2%;
         height: 100%;
         .postFlex {
             display: flex;
-            gap: 10px;
+            gap: 2%;
             align-items: center;
         }
         .postContent {
@@ -39,7 +39,7 @@ export const PostBoxStyle = styled.div`
             -webkit-line-clamp: 3;
             line-height: 1.15;
             font-weight: 500;
-            padding: 4px;
+            padding: 1%;
         }
     }
     .postFooter {

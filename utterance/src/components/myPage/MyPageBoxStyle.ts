@@ -15,7 +15,7 @@ export const MyPageStyle = styled.div`
         .contentArea {
             width: 85%;
             height: 60%;
-            padding: 5px 0 7px 5px;
+            padding: 1.1% 0 1.54% 1.1%;
             .myInfoArea {
                 width: 100%;
                 height: 100%;
@@ -38,19 +38,19 @@ export const MyPageStyle = styled.div`
                     .texts {
                         width: 100%;
                         height: 50%;
-                        padding: 0 10px;
+                        padding: 0 3.5%;
                         .grade {
                             width: 100%;
                             img {
-                                width: 30px;
+                                width: 1.5vw;
                             }
                         }
                         .gradeName {
-                            line-height: 20px;
+                            line-height: 1vw;
                         }
                         .myName {
-                            line-height: 20px;
-                            font-size: 25px;
+                            line-height: 1vw;
+                            font-size: 1.1vw;
                         }
                     }
                     .icons {
@@ -58,9 +58,15 @@ export const MyPageStyle = styled.div`
                         display: flex;
                         justify-content: flex-end;
                         align-items: flex-end;
-                        gap: 5px;
+                        gap: 2%;
                         button {
+                            display: flex;
+                            height: 35%;
+                            align-items: flex-end;
                             border: none;
+                            img {
+                                height: 100%;
+                            }
                         }
                     }
                 }

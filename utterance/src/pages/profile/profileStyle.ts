@@ -93,7 +93,7 @@ export const Character = styled.div`
                         width: 90%;
                         height: 22.5%;
                         // padding: 15px 15px 25px 15px;
-                        font-size: 18px;
+                        font-size: 0.7vw;
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -111,8 +111,8 @@ export const Character = styled.div`
                         &.planet {
                             padding: 0;
                             display: flex;
-                            gap: 5px;
-                            font-size: 18px;
+                            gap: 1.5%;
+                            font-size: 0.7vw;
                             .charFrom {
                                 width: 50%;
                                 height: 100%;
@@ -189,7 +189,7 @@ export const Character = styled.div`
                     width: 100%;
                     height: 57%;
                     // height: 250px;
-                    margin-bottom: 15px;
+                    margin-bottom: 1.5%;
                     display: flex;
                     align-items: flex-end;
                     border: 1px solid #fff;
@@ -198,10 +198,12 @@ export const Character = styled.div`
                     p {
                         width: 100%;
                         height: 90%;
-                        padding: 10px 15px 15px 15px;
+                        padding: 0.9% 1.3% 1.3% 1.3%;
                         overflow-y: scroll;
                         font-family: "nexonGothic";
                         text-align: justify;
+                        white-space: pre-wrap;
+                        line-height: 1vw;
                     }
                 }
             }
@@ -233,10 +235,10 @@ export const Character = styled.div`
                         .headRela {
                             display: flex;
                             height: 100%;
-                            padding: 10px;
+                            padding: 8%;
                             border-radius: 50%;
                             position: absolute;
-                            bottom: -5px;
+                            bottom: -3%;
                             left: 0;
                             z-index: 1;
                             aspect-ratio: 1/1;
@@ -244,7 +246,7 @@ export const Character = styled.div`
                         .headFrame {
                             height: 100%;
                             position: absolute;
-                            bottom: -5px;
+                            bottom: -3%;
                             left: 0;
                             z-index: 2;
                         }
@@ -253,11 +255,11 @@ export const Character = styled.div`
                 .relaContent {
                     width: 68%;
                     height: 100%;
-                    padding: 0 20px 5px 10px;
+                    padding: 0 3.4% 0.8% 1.6%;
                     .textBox {
                         width: 100%;
                         height: 100%;
-                        padding: 5px 5px 5px 0;
+                        padding: 1.3% 1.3% 1.3% 0;
                         background: url(/images/profile/gwangyenaeyong.webp) 0
                             100% no-repeat;
                         background-size: 100% 100%;
@@ -266,11 +268,11 @@ export const Character = styled.div`
                             height: 100%;
                             overflow-y: scroll;
                             font-family: "nexonGothic";
-                            font-size: 14px;
-                            line-height: 20px;
+                            font-size: 0.55vw;
+                            line-height: 0.78vw;
                             text-align: justify;
                             display: flex;
-                            padding: 15px 20px;
+                            padding: 3.98% 6.38%;
                         }
                     }
                 }
@@ -280,7 +282,7 @@ export const Character = styled.div`
                 height: 30%;
                 display: flex;
                 justify-content: flex-end;
-                padding: 0 20px;
+                padding: 0 3.5%;
                 .nameBox {
                     width: 50%;
                     height: 100%;
@@ -370,7 +372,7 @@ export const SynapsePacker = styled.div`
 export const CharList = styled.div`
     width: 100%;
     height: 22%;
-    padding: 15px 150px;
+    padding: 0.83% 8.3%;
     display: flex;
     background: url(/images/profile/listbackground.webp) no-repeat;
     background-size: 100% 100%;
@@ -397,7 +399,7 @@ export const CharList = styled.div`
     .badgeWrap {
         width: 30%;
         height: 100%;
-        padding: 10px 30px;
+        padding: 0.6% 1.8%;
         display: flex;
         justify-content: center;
     }
@@ -407,7 +409,7 @@ export const CharList = styled.div`
         flex: 1;
         flex-flow: wrap;
         justify-content: flex-start;
-        gap: 15px;
+        gap: 1.3%;
         .charGif {
             cursor: pointer;
             height: 45%;

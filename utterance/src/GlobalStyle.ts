@@ -57,6 +57,7 @@ export const GlobalStyle = css`
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        font-size: 0.7vw;
     }
 
     ul,

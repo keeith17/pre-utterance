@@ -1,13 +1,14 @@
 import { RiCloseLine } from "react-icons/ri";
 import { ButtonStyle, Out } from "../Style";
 import { ExtractBox, ListBox, NameBox, PackerListModal } from "./pacekrStyle";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { DataProps, PackerWrite } from "./packerWrite";
 import { useRecoilValue } from "recoil";
 import { selectUserState, userState } from "@/atom";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
+import { PackerDetail } from "./packerDetail";
 
 interface PackerListProps {
     setModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,7 +16,14 @@ interface PackerListProps {
 }
 
 export const PackerList: React.FC<PackerListProps> = ({ setModal, packer }) => {
-    const [write, setWrite] = useState<boolean>(false);
+    const [mode, setMode] = useState<string>("list");
+    const [record, setRecord] = useState<DataProps>({
+        title: "",
+        image: "",
+        content: "",
+        createdAt: "",
+        id: "",
+    });
     const selectChar = useRecoilValue(selectUserState);
     const user = useRecoilValue(userState);
     const modalRef = useRef<HTMLDivElement>(null);
@@ -46,35 +54,56 @@ export const PackerList: React.FC<PackerListProps> = ({ setModal, packer }) => {
         staleTime: 30000,
     });
 
-    const handleClickOutside = (e: MouseEvent) => {
-        if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-            setModal(false);
-        }
-    };
+    const handleClickOutside = useCallback(
+        (e: MouseEvent) => {
+            if (
+                modalRef.current &&
+                !modalRef.current.contains(e.target as Node)
+            ) {
+                setModal(false);
+            }
+        },
+        [setModal]
+    );
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, [handleClickOutside]);
 
     return (
         <PackerListModal ref={modalRef}>
             <Out onClick={() => setModal(false)}>
                 <RiCloseLine size={25} color="black" />
             </Out>
-            {write && <PackerWrite setWrite={setWrite} packer={packer} />}
+            {mode !== "list" && (
+                <PackerWrite
+                    setMode={setMode}
+                    mode={mode}
+                    packer={packer}
+                    record={record}
+                />
+            )}
+            {/* {read && <PackerDetail setRead={setRead} record={record} />} */}
             <NameBox>
                 <p className="mainTitle">{packer.toUpperCase()}</p>
                 <p className="subTitle">보안이 취약한 데이터베이스입니다.</p>
             </NameBox>
             <ListBox>
                 {data &&
-                    data.map((record) => (
-                        <div className="oneBox" key={record.id}>
-                            <div className="listTitle">{record.title}</div>
-                            <div className="listPreview">{record.content}</div>
+                    data.map((each) => (
+                        <div
+                            className="oneBox"
+                            key={each.id}
+                            onClick={() => {
+                                setMode("detail");
+                                setRecord(each);
+                            }}
+                        >
+                            <div className="listTitle">{each.title}</div>
+                            <div className="listPreview">{each.content}</div>
                         </div>
                     ))}
             </ListBox>
@@ -84,7 +113,7 @@ export const PackerList: React.FC<PackerListProps> = ({ setModal, packer }) => {
                         <ButtonStyle
                             fontSize={"0.8vw"}
                             onClick={() => {
-                                setWrite(true);
+                                setMode("write");
                             }}
                         >
                             EXTRACT

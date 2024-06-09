@@ -52,10 +52,25 @@ export const ListBox = styled.div`
         height: 16%;
         border: 3px solid #eaeaea;
         border-radius: 5px;
+        padding: 3%;
         margin-bottom: 2%;
         .listTitle {
+            width: 100%;
+            height: 65%;
+            font-size: 1.1vw;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            align-items: center;
         }
         .listPreview {
+            width: 100%;
+            height: 35%;
+            font-size: 0.6vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
             // white-space: pre-wrap;
         }
     }
@@ -86,7 +101,7 @@ export const PackerWriteModal = styled.div`
     position: absolute;
     top: 0;
     left: 102%;
-    padding: 2%;
+    padding: 5%;
     background: white;
     z-index: 25;
     color: black;
@@ -155,5 +170,58 @@ export const SubmitBox = styled.div`
             padding-bottom: 3%;
             border-radius: 30px;
         }
+    }
+`;
+
+//내용 조회 디테일
+export const PackerDetailModal = styled.div`
+    width: 120%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 102%;
+    padding: 5%;
+    background: white;
+    z-index: 25;
+    color: black;
+    font-family: nexonGothic;
+    border-radius: 1%;
+    form {
+        width: 100%;
+        height: 100%;
+    }
+`;
+
+export const DetailTitleBox = styled.div`
+    width: 100%;
+    height: 10%;
+    color: black;
+    font-size: 1.6vw;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid #555;
+`;
+
+export const DetailBodyBox = styled.div`
+    width: 100%;
+    height: 80%;
+    color: black;
+    border-top: 2px solid #eaeaea;
+    border-bottom: 2px solid #eaeaea;
+    padding: 3% 1% 3% 0;
+    overflow-y: scroll;
+    &::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        background: #eaeaea;
+    }
+    img {
+        width: 100%;
+        margin-bottom: 2%;
+    }
+    p {
+        white-space: pre-wrap;
+        text-align: justify;
+        line-height: 1.5;
     }
 `;
