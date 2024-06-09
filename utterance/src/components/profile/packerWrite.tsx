@@ -13,7 +13,7 @@ import { useRecoilValue } from "recoil";
 import { selectUserState, userState } from "@/atom";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "@/firebaseApp";
 
 interface PackeWriteProps {
@@ -62,21 +62,44 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
     const packing = useMutation(
         async (data: DataProps) => {
             if (user?.uid) {
-                const charRef = collection(db, "database", user?.uid, packer);
-                await addDoc(charRef, {
-                    title: data.title,
-                    image: data.image,
-                    content: data.content,
-                    createdAt: new Date()?.toLocaleDateString("ko", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        second: "2-digit",
-                        hour12: false,
-                    }),
-                });
+                if (mode === "rewrite") {
+                    const charRef = doc(
+                        db,
+                        "database",
+                        user?.uid,
+                        packer,
+                        data.id
+                    );
+                    await setDoc(charRef, {
+                        title: data.title,
+                        image: data.image,
+                        content: data.content,
+                        createdAt: data.createdAt,
+                    });
+                }
+                if (mode === "write") {
+                    console.log("새로 쓰기 모드");
+                    const charRef = collection(
+                        db,
+                        "database",
+                        user?.uid,
+                        packer
+                    );
+                    await addDoc(charRef, {
+                        title: data.title,
+                        image: data.image,
+                        content: data.content,
+                        createdAt: new Date()?.toLocaleDateString("ko", {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                            hour12: false,
+                        }),
+                    });
+                }
             }
             setMode("list");
             await queryClient.invalidateQueries([packer, selectChar.id]);
@@ -94,16 +117,8 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
             title: data.title,
             image: data.image,
             content: data.content,
-            createdAt: new Date()?.toLocaleDateString("ko", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: false,
-            }),
-            id: "",
+            createdAt: data.createdAt,
+            id: data.id,
         });
     };
 
@@ -168,7 +183,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                         border={"none"}
                         placeholder="제목을 입력해 주세요"
                         name="title"
-                        value={data.title}
+                        value={data.title || ""}
                         onChange={handleChange}
                     />
                 </WriteTitleBox>
@@ -180,14 +195,14 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                         border={"none"}
                         placeholder="이미지 url 입력 (필수가 아닙니다)"
                         name="image"
-                        value={data.image}
+                        value={data.image || ""}
                         onChange={handleChange}
                     />
                     <TextAreaStyle
                         fontFamily={"nexonGothic"}
                         placeholder="내용 입력"
                         name="content"
-                        value={data.content}
+                        value={data.content || ""}
                         onChange={handleChange}
                     />
                 </WriteBodyBox>
