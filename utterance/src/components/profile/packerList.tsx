@@ -114,9 +114,7 @@ export const PackerList: React.FC<PackerListProps> = ({ setModal, packer }) => {
                             onClick={() => {
                                 setMode("write");
                             }}
-                        >
-                            EXTRACT
-                        </ButtonStyle>
+                        />
                     )}
                 </div>
             </ExtractBox>

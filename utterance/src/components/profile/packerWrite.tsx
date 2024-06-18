@@ -5,6 +5,7 @@ import {
     DetailTitleBox,
     PackerDetailModal,
     PackerWriteModal,
+    RepackBox,
     SubmitBox,
     WriteBodyBox,
     WriteTitleBox,
@@ -161,9 +162,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                 <SubmitBox>
                     <div className="buttonWrap">
                         {selectChar.id === user.uid && (
-                            <ButtonStyle type="submit" fontSize={"0.8vw"}>
-                                PACKING
-                            </ButtonStyle>
+                            <ButtonStyle type="submit" fontSize={"0.8vw"} />
                         )}
                     </div>
                 </SubmitBox>
@@ -209,9 +208,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                 <SubmitBox>
                     <div className="buttonWrap">
                         {selectChar.id === user.uid && (
-                            <ButtonStyle type="submit" fontSize={"0.8vw"}>
-                                PACKING
-                            </ButtonStyle>
+                            <ButtonStyle type="submit" fontSize={"0.8vw"} />
                         )}
                     </div>
                 </SubmitBox>
@@ -227,7 +224,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                 {record.image && <img src={record.image} alt={record.image} />}
                 <p>{record.content}</p>
             </DetailBodyBox>
-            <SubmitBox>
+            <RepackBox>
                 <div className="buttonWrap">
                     {selectChar.id === user.uid && (
                         <ButtonStyle
@@ -242,12 +239,10 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                                 });
                             }}
                             fontSize={"0.8vw"}
-                        >
-                            REPACK
-                        </ButtonStyle>
+                        />
                     )}
                 </div>
-            </SubmitBox>
+            </RepackBox>
         </PackerDetailModal>
     );
 };

@@ -1,4 +1,3 @@
-import { defaultColor } from "@/GlobalStyle";
 import styled from "@emotion/styled";
 
 //리스트 스타일
@@ -9,7 +8,8 @@ export const PackerListModal = styled.div`
     top: 20%;
     left: 10%;
     padding: 0.5%;
-    background: white;
+    background: url("/images/log/log_back.webp") 50% 50% no-repeat;
+    background-size: cover;
     z-index: 20;
     color: black;
     font-family: nexonGothic;
@@ -87,7 +87,8 @@ export const ExtractBox = styled.div`
         width: 30%;
         height: 100%;
         button {
-            background: ${defaultColor};
+            background: url("/images/log/extract.webp") 50% 50% no-repeat;
+            background-size: cover;
             padding-bottom: 3%;
             border-radius: 30px;
         }
@@ -102,7 +103,8 @@ export const PackerWriteModal = styled.div`
     top: 0;
     left: 102%;
     padding: 5%;
-    background: white;
+    background: url("/images/log/log_back.webp") 50% 50% no-repeat;
+    background-size: cover;
     z-index: 25;
     color: black;
     font-family: nexonGothic;
@@ -155,6 +157,25 @@ export const WriteBodyBox = styled.div`
     }
 `;
 
+export const RepackBox = styled.div`
+    width: 100%;
+    height: 10%;
+    padding: 2%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .buttonWrap {
+        width: 27%;
+        height: 95%;
+        button {
+            background: url("/images/log/repack.webp") 50% 50% no-repeat;
+            background-size: cover;
+            padding-bottom: 3%;
+            border-radius: 30px;
+        }
+    }
+`;
+
 export const SubmitBox = styled.div`
     width: 100%;
     height: 10%;
@@ -163,10 +184,11 @@ export const SubmitBox = styled.div`
     justify-content: flex-end;
     align-items: center;
     .buttonWrap {
-        width: 30%;
-        height: 100%;
+        width: 27%;
+        height: 95%;
         button {
-            background: ${defaultColor};
+            background: url("/images/log/packing.webp") 50% 50% no-repeat;
+            background-size: cover;
             padding-bottom: 3%;
             border-radius: 30px;
         }
@@ -181,7 +203,8 @@ export const PackerDetailModal = styled.div`
     top: 0;
     left: 102%;
     padding: 5%;
-    background: white;
+    background: url("/images/log/log_back.webp") 50% 50% no-repeat;
+    background-size: cover;
     z-index: 25;
     color: black;
     font-family: nexonGothic;
