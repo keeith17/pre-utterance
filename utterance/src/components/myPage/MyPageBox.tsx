@@ -167,8 +167,18 @@ export default function MyPageBox() {
                                         }
                                     >
                                         <img
+                                            src="/images/main/icon/messenger.webp"
+                                            alt="messenger"
+                                        />
+                                    </button>
+                                    <button
+                                        onClick={() =>
+                                            navigate("/ProfileEditPage")
+                                        }
+                                    >
+                                        <img
                                             src="/images/main/icon/icon_modify_26x26.webp"
-                                            alt="musicOn"
+                                            alt="icon_modify_26x26"
                                         />
                                     </button>
                                     <button
@@ -183,7 +193,7 @@ export default function MyPageBox() {
                                     >
                                         <img
                                             src="/images/main/icon/icon_logout_26x26.webp"
-                                            alt="musicOn"
+                                            alt="icon_logout_26x26"
                                         />
                                     </button>
                                 </div>
