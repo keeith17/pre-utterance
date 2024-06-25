@@ -37,6 +37,7 @@ interface defaultInfo {
     grade: string;
     gradeImg: string;
     credit: number;
+    gifUrl: string;
 }
 // 버튼 부분 데이터 페칭 함수
 const fetchButtonData = async () => {
@@ -98,6 +99,7 @@ export default function SearchPage() {
                     grade: defaultInfo.grade,
                     gradeImg: defaultInfo.gradeImg,
                     credit: defaultInfo.credit,
+                    gifUrl: defaultInfo.gifUrl,
                 });
                 await queryClient.invalidateQueries(`char`);
                 await queryClient.invalidateQueries(`charData`);
@@ -122,6 +124,7 @@ export default function SearchPage() {
             grade: "0",
             gradeImg: "/images/seederEdit.webp",
             credit: 100,
+            gifUrl: "/images/default_head.webp",
         });
     };
 

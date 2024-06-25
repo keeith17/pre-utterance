@@ -124,7 +124,14 @@ export default function MyPageBox() {
                                 className="profilePhoto"
                                 onClick={handleProfileClick}
                             >
-                                <img src={myChar?.gifUrl} alt="캐릭터 두상" />
+                                <img
+                                    src={
+                                        myChar.gifUrl
+                                            ? myChar.gifUrl
+                                            : "/images/default_head.webp"
+                                    }
+                                    alt="캐릭터 두상"
+                                />
                             </div>
                             <div className="shortCutArea">
                                 <div className="texts">
