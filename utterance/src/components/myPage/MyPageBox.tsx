@@ -1,5 +1,11 @@
-import { AllCharProps, selectUserState, userState, videoState } from "@/atom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+    AllCharProps,
+    mailState,
+    selectUserState,
+    userState,
+    videoState,
+} from "@/atom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app, db } from "@/firebaseApp";
@@ -15,6 +21,7 @@ export default function MyPageBox() {
     const queryClient = useQueryClient();
     const user = useRecoilValue(userState);
     const userUid = user.uid;
+    const [mail, setMail] = useRecoilState(mailState);
 
     const video = useRecoilValue(videoState);
     const [bgm, setBgm] = useState<boolean>(true);
@@ -170,7 +177,8 @@ export default function MyPageBox() {
                                     )}
                                     <button
                                         onClick={() =>
-                                            navigate("/ProfileEditPage")
+                                            //여기용
+                                            setMail(!mail)
                                         }
                                     >
                                         <img

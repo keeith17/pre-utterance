@@ -13,6 +13,30 @@ export const NoticeStyle = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        .msgBox {
+            width: 90%;
+            height: 100%;
+        }
+    }
+    .makeMsg {
+        width: 25%;
+        height: 55%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 5;
+        position: absolute;
+        bottom: 9%;
+        right: 23%;
+        border: 2px solid #fff;
+    }
+    .recMsg {
+        width: 30%;
+        height: 30%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 2px solid #fff;
     }
 `;
 

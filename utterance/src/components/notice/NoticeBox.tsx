@@ -9,6 +9,12 @@ import {
 import { NoticeStyle, PostBoxStyle } from "./NoticeBoxStyle";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
+import { useRecoilValue } from "recoil";
+import { mailState } from "@/atom";
+import { useState } from "react";
+import MessageBox from "./MessageBox";
+import { Out } from "../Style";
+import { RiCloseLine } from "react-icons/ri";
 // import { userState } from "@/atom";
 // import { useRecoilValue } from "recoil";
 // import { FaUserCircle } from "react-icons/fa";
@@ -39,6 +45,9 @@ export interface PostProps {
 }
 
 export default function NoticeBox() {
+    const mail = useRecoilValue(mailState);
+    const [make, setMake] = useState<boolean>(false);
+    const [rec, setRec] = useState<boolean>(false);
     // const user = useRecoilValue(userState);
     //공지 데이터 받아오기
     const fetchNoticeData = async () => {
@@ -63,7 +72,30 @@ export default function NoticeBox() {
     const { data: noticePosts } = useQuery("noticePosts", fetchNoticeData, {
         staleTime: 20000,
     });
-    return (
+    return mail ? (
+        <NoticeStyle>
+            <div className="noticeBox">
+                <MessageBox setMake={setMake} setRec={setRec} />
+            </div>
+            {make && (
+                <div className="makeMsg">
+                    <Out onClick={() => setMake(false)}>
+                        <RiCloseLine size={25} color="white" />
+                    </Out>
+                    -ㅅ-
+                </div>
+            )}
+
+            {rec && (
+                <div className="recMsg">
+                    <Out onClick={() => setRec(false)}>
+                        <RiCloseLine size={25} color="white" />
+                    </Out>
+                    임시
+                </div>
+            )}
+        </NoticeStyle>
+    ) : (
         <NoticeStyle>
             <div className="noticeBox">
                 {noticePosts &&
