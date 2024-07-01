@@ -65,6 +65,45 @@ export const NoticeStyle = styled.div`
         bottom: 9%;
         right: 23%;
         border: 2px solid #fff;
+        border-radius: 5px;
+        .selectBox {
+            width: 90%;
+            height: 8%;
+            padding: 0.5vw;
+        }
+        .writeBox {
+            width: 100%;
+            height: 80%;
+            padding: 0.5vw;
+            textarea {
+                width: 100%;
+                height: 100%;
+                background: transparent;
+                border: none;
+                border-top: 1px solid white;
+                padding: 1vw 0.5vw;
+                caret-color: white;
+                resize: none;
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+        .submitBox {
+            width: 100%;
+            height: 12%;
+            padding: 0.5vw;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            button {
+                border: none;
+                outline: none;
+                padding: 0.6vw 1vw;
+                border-radius: 2vw;
+                background: rgb(85, 53, 176);
+            }
+        }
     }
     .recMsg {
         width: 30%;
@@ -75,6 +114,7 @@ export const NoticeStyle = styled.div`
         top: 0;
         left: 0;
         border: 2px solid #fff;
+        border-radius: 5px;
     }
 `;
 

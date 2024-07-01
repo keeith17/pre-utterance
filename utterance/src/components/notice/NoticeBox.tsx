@@ -10,10 +10,10 @@ import { NoticeStyle, PostBoxStyle } from "./NoticeBoxStyle";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
-import { mailState } from "@/atom";
+import { AllCharProps, mailState } from "@/atom";
 import { useState } from "react";
 import MessageBox from "./MessageBox";
-import { Out } from "../Style";
+import { DropdownStyle, Out } from "../Style";
 import { RiCloseLine } from "react-icons/ri";
 // import { userState } from "@/atom";
 // import { useRecoilValue } from "recoil";
@@ -72,6 +72,24 @@ export default function NoticeBox() {
     const { data: noticePosts } = useQuery("noticePosts", fetchNoticeData, {
         staleTime: 20000,
     });
+    // 전체 캐릭터 페치
+    const fetchAllCharData = async () => {
+        try {
+            const charRef = collection(db, "character");
+            const charQuery = query(charRef, orderBy("name", "asc"));
+            const allCharSnapshot = await getDocs(charQuery);
+            const data: AllCharProps[] = allCharSnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            })) as AllCharProps[];
+            return data;
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
+    };
+    const { data: allChar } = useQuery("allChar", fetchAllCharData, {
+        staleTime: 20000,
+    });
     return mail ? (
         <NoticeStyle>
             <div className="noticeBox">
@@ -82,7 +100,27 @@ export default function NoticeBox() {
                     <Out onClick={() => setMake(false)}>
                         <RiCloseLine size={25} color="white" />
                     </Out>
-                    -ㅅ-
+                    <div className="selectBox">
+                        <DropdownStyle
+                            height={"100%"}
+                            fontFamily={"nexonGothic"}
+                            defaultValue={"선택"}
+                        >
+                            <option value="선택">상대방을 선택해 주세요</option>
+                            {allChar &&
+                                allChar.map((char) => (
+                                    <option value={char.name} key={char.name}>
+                                        {char.name}
+                                    </option>
+                                ))}
+                        </DropdownStyle>
+                    </div>
+                    <div className="writeBox">
+                        <textarea placeholder="메시지를 입력해 주세요" />
+                    </div>
+                    <div className="submitBox">
+                        <button>SEND</button>
+                    </div>
                 </div>
             )}
 
