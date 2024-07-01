@@ -14,15 +14,53 @@ export const NoticeStyle = styled.div`
         flex-direction: column;
         justify-content: space-between;
         .msgBox {
-            width: 90%;
+            width: 100%;
             height: 100%;
+            .messages {
+                width: 100%;
+                height: 90%;
+                .buttonBox {
+                    width: 100%;
+                    height: 8%;
+                    button {
+                        width: 50%;
+                        height: 100%;
+                        border: none;
+                        border-bottom: 2px solid rgb(85, 53, 176);
+                        &.on {
+                            background: rgba(85, 53, 176, 0.6);
+                        }
+                    }
+                }
+                .letters {
+                    width: 100%;
+                    height: 92%;
+                }
+            }
+            .makeBtnBox {
+                width: 100%;
+                height: 10%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                .makeBtn {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: none;
+                    outline: none;
+                    padding: 0.5vw;
+                    border-radius: 40px;
+                    background: rgb(85, 53, 176);
+                }
+            }
         }
     }
     .makeMsg {
         width: 25%;
         height: 55%;
         background: rgba(0, 0, 0, 0.7);
-        z-index: 5;
+        z-index: 30;
         position: absolute;
         bottom: 9%;
         right: 23%;
@@ -32,7 +70,7 @@ export const NoticeStyle = styled.div`
         width: 30%;
         height: 30%;
         background: rgba(0, 0, 0, 0.7);
-        z-index: 5;
+        z-index: 30;
         position: absolute;
         top: 0;
         left: 0;
