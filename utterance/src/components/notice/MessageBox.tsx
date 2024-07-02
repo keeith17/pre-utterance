@@ -32,6 +32,7 @@ export default function MessageBox() {
     const [rec, setRec] = useState<boolean>(false);
     const [sendTo, setSendTo] = useState<string>("");
     const [content, setContent] = useState<string>("");
+    const [viewmsg, setViewmsg] = useState<string>("");
     const [showSuccess, setShowSuccess] = useState<boolean>(false);
     const user = useRecoilValue(userState);
 
@@ -83,20 +84,32 @@ export default function MessageBox() {
                 })) as MailProps[];
                 return data;
             }
-            // if (user.uid) {
-            //     const mailRef = collection(db, "homeMail", user.uid, "rec");
-            //     const mailQuery = query(mailRef, orderBy("createdAt", "desc"));
-            //     const recMailSnapshot = await getDocs(mailQuery);
-            //     const data: MailProps[] = recMailSnapshot.docs.map((doc) => ({
-            //         id: doc.id,
-            //         ...doc.data(),
-            //     })) as MailProps[];
-            //     return data;
         } catch (error) {
             console.error("Error fetching posts:", error);
         }
     };
-    const { data: recMail } = useQuery("recMail", fetchRecMail, {
+    const { data: recMails } = useQuery("recMail", fetchRecMail, {
+        staleTime: 20000,
+    });
+
+    // 받은 메시지 페치
+    const fetchSendMail = async () => {
+        try {
+            if (user.uid) {
+                const mailRef = collection(db, "homeMail", user.uid, "send");
+                const mailQuery = query(mailRef, orderBy("createdAt", "desc"));
+                const MailSnapshot = await getDocs(mailQuery);
+                const data = MailSnapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                })) as MailProps[];
+                return data;
+            }
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
+    };
+    const { data: sendMails } = useQuery("sendMail", fetchSendMail, {
         staleTime: 20000,
     });
 
@@ -140,7 +153,7 @@ export default function MessageBox() {
             setShowSuccess(true);
             setTimeout(() => {
                 setShowSuccess(false);
-            }, 2000);
+            }, 1000);
             // await queryClient.invalidateQueries([packer, selectChar.id]);
         },
         {
@@ -190,15 +203,43 @@ export default function MessageBox() {
                             SEND
                         </button>
                     </div>
-                    <div className="letters" onClick={() => setRec(true)}>
-                        {recMail?.map((mail) => (
-                            <div key={mail.id} className="letter">
-                                <div className="name">
-                                    {uidToName(mail.send)}
+                    <div className="letters">
+                        {box === "receive" &&
+                            recMails?.map((mail) => (
+                                <div
+                                    key={mail.id}
+                                    className="letter"
+                                    onClick={() => {
+                                        setRec(true);
+                                        setViewmsg(mail.content);
+                                    }}
+                                >
+                                    <div className="name">
+                                        {uidToName(mail.send)}
+                                    </div>
+                                    <div className="preview">
+                                        {mail.content}
+                                    </div>
                                 </div>
-                                <div className="preview">{mail.content}</div>
-                            </div>
-                        ))}
+                            ))}
+                        {box === "send" &&
+                            sendMails?.map((mail) => (
+                                <div
+                                    key={mail.id}
+                                    className="letter"
+                                    onClick={() => {
+                                        setRec(true);
+                                        setViewmsg(mail.content);
+                                    }}
+                                >
+                                    <div className="name">
+                                        {uidToName(mail.rec)}
+                                    </div>
+                                    <div className="preview">
+                                        {mail.content}
+                                    </div>
+                                </div>
+                            ))}
                     </div>
                 </div>
                 <div className="makeBtnBox" onClick={() => setMake(true)}>
@@ -261,7 +302,7 @@ export default function MessageBox() {
                     <Out onClick={() => setRec(false)}>
                         <RiCloseLine size={25} color="white" />
                     </Out>
-                    임시
+                    <p>{viewmsg}</p>
                 </div>
             )}
         </div>

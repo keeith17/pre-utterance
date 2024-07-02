@@ -52,15 +52,16 @@ export const NoticeStyle = styled.div`
                         border-bottom: 2px solid rgb(85, 53, 176);
                         display: flex;
                         align-items: center;
+                        cursor: pointer;
                         .name {
-                            width: 15%;
+                            width: 25%;
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             font-weight: 700;
                         }
                         .preview {
-                            width: 85%;
+                            width: 75%;
                             white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
@@ -159,6 +160,9 @@ export const NoticeStyle = styled.div`
         left: 0;
         border: 2px solid #fff;
         border-radius: 5px;
+        p {
+            white-space: pre-wrap;
+        }
     }
 `;
 
