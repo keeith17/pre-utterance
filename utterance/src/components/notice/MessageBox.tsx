@@ -27,13 +27,14 @@ interface MailProps {
 }
 
 export default function MessageBox() {
-    const [box, setBox] = useState<string>("receive");
-    const [make, setMake] = useState<boolean>(false);
-    const [rec, setRec] = useState<boolean>(false);
-    const [sendTo, setSendTo] = useState<string>("");
-    const [content, setContent] = useState<string>("");
-    const [viewmsg, setViewmsg] = useState<string>("");
-    const [showSuccess, setShowSuccess] = useState<boolean>(false);
+    const [box, setBox] = useState<string>("receive"); // 보낸 메시지, 받은 메시지 모드 설정 (css적 요소)
+    const [make, setMake] = useState<boolean>(false); // 메시지 작성하기 모달 오픈 여부
+    const [rec, setRec] = useState<boolean>(false); // 받은 메시지 내용 확인 모달 오픈 여부
+    const [sendTo, setSendTo] = useState<string>(""); // 메시지 작성 시 받는 사람 입력
+    const [content, setContent] = useState<string>(""); // 메시지 작성 시 작성 내용 입력
+    const [viewmsg, setViewmsg] = useState<string>(""); // 모달에 세팅하는 받은 메시지 내용
+    const [viewUrl, setViewUrl] = useState<string>(""); // 모달에 세팅하는 받은 메시지 내용
+    const [showSuccess, setShowSuccess] = useState<boolean>(false); // 메시지 전송 완료 안내
     const user = useRecoilValue(userState);
 
     // change
@@ -181,6 +182,19 @@ export default function MessageBox() {
         }
     };
 
+    const uidToUrl = (uid: string) => {
+        if (allChar) {
+            for (const char of allChar) {
+                if (char.id === uid) {
+                    return char.gifUrl;
+                }
+            }
+            return "none";
+        } else {
+            return "none";
+        }
+    };
+
     return (
         <div className="messageBox">
             <div className="msgBox">
@@ -212,6 +226,7 @@ export default function MessageBox() {
                                     onClick={() => {
                                         setRec(true);
                                         setViewmsg(mail.content);
+                                        setViewUrl(uidToUrl(mail.send));
                                     }}
                                 >
                                     <div className="name">
@@ -230,6 +245,7 @@ export default function MessageBox() {
                                     onClick={() => {
                                         setRec(true);
                                         setViewmsg(mail.content);
+                                        setViewUrl(uidToUrl(mail.rec));
                                     }}
                                 >
                                     <div className="name">
@@ -275,9 +291,7 @@ export default function MessageBox() {
                                                     <option
                                                         value={char.id}
                                                         key={char.id}
-                                                    >
-                                                        {char.name}
-                                                    </option>
+                                                    />
                                                 )
                                         )}
                                 </DropdownStyle>
@@ -302,6 +316,7 @@ export default function MessageBox() {
                     <Out onClick={() => setRec(false)}>
                         <RiCloseLine size={25} color="white" />
                     </Out>
+                    <img src={viewUrl} alt={viewUrl} />
                     <p>{viewmsg}</p>
                 </div>
             )}

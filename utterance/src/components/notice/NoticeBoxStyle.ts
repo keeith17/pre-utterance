@@ -62,6 +62,7 @@ export const NoticeStyle = styled.div`
                         }
                         .preview {
                             width: 75%;
+                            padding-right: 1vw;
                             white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
@@ -160,6 +161,15 @@ export const NoticeStyle = styled.div`
         left: 0;
         border: 2px solid #fff;
         border-radius: 5px;
+        padding: 2vw;
+        display: flex;
+        align-items: flex-start;
+        gap: 1vw;
+        img {
+            width: 25%;
+            height: auto;
+            object-fit: contain;
+        }
         p {
             white-space: pre-wrap;
         }
