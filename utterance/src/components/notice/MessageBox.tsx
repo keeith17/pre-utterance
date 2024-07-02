@@ -18,6 +18,13 @@ import { RiCloseLine } from "react-icons/ri";
 //     setMake: React.Dispatch<React.SetStateAction<boolean>>;
 //     setRec: React.Dispatch<React.SetStateAction<boolean>>;
 // }
+interface MailProps {
+    id: string;
+    content: string;
+    createdAt: string;
+    rec: string;
+    send: string;
+}
 
 export default function MessageBox() {
     const [box, setBox] = useState<string>("receive");
@@ -61,6 +68,35 @@ export default function MessageBox() {
         }
     };
     const { data: allChar } = useQuery("allChar", fetchAllCharData, {
+        staleTime: 20000,
+    });
+    // 받은 메시지 페치
+    const fetchRecMail = async () => {
+        try {
+            if (user.uid) {
+                const mailRef = collection(db, "homeMail", user.uid, "rec");
+                const mailQuery = query(mailRef, orderBy("createdAt", "desc"));
+                const MailSnapshot = await getDocs(mailQuery);
+                const data = MailSnapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                })) as MailProps[];
+                return data;
+            }
+            // if (user.uid) {
+            //     const mailRef = collection(db, "homeMail", user.uid, "rec");
+            //     const mailQuery = query(mailRef, orderBy("createdAt", "desc"));
+            //     const recMailSnapshot = await getDocs(mailQuery);
+            //     const data: MailProps[] = recMailSnapshot.docs.map((doc) => ({
+            //         id: doc.id,
+            //         ...doc.data(),
+            //     })) as MailProps[];
+            //     return data;
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
+    };
+    const { data: recMail } = useQuery("recMail", fetchRecMail, {
         staleTime: 20000,
     });
 
@@ -119,6 +155,19 @@ export default function MessageBox() {
         sendMail.mutate();
     };
 
+    const uidToName = (uid: string) => {
+        if (allChar) {
+            for (const char of allChar) {
+                if (char.id === uid) {
+                    return char.name;
+                }
+            }
+            return "none";
+        } else {
+            return "none";
+        }
+    };
+
     return (
         <div className="messageBox">
             <div className="msgBox">
@@ -142,7 +191,14 @@ export default function MessageBox() {
                         </button>
                     </div>
                     <div className="letters" onClick={() => setRec(true)}>
-                        임시 rec
+                        {recMail?.map((mail) => (
+                            <div key={mail.id} className="letter">
+                                <div className="name">
+                                    {uidToName(mail.send)}
+                                </div>
+                                <div className="preview">{mail.content}</div>
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className="makeBtnBox" onClick={() => setMake(true)}>

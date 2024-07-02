@@ -46,6 +46,26 @@ export const NoticeStyle = styled.div`
                 .letters {
                     width: 100%;
                     height: 92%;
+                    .letter {
+                        width: 100%;
+                        height: 8%;
+                        border-bottom: 2px solid rgb(85, 53, 176);
+                        display: flex;
+                        align-items: center;
+                        .name {
+                            width: 15%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: 700;
+                        }
+                        .preview {
+                            width: 85%;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
                 }
             }
             .makeBtnBox {
