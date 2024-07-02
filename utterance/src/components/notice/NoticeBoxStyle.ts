@@ -13,6 +13,17 @@ export const NoticeStyle = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+    }
+    .messageBox {
+        width: 100%;
+        height: 100%;
+        padding: 11% 7% 8% 7%;
+        background: rgba(255, 255, 255, 0.2);
+        background: url("/images/twitter/twitterframe.webp") no-repeat 50% 50%;
+        background-size: 100% 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         .msgBox {
             width: 100%;
             height: 100%;
@@ -66,26 +77,39 @@ export const NoticeStyle = styled.div`
         right: 23%;
         border: 2px solid #fff;
         border-radius: 5px;
-        .selectBox {
-            width: 90%;
-            height: 8%;
-            padding: 0.5vw;
-        }
-        .writeBox {
+        .success {
             width: 100%;
-            height: 80%;
-            padding: 0.5vw;
-            textarea {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1vw;
+        }
+        form {
+            width: 100%;
+            height: 100%;
+            .selectBox {
+                width: 90%;
+                height: 8%;
+                padding: 0.5vw;
+            }
+            .writeBox {
                 width: 100%;
-                height: 100%;
-                background: transparent;
-                border: none;
-                border-top: 1px solid white;
-                padding: 1vw 0.5vw;
-                caret-color: white;
-                resize: none;
-                &:focus {
-                    outline: none;
+                height: 80%;
+                padding: 0.5vw;
+                textarea {
+                    width: 100%;
+                    height: 100%;
+                    background: transparent;
+                    border: none;
+                    border-top: 1px solid white;
+                    padding: 1vw 0.5vw;
+                    caret-color: white;
+                    color: white;
+                    resize: none;
+                    &:focus {
+                        outline: none;
+                    }
                 }
             }
         }
