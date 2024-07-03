@@ -80,7 +80,7 @@ export default function NoticeBox() {
                                 <div className="profile">
                                     <div className="postFlex">📢🚨</div>
                                     <div className="postContent">
-                                        {post?.content}
+                                        <p>{post?.content}</p>
                                     </div>
                                 </div>
                             </PostBoxStyle>

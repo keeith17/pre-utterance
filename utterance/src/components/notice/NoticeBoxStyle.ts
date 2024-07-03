@@ -114,6 +114,10 @@ export const NoticeStyle = styled.div`
                 width: 90%;
                 height: 8%;
                 padding: 0.5vw;
+                color: white;
+                option {
+                    color: white;
+                }
             }
             .writeBox {
                 width: 100%;
@@ -185,21 +189,24 @@ export const PostBoxStyle = styled.div`
     .profile {
         padding: 2% 2%;
         height: 100%;
+        // background: white;
         .postFlex {
             display: flex;
             gap: 2%;
             align-items: center;
         }
         .postContent {
-            color: #fff;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            -webkit-line-clamp: 3;
-            line-height: 1.15;
-            font-weight: 500;
             padding: 1%;
+            p {
+                color: #fff;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 3;
+                line-height: 1.15;
+                font-weight: 500;
+            }
         }
     }
     .postFooter {

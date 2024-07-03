@@ -291,7 +291,9 @@ export default function MessageBox() {
                                                     <option
                                                         value={char.id}
                                                         key={char.id}
-                                                    />
+                                                    >
+                                                        {char.name}
+                                                    </option>
                                                 )
                                         )}
                                 </DropdownStyle>
