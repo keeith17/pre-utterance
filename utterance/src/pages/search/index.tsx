@@ -123,7 +123,7 @@ export default function SearchPage() {
             badgeImg: "/images/seederEdit.webp",
             grade: "0",
             gradeImg: "/images/etc/lv0.webp",
-            credit: 100,
+            credit: 300,
             gifUrl: "/images/default_head.webp",
         });
     };
