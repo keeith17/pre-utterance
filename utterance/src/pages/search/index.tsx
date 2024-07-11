@@ -113,7 +113,7 @@ export default function SearchPage() {
         }
     );
 
-    //뮤테이션으로 변경해야 됨
+    //뮤테이션으로 변경해야 됨 - 했음!
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         mutation.mutate({
@@ -122,7 +122,7 @@ export default function SearchPage() {
             badge: "quasa4",
             badgeImg: "/images/seederEdit.webp",
             grade: "0",
-            gradeImg: "/images/seederEdit.webp",
+            gradeImg: "/images/etc/lv0.webp",
             credit: 100,
             gifUrl: "/images/default_head.webp",
         });

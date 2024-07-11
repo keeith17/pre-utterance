@@ -97,7 +97,13 @@ export default function Control() {
                 ...gradeUpdates.filter(
                     (gradeUpdates) => gradeUpdates.id !== name
                 ),
-                { id: name, data: { grade: value } },
+                {
+                    id: name,
+                    data: {
+                        grade: value,
+                        gradeImg: `/images/etc/lv${value}.webp`,
+                    },
+                },
             ]);
         }
         // setUpdates([...updates, { id: name, data: { credit: value } }]);

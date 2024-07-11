@@ -8,7 +8,7 @@ export const PackerListModal = styled.div`
     top: 20%;
     left: 10%;
     padding: 0.5%;
-    background: url("/images/log/log_back.webp") 50% 50% no-repeat;
+    background: url("/images/log/log_back_2.webp") 50% 50% no-repeat;
     background-size: cover;
     z-index: 20;
     color: black;

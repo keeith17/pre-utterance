@@ -126,7 +126,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
     return mode === "write" ? (
         <PackerWriteModal>
             <Out onClick={() => setMode("list")}>
-                <RiCloseLine size={25} color="black" />
+                <RiCloseLine size={25} color="white" />
             </Out>
             <form onSubmit={onSubmit}>
                 <WriteTitleBox>
@@ -171,7 +171,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
     ) : mode === "rewrite" ? (
         <PackerWriteModal>
             <Out onClick={() => setMode("list")}>
-                <RiCloseLine size={25} color="black" />
+                <RiCloseLine size={25} color="white" />
             </Out>
             <form onSubmit={onSubmit}>
                 <WriteTitleBox>
@@ -217,7 +217,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
     ) : (
         <PackerDetailModal>
             <Out onClick={() => setMode("list")}>
-                <RiCloseLine size={25} color="black" />
+                <RiCloseLine size={25} color="white" />
             </Out>
             <DetailTitleBox>{record.title}</DetailTitleBox>
             <DetailBodyBox>

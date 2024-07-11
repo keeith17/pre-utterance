@@ -332,7 +332,7 @@ export default function ProfilePage() {
                                 <div className="imgBox">
                                     <img
                                         src={selectChar.gradeImg}
-                                        alt=""
+                                        alt="gradeImg"
                                         className="gradeImg"
                                     />
                                 </div>
