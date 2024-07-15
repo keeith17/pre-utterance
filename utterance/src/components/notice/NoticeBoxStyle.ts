@@ -19,7 +19,7 @@ export const NoticeStyle = styled.div`
         height: 100%;
         padding: 11% 7% 8% 7%;
         background: rgba(255, 255, 255, 0.2);
-        background: url("/images/twitter/twitterframe.webp") no-repeat 50% 50%;
+        background: url("/images/twitter/messageframe.webp") no-repeat 50% 50%;
         background-size: 100% 100%;
         display: flex;
         flex-direction: column;
