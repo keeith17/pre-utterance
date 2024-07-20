@@ -46,26 +46,52 @@ export const NoticeStyle = styled.div`
                 .letters {
                     width: 100%;
                     height: 92%;
-                    .letter {
+                    .letterBox {
                         width: 100%;
-                        height: 8%;
-                        border-bottom: 2px solid rgb(85, 53, 176);
-                        display: flex;
-                        align-items: center;
-                        cursor: pointer;
-                        .name {
-                            width: 25%;
+                        height: 96%;
+                        .letter {
+                            width: 100%;
+                            height: 8%;
+                            border-bottom: 2px solid rgb(85, 53, 176);
                             display: flex;
                             align-items: center;
-                            justify-content: center;
-                            font-weight: 700;
+                            cursor: pointer;
+                            transition: all 0.1s;
+                            &:hover {
+                                background: rgba(85, 53, 176, 0.3);
+                            }
+                            .name {
+                                width: 25%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: 700;
+                            }
+                            .preview {
+                                width: 75%;
+                                padding-right: 1vw;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
                         }
-                        .preview {
-                            width: 75%;
-                            padding-right: 1vw;
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
+                    }
+                    .pageButton {
+                        width: 100%;
+                        height: 4%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-end;
+                        button {
+                            outline: none;
+                            border: none;
+                            padding: 0.2vw;
+                            font-weight: 700;
+                            font-size: 0.7vw;
+                            &.selected {
+                                color: rgb(85, 53, 176);
+                                font-size: 0.8vw;
+                            }
                         }
                     }
                 }
@@ -90,12 +116,12 @@ export const NoticeStyle = styled.div`
         }
     }
     .makeMsg {
-        width: 25%;
+        width: 20%;
         height: 55%;
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.9);
         z-index: 30;
         position: absolute;
-        bottom: 9%;
+        bottom: 14%;
         right: 23%;
         border: 2px solid #fff;
         border-radius: 5px;
@@ -149,33 +175,61 @@ export const NoticeStyle = styled.div`
             button {
                 border: none;
                 outline: none;
-                padding: 0.6vw 1vw;
+                padding: 0.5vw 0.9vw;
                 border-radius: 2vw;
                 background: rgb(85, 53, 176);
             }
         }
     }
     .recMsg {
-        width: 30%;
-        height: 30%;
-        background: rgba(0, 0, 0, 0.7);
+        width: 28%;
+        height: 25%;
+        background: rgba(0, 0, 0, 0.9);
         z-index: 30;
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 5%;
+        right: 23%;
         border: 2px solid #fff;
         border-radius: 5px;
-        padding: 2vw;
+        padding: 0.8vw;
         display: flex;
         align-items: flex-start;
-        gap: 1vw;
-        img {
-            width: 25%;
-            height: auto;
-            object-fit: contain;
+        gap: 0.6vw;
+        .msgInfo {
+            width: 28%;
+            img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+            }
+            p {
+                width: 100%;
+                text-align: center;
+                padding-top: 0.5vw;
+            }
         }
-        p {
-            white-space: pre-wrap;
+        .rightView {
+            width: 72%;
+            height: 100%;
+            p {
+                width: 100%;
+                height: 80%;
+                white-space: pre-wrap;
+            }
+            .buttonBox {
+                width: 100%;
+                height: 20%;
+                display: flex;
+                align-items: flex-end;
+                justify-content: flex-end;
+                button {
+                    border: none;
+                    outline: none;
+                    padding: 0.5vw 0.9vw;
+                    border-radius: 2vw;
+                    background: rgb(85, 53, 176);
+                }
+            }
         }
     }
 `;
