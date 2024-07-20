@@ -51,7 +51,7 @@ export default function MessageBox() {
     const [sendLastDocs, setSendLastDocs] = useState<
         (QueryDocumentSnapshot | null)[]
     >([]); //보낸 메시지 지난 페이지
-    const pageSize = 12; //한 페이지 표시 개수
+    const pageSize = 15; //한 페이지 표시 개수
     const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수를 임의로 10으로 설정 (데이터에 맞게 조정 필요)
     const [sendTotalPages, setSendTotalPages] = useState(0); // 전체 페이지 수를 임의로 10으로 설정 (데이터에 맞게 조정 필요)
 
@@ -358,7 +358,7 @@ export default function MessageBox() {
                                             setRec(true);
                                             setViewmsg(mail.content);
                                             setViewUrl(uidToUrl(mail.send));
-                                            setViewName(uidToName(mail.send));
+                                            setViewName(mail.send);
                                         }}
                                     >
                                         <div className="name">
@@ -403,7 +403,7 @@ export default function MessageBox() {
                                             setRec(true);
                                             setViewmsg(mail.content);
                                             setViewUrl(uidToUrl(mail.rec));
-                                            setViewName(uidToName(mail.rec));
+                                            setViewName(mail.rec);
                                         }}
                                     >
                                         <div className="name">
@@ -439,11 +439,15 @@ export default function MessageBox() {
                         </div>
                     )}
                 </div>
-                <div className="makeBtnBox" onClick={() => setMake(true)}>
-                    <button className="makeBtn">
-                        <IoMdSend size={25} />
-                    </button>
-                </div>
+                <button
+                    className="makeBtn"
+                    onClick={() => {
+                        setMake(true);
+                        setSendTo("");
+                    }}
+                >
+                    <IoMdSend size={25} />
+                </button>
             </div>
             {make && (
                 <div className="makeMsg">
@@ -458,7 +462,7 @@ export default function MessageBox() {
                                 <DropdownStyle
                                     height={"100%"}
                                     fontFamily={"nexonGothic"}
-                                    defaultValue={"선택"}
+                                    defaultValue={sendTo || "선택"}
                                     onChange={handleChange}
                                     name="sendTo"
                                 >
@@ -501,12 +505,21 @@ export default function MessageBox() {
                     </Out>
                     <div className="msgInfo">
                         <img src={viewUrl} alt={viewUrl} />
-                        <p>{viewName}</p>
+                        <p>{uidToName(viewName)}</p>
                     </div>
                     <div className="rightView">
                         <p>{viewmsg}</p>
                         <div className="buttonBox">
-                            {box === "receive" && <button>REPLY</button>}
+                            {box === "receive" && (
+                                <button
+                                    onClick={() => {
+                                        setMake(true);
+                                        setSendTo(viewName);
+                                    }}
+                                >
+                                    REPLY
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

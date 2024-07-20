@@ -27,12 +27,13 @@ export const NoticeStyle = styled.div`
         .msgBox {
             width: 100%;
             height: 100%;
+            position: relative;
             .messages {
                 width: 100%;
-                height: 90%;
+                height: 97%;
                 .buttonBox {
                     width: 100%;
-                    height: 8%;
+                    height: 7%;
                     button {
                         width: 50%;
                         height: 100%;
@@ -45,13 +46,13 @@ export const NoticeStyle = styled.div`
                 }
                 .letters {
                     width: 100%;
-                    height: 92%;
+                    height: 93%;
                     .letterBox {
                         width: 100%;
-                        height: 96%;
+                        height: 97.5%;
                         .letter {
                             width: 100%;
-                            height: 8%;
+                            height: 6.5%;
                             border-bottom: 2px solid rgb(85, 53, 176);
                             display: flex;
                             align-items: center;
@@ -78,7 +79,7 @@ export const NoticeStyle = styled.div`
                     }
                     .pageButton {
                         width: 100%;
-                        height: 4%;
+                        height: 2.5%;
                         display: flex;
                         justify-content: center;
                         align-items: flex-end;
@@ -96,22 +97,19 @@ export const NoticeStyle = styled.div`
                     }
                 }
             }
-            .makeBtnBox {
-                width: 100%;
-                height: 10%;
+
+            .makeBtn {
+                position: absolute;
+                bottom: 0;
+                right: 0;
                 display: flex;
                 align-items: center;
-                justify-content: flex-end;
-                .makeBtn {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border: none;
-                    outline: none;
-                    padding: 0.5vw;
-                    border-radius: 40px;
-                    background: rgb(85, 53, 176);
-                }
+                justify-content: center;
+                border: none;
+                outline: none;
+                padding: 0.5vw;
+                border-radius: 40px;
+                background: rgb(85, 53, 176);
             }
         }
     }
@@ -143,6 +141,7 @@ export const NoticeStyle = styled.div`
                 color: white;
                 option {
                     color: white;
+                    background: black;
                 }
             }
             .writeBox {
@@ -212,9 +211,12 @@ export const NoticeStyle = styled.div`
             width: 72%;
             height: 100%;
             p {
-                width: 100%;
+                width: 97%;
                 height: 80%;
+                padding-right: 0.4vw;
                 white-space: pre-wrap;
+                overflow: auto;
+                font-family: nexonGothic;
             }
             .buttonBox {
                 width: 100%;
