@@ -216,6 +216,8 @@ export default function ProfilePage() {
                         desc2: hereChar.desc2,
                         rela3: hereChar.rela3,
                         desc3: hereChar.desc3,
+                        rela4: hereChar.rela4,
+                        desc4: hereChar.desc4,
                     });
                 }
             }
