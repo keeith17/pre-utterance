@@ -459,7 +459,11 @@ export default function ProfilePage() {
                                 <div className="relaPhoto">
                                     <div className="imgBox">
                                         <img
-                                            src={uidToProfile(selectChar.rela1)}
+                                            src={
+                                                uidToProfile(
+                                                    selectChar.rela1
+                                                ) || "/images/default_head.webp"
+                                            }
                                             className="headRela"
                                             alt="관계1두상"
                                         />
@@ -487,9 +491,13 @@ export default function ProfilePage() {
                                 <div className="relaPhoto">
                                     <div className="imgBox">
                                         <img
-                                            src={uidToProfile(selectChar.rela2)}
+                                            src={
+                                                uidToProfile(
+                                                    selectChar.rela2
+                                                ) || "/images/default_head.webp"
+                                            }
                                             className="headRela"
-                                            alt="관계1두상"
+                                            alt="관계2두상"
                                         />
                                         <img
                                             src="/images/profile/gwangyedoosang.webp"
@@ -515,9 +523,13 @@ export default function ProfilePage() {
                                 <div className="relaPhoto">
                                     <div className="imgBox">
                                         <img
-                                            src={uidToProfile(selectChar.rela3)}
+                                            src={
+                                                uidToProfile(
+                                                    selectChar.rela3
+                                                ) || "/images/default_head.webp"
+                                            }
                                             className="headRela"
-                                            alt="관계1두상"
+                                            alt="관계3두상"
                                         />
                                         <img
                                             src="/images/profile/gwangyedoosang.webp"
@@ -543,9 +555,13 @@ export default function ProfilePage() {
                                 <div className="relaPhoto">
                                     <div className="imgBox">
                                         <img
-                                            src={uidToProfile(selectChar.rela3)}
+                                            src={
+                                                uidToProfile(
+                                                    selectChar.rela4
+                                                ) || "/images/default_head.webp"
+                                            }
                                             className="headRela"
-                                            alt="관계1두상"
+                                            alt="관계4두상"
                                         />
                                         <img
                                             src="/images/profile/gwangyedoosang.webp"
@@ -556,13 +572,13 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="relaContent">
                                     <div className="textBox">
-                                        <p>{selectChar.desc3}</p>
+                                        <p>{selectChar.desc4}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="relationName">
                                 <div className="nameBox">
-                                    <p>{uidToName(selectChar.rela3)}</p>
+                                    <p>{uidToName(selectChar.rela4)}</p>
                                 </div>
                             </div>
                         </div>

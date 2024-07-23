@@ -30,6 +30,8 @@ export interface AllCharProps {
     desc2: string;
     rela3: string;
     desc3: string;
+    rela4: string;
+    desc4: string;
 }
 
 export const userState = atom<authUserProps>({
@@ -62,6 +64,8 @@ export const selectUserState = atom<AllCharProps>({
         desc2: "",
         rela3: "",
         desc3: "",
+        rela4: "",
+        desc4: "",
     },
 });
 

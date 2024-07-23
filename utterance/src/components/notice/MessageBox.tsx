@@ -38,8 +38,9 @@ export default function MessageBox() {
     const [sendTo, setSendTo] = useState<string>(""); // 메시지 작성 시 받는 사람 입력
     const [content, setContent] = useState<string>(""); // 메시지 작성 시 작성 내용 입력
     const [viewmsg, setViewmsg] = useState<string>(""); // 모달에 세팅하는 받은 메시지 내용
-    const [viewUrl, setViewUrl] = useState<string>(""); // 모달에 세팅하는 받은 메시지 내용
-    const [viewName, setViewName] = useState<string>(""); // 모달에 세팅하는 받은 메시지 내용
+    const [viewUrl, setViewUrl] = useState<string>(""); // 모달에 세팅하는 받은 메시지 두상
+    const [viewName, setViewName] = useState<string>(""); // 모달에 세팅하는 받은 메시지 uid
+    const [viewMode, setViewMode] = useState<string>(""); // 모달에 띄운 것이 받은 메시지인지 보낸 메시지인지
     const [showSuccess, setShowSuccess] = useState<boolean>(false); // 메시지 전송 완료 안내
     const user = useRecoilValue(userState);
 
@@ -359,6 +360,7 @@ export default function MessageBox() {
                                             setViewmsg(mail.content);
                                             setViewUrl(uidToUrl(mail.send));
                                             setViewName(mail.send);
+                                            setViewMode("receive");
                                         }}
                                     >
                                         <div className="name">
@@ -404,6 +406,7 @@ export default function MessageBox() {
                                             setViewmsg(mail.content);
                                             setViewUrl(uidToUrl(mail.rec));
                                             setViewName(mail.rec);
+                                            setViewMode("send");
                                         }}
                                     >
                                         <div className="name">
@@ -510,7 +513,7 @@ export default function MessageBox() {
                     <div className="rightView">
                         <p>{viewmsg}</p>
                         <div className="buttonBox">
-                            {box === "receive" && (
+                            {viewMode === "receive" && (
                                 <button
                                     onClick={() => {
                                         setMake(true);

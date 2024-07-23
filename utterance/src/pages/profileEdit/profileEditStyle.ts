@@ -96,7 +96,7 @@ export const Save = styled.div`
     flex-direction: column;
     gap: 20px;
     position: absolute;
-    bottom: 50%;
+    bottom: 5%;
     right: 5%;
     button {
         background: white;
