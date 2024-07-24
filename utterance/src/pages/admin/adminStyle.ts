@@ -42,6 +42,9 @@ export const ControlStyle = styled.div`
             .grade {
                 width: 70%;
             }
+            .badge {
+                width: 70%;
+            }
         }
     }
 

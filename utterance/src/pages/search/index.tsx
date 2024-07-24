@@ -183,35 +183,49 @@ export default function SearchPage() {
                         </div>
                     </div>
                 ) : (
-                    <div className="content">
-                        <div className="pandora">기본 정보 조사</div>
-                        <form onSubmit={onSubmit}>
-                            <InputStyle
-                                type="text"
-                                height="54px"
-                                fontSize="18px"
-                                name="name"
-                                border="1px solid #fff"
-                                fontFamily="Giants-Inline"
-                                onChange={onChange}
-                                placeholder="임시 캐릭터명 입력"
-                            />
-                            <InputStyle
-                                type="text"
-                                height="54px"
-                                fontSize="18px"
-                                name="nick"
-                                border="1px solid #fff"
-                                fontFamily="Giants-Inline"
-                                onChange={onChange}
-                                placeholder="익명 밴드 닉네임 입력"
-                            />
-                            <div className="submit">
-                                <ButtonStyle type="submit" fontSize="20px">
-                                    캐릭터 생성
-                                </ButtonStyle>
-                            </div>
-                        </form>
+                    <div className="defaultContent">
+                        <div className="oneMorebox">
+                            <div className="pandora">ACCESS DENIED</div>
+                            <form onSubmit={onSubmit}>
+                                <div className="inputBox">
+                                    <InputStyle
+                                        type="text"
+                                        height="54px"
+                                        fontSize="18px"
+                                        name="name"
+                                        border="1px solid #fff"
+                                        fontFamily="neurimboGothic"
+                                        onChange={onChange}
+                                        placeholder="임시 캐릭터명 입력"
+                                    />
+                                    <InputStyle
+                                        type="text"
+                                        height="54px"
+                                        fontSize="18px"
+                                        name="nick"
+                                        border="1px solid #fff"
+                                        fontFamily="neurimboGothic"
+                                        onChange={onChange}
+                                        placeholder="익명 밴드 닉네임 입력"
+                                    />
+                                    <InputStyle
+                                        type="text"
+                                        height="54px"
+                                        fontSize="18px"
+                                        name="password"
+                                        border="1px solid #fff"
+                                        fontFamily="neurimboGothic"
+                                        onChange={onChange}
+                                        placeholder="비밀번호 변경"
+                                    />
+                                </div>
+                                <div className="submitBox">
+                                    <ButtonStyle type="submit" fontSize="20px">
+                                        ACCESS
+                                    </ButtonStyle>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 )}
             </div>

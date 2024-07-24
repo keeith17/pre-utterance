@@ -25,10 +25,17 @@ interface GradeUpdatesProps {
         [grade: string]: string;
     };
 }
+interface BadgeUpdatesProps {
+    id: string;
+    data: {
+        [badge: string]: string;
+    };
+}
 export default function Control() {
     const queryClient = useQueryClient();
     const [updates, setUpdates] = useState<MoneyUpdatesProps[]>([]);
     const [gradeUpdates, setGradeUpdates] = useState<GradeUpdatesProps[]>([]);
+    const [badegUpdates, setBadgeUpdates] = useState<BadgeUpdatesProps[]>([]);
     const [mode, setMode] = useState<string>("moneyadd");
 
     const fetchAllCharData = async () => {
@@ -106,6 +113,19 @@ export default function Control() {
                 },
             ]);
         }
+        if (mode === "badge") {
+            setBadgeUpdates([
+                ...badegUpdates.filter(
+                    (badegUpdates) => badegUpdates.id !== name
+                ),
+                {
+                    id: name,
+                    data: {
+                        badge: value,
+                    },
+                },
+            ]);
+        }
         // setUpdates([...updates, { id: name, data: { credit: value } }]);
     };
 
@@ -128,6 +148,20 @@ export default function Control() {
         }
         if (mode === "grade") {
             gradeUpdates.forEach((update) => {
+                const docRef = doc(db, "character", update.id);
+                batch.update(docRef, update.data);
+            });
+
+            try {
+                await batch.commit();
+                await queryClient.invalidateQueries("allChar");
+                console.log("Batch write successfully committed!");
+            } catch (error) {
+                console.error("Error writing batch: ", error);
+            }
+        }
+        if (mode === "badge") {
+            badegUpdates.forEach((update) => {
                 const docRef = doc(db, "character", update.id);
                 batch.update(docRef, update.data);
             });
@@ -174,6 +208,16 @@ export default function Control() {
                     }}
                 >
                     등급
+                </ButtonStyle>
+                <ButtonStyle
+                    fontSize="15px"
+                    className={mode === "badge" ? "on" : ""}
+                    onClick={() => {
+                        setMode("badge");
+                        setUpdates([]);
+                    }}
+                >
+                    소대 배치
                 </ButtonStyle>
             </div>
             <ul className="centerWrap">
@@ -242,6 +286,30 @@ export default function Control() {
                                     <option value="1">1 등급</option>
                                     <option value="2">2 등급</option>
                                     <option value="3">3 등급</option>
+                                    {/* <option>
+                                      {(character?.grade || 0) + "등급"}
+                                  </option> */}
+                                </DropdownStyle>
+                            </div>
+                        </li>
+                    ))}
+                {allChar &&
+                    mode === "badge" &&
+                    allChar?.map((character, index) => (
+                        <li className="eachlow" key={index}>
+                            <div className="charname">{character?.name}</div>
+                            <div className="badge">
+                                <DropdownStyle
+                                    height="30px"
+                                    fontFamily="nexonGothic"
+                                    name={character.id}
+                                    defaultValue={character?.badge}
+                                    onChange={handleChange}
+                                >
+                                    <option value="quasa1">quasa1</option>
+                                    <option value="quasa2">quasa2</option>
+                                    <option value="quasa3">quasa3</option>
+                                    <option value="quasa4">quasa4</option>
                                     {/* <option>
                                       {(character?.grade || 0) + "등급"}
                                   </option> */}
