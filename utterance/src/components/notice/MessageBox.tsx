@@ -455,7 +455,7 @@ export default function MessageBox() {
                         <RiCloseLine size={25} color="white" />
                     </Out>
                     {showSuccess ? (
-                        <div className="success">메일을 전송하였습니다.</div>
+                        <div className="success">메시지를 전송했습니다</div>
                     ) : (
                         <form onSubmit={onSubmit}>
                             <div className="selectBox">

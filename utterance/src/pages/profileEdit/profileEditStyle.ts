@@ -4,24 +4,20 @@ export const ProfileLayout = styled.div`
     width: 100%;
     height: 100%;
     padding: 10px 0 5px 0;
+    // background: rgba(0, 0, 0, 0.7);
+    // background: rgba(255, 255, 255, 0.1);
     position: relative;
     .profileLayout {
-        width: 968px; /* 고정된 너비 800px 설정 */
+        width: 45vw; /* 고정된 너비 800px 설정 */
         height: 100%;
         padding: 0 90px 70px 80px;
-        margin: 0 auto; /* 가로 중앙 정렬을 위한 margin 설정 */
+        margin: 0 auto;
         display: flex;
         flex-flow: wrap;
         justify-content: center;
         background: url(/images/profile_write/mainframe/mainframe_968x1043.webp)
             no-repeat;
         background-size: 100% 100%;
-        // .mainframe {
-        //     height: 99%;
-        //     position: absolute;
-        //     top: 0.5%;
-        //     left: calc(50% - 434px);
-        // }
         .profTitle {
             width: 100%;
             height: 15%;
@@ -45,10 +41,10 @@ export const ProfileLayout = styled.div`
             overflow: hidden;
             margin-top: 40px;
             .profGroup {
-                overflow-y: scroll;
+                overflow-y: auto;
                 width: 100%;
                 height: 100%;
-                padding-right: 10px;
+                padding-right: 0.8vw;
                 display: flex;
                 flex-direction: column;
                 gap: 25px;
@@ -96,7 +92,7 @@ export const Save = styled.div`
     flex-direction: column;
     gap: 20px;
     position: absolute;
-    bottom: 50%;
+    bottom: 5%;
     right: 5%;
     button {
         background: white;
