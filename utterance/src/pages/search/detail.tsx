@@ -93,8 +93,8 @@ export default function SearchDetailPage() {
                             열람할 페이지를 선택해 주세요
                         </div>
                     ) : (
-                        <div className="imgWrap" ref={divRef}>
-                            <div className="imgBox">
+                        <div className="imgWrap">
+                            <div className="imgBox" ref={divRef}>
                                 <img src={selectedImage} />
                             </div>
                         </div>
