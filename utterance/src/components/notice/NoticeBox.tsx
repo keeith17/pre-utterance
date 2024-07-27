@@ -1,5 +1,7 @@
 import {
     collection,
+    doc,
+    getDoc,
     getDocs,
     limit,
     orderBy,
@@ -10,7 +12,7 @@ import { NoticeStyle, PostBoxStyle } from "./NoticeBoxStyle";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
-import { mailState } from "@/atom";
+import { AllCharProps, mailState, userState } from "@/atom";
 import MessageBox from "./MessageBox";
 // import { FaUserCircle } from "react-icons/fa";
 
@@ -41,6 +43,28 @@ export interface PostProps {
 
 export default function NoticeBox() {
     const mail = useRecoilValue(mailState);
+    const user = useRecoilValue(userState);
+    const userUid = user.uid;
+
+    // 내 캐릭터 정보 세팅 함수
+    const fetchCharData = async (userUid: string | null) => {
+        if (userUid) {
+            const charRef = doc(db, "character", userUid);
+            const charSnap = await getDoc(charRef);
+            const data = { ...(charSnap?.data() as AllCharProps), id: userUid };
+            return data;
+        } else {
+            throw new Error("사용자 UID가 존재하지 않습니다.");
+        }
+    };
+    // 내 캐릭터 정보
+    const { data: myChar } = useQuery<AllCharProps>(
+        "charData",
+        () => fetchCharData(userUid),
+        {
+            staleTime: 60000,
+        }
+    );
 
     //공지 데이터 받아오기
     const fetchNoticeData = async () => {
@@ -73,7 +97,8 @@ export default function NoticeBox() {
     ) : (
         <NoticeStyle>
             <div className="noticeBox">
-                {noticePosts &&
+                {myChar?.nick ? (
+                    noticePosts &&
                     (noticePosts.length > 0 ? (
                         noticePosts?.map((post: PostProps, index: number) => (
                             <PostBoxStyle key={index}>
@@ -87,7 +112,10 @@ export default function NoticeBox() {
                         ))
                     ) : (
                         <div className="text">해당하는 게시 글이 없습니다</div>
-                    ))}
+                    ))
+                ) : (
+                    <div className="locked">잠겨 있습니다</div>
+                )}
             </div>
             {/* <div className="noticeBox">
                 {noticePosts &&

@@ -20,7 +20,7 @@ import {
 import { db } from "@/firebaseApp";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { AllCharProps, selectUserState, userState } from "@/atom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 interface InputCharProps {
@@ -39,6 +39,8 @@ interface InputCharProps {
     desc2: string;
     rela3: string;
     desc3: string;
+    rela4: string;
+    desc4: string;
 }
 
 export default function ProfileEditPage() {
@@ -89,6 +91,8 @@ export default function ProfileEditPage() {
                 desc2: data.desc2,
                 rela3: data.rela3,
                 desc3: data.desc3,
+                rela4: data.rela4,
+                desc4: data.desc4,
             });
             return data;
         } else {
@@ -141,6 +145,8 @@ export default function ProfileEditPage() {
         desc2: myChar?.desc2 || "",
         rela3: myChar?.rela3 || "",
         desc3: myChar?.desc3 || "",
+        rela4: myChar?.rela4 || "",
+        desc4: myChar?.desc4 || "",
     });
 
     const handleChange = (
@@ -197,6 +203,12 @@ export default function ProfileEditPage() {
         if (name === "desc3") {
             setInput({ ...input, desc3: value });
         }
+        if (name === "rela4") {
+            setInput({ ...input, rela4: value });
+        }
+        if (name === "desc4") {
+            setInput({ ...input, desc4: value });
+        }
     };
     const mutation = useMutation(
         // 첫 번째 매개변수: 비동기 함수, 서버에 요청을 보내는 역할
@@ -219,13 +231,14 @@ export default function ProfileEditPage() {
                     desc2: input.desc2,
                     rela3: input.rela3,
                     desc3: input.desc3,
+                    rela4: input.rela4,
+                    desc4: input.desc4,
                 });
                 await queryClient.invalidateQueries("charData");
             }
         },
         {
             onSuccess: () => {
-                alert("저장 성공 임시");
                 setSelectChar({
                     id: myChar?.id || "",
                     nick: myChar?.nick || "",
@@ -249,6 +262,8 @@ export default function ProfileEditPage() {
                     desc2: input.desc2 || "",
                     rela3: input.rela3 || "",
                     desc3: input.desc3 || "",
+                    rela4: input.rela4 || "",
+                    desc4: input.desc4 || "",
                 });
                 navigate("/ProfilePage");
             },
@@ -261,6 +276,11 @@ export default function ProfileEditPage() {
         e.preventDefault();
         mutation.mutate(input);
     };
+
+    useEffect(() => {
+        console.log("rela4", input.rela4);
+        console.log("desc4", input.desc4);
+    }, [input.desc4, input.rela4]);
 
     return (
         <ProfileLayout>
@@ -441,6 +461,9 @@ export default function ProfileEditPage() {
                                     name="rela1"
                                     onChange={handleChange}
                                 >
+                                    <option value="">
+                                        상대 캐릭터를 선택해 주세요.
+                                    </option>
                                     {allChar?.map((char, index) => (
                                         <option key={index} value={char.id}>
                                             {uidToName(char.id)}
@@ -469,6 +492,9 @@ export default function ProfileEditPage() {
                                     name="rela2"
                                     onChange={handleChange}
                                 >
+                                    <option value="">
+                                        상대 캐릭터를 선택해 주세요.
+                                    </option>
                                     {allChar?.map((char, index) => (
                                         <option key={index} value={char.id}>
                                             {uidToName(char.id)}
@@ -497,6 +523,9 @@ export default function ProfileEditPage() {
                                     name="rela3"
                                     onChange={handleChange}
                                 >
+                                    <option value="">
+                                        상대 캐릭터를 선택해 주세요.
+                                    </option>
                                     {allChar?.map((char, index) => (
                                         <option key={index} value={char.id}>
                                             {uidToName(char.id)}
@@ -511,6 +540,37 @@ export default function ProfileEditPage() {
                                     placeholder="관계를 간단히 서술해 주세요"
                                     value={input.desc3}
                                     name="desc3"
+                                    onChange={handleChange}
+                                ></InputStyle>
+                            </div>
+                        </div>
+                        <div className="inputGroup">
+                            <div className="profBox">소셜 네트워크 D</div>
+                            <div className="inputBox">
+                                <DropdownStyle
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                    value={input.rela4}
+                                    name="rela4"
+                                    onChange={handleChange}
+                                >
+                                    <option value="">
+                                        상대 캐릭터를 선택해 주세요.
+                                    </option>
+                                    {allChar?.map((char, index) => (
+                                        <option key={index} value={char.id}>
+                                            {uidToName(char.id)}
+                                        </option>
+                                    ))}
+                                </DropdownStyle>
+                                <InputStyle
+                                    fontSize="13px"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc4}
+                                    name="desc4"
                                     onChange={handleChange}
                                 ></InputStyle>
                             </div>

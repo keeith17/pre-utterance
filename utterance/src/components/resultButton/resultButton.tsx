@@ -46,6 +46,8 @@ export default function ResultButton({ button }: ResultButtonProps) {
                 desc2: "",
                 rela3: "",
                 desc3: "",
+                rela4: "",
+                desc4: "",
             });
         }
     };

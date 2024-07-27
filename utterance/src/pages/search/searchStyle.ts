@@ -1,3 +1,4 @@
+import { dangerColor } from "@/GlobalStyle";
 import styled from "@emotion/styled";
 
 export const SearcWrap = styled.div`
@@ -42,6 +43,45 @@ export const SearcWrap = styled.div`
                 display: flex;
                 flex-direction: column;
                 gap: 2%;
+            }
+        }
+        .defaultContent {
+            width: 50%;
+            height: 45%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 30px;
+            margin: auto auto 21% auto;
+            .oneMorebox {
+                width: 100%;
+                height: 100%;
+                background: url(/images/profile_write/mainframe/mainframe_968x1043.webp)
+                    no-repeat;
+                background-size: 100% 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .pandora {
+                    width: 100%;
+                    font-size: 70px;
+                    text-align: center;
+                    padding: 2.3%;
+                    color: ${dangerColor};
+                }
+                form {
+                    width: 80%;
+                    display: flex;
+                    gap: 2%;
+                    .inputBox {
+                        width: 80%;
+                        display: flex;
+                        flex-flow: column;
+                        gap: 1vw;
+                    }
+                    .submitBox {
+                        width: 20%;
+                    }
+                }
             }
         }
     }
