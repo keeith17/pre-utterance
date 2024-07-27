@@ -164,7 +164,7 @@ export const SearcDetailWrap = styled.div`
     .contentArea {
         width: 70%;
         height: 100%;
-        padding: 2%;
+        padding: 2% 2% 0 0;
         .guideWrap {
             width: 100%;
             height: 100%;
@@ -172,10 +172,21 @@ export const SearcDetailWrap = styled.div`
         .imgWrap {
             width: 100%;
             height: 100%;
-            overflow-y: scroll;
-            padding-right: 5px;
-            img {
-                width: 100%;
+            padding: 3vw 0 1vw 0;
+            background: url(/images/world/mainframe/mainframe_969x950.webp) 50%
+                50% no-repeat;
+            background-size: auto 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .imgBox {
+                width: 85%;
+                height: 90%;
+                padding-right: 1vw;
+                overflow-y: scroll;
+                img {
+                    width: 100%;
+                }
             }
         }
     }

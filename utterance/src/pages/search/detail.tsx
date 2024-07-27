@@ -1,6 +1,6 @@
 import { db } from "@/firebaseApp";
 import { doc, getDoc } from "firebase/firestore";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { SearcDetailWrap } from "./searchStyle";
@@ -17,6 +17,7 @@ export default function SearchDetailPage() {
     const navigate = useNavigate();
     const [selectedData, setSelectedData] = useState<string>("");
     const [selectedImage, setSelectedImage] = useState<string>("");
+    const divRef = useRef<HTMLDivElement>(null);
 
     // 각 페이지에 해당하는 데이터 불러오기
     const getSearch = async (paramsId: string | undefined) => {
@@ -25,12 +26,6 @@ export default function SearchDetailPage() {
             const docSnap = await getDoc(docRef);
             const data = docSnap?.data();
             if (data) {
-                if (selectedData === "") {
-                    setSelectedData(data.default);
-                }
-                if (selectedImage === "") {
-                    setSelectedImage(data.defaultImage);
-                }
                 return data;
             } else {
                 throw new Error("전달된 데이터가 없습니다.");
@@ -42,7 +37,6 @@ export default function SearchDetailPage() {
     const { data: searchData } = useQuery(["search", params.id], () =>
         getSearch(params.id)
     );
-    console.log(searchData);
 
     //현재 보고 싶은 데이터 state에 등록
     const handleOnClick = (
@@ -54,6 +48,9 @@ export default function SearchDetailPage() {
         } = e;
         setSelectedData(searchData?.content[value]?.category);
         setSelectedImage(searchData?.content[value]?.infoCard);
+        if (divRef.current) {
+            divRef.current.scrollTop = 0;
+        }
     };
     return (
         <SearcDetailWrap>
@@ -96,8 +93,10 @@ export default function SearchDetailPage() {
                             열람할 페이지를 선택해 주세요
                         </div>
                     ) : (
-                        <div className="imgWrap">
-                            <img src={selectedImage} />
+                        <div className="imgWrap" ref={divRef}>
+                            <div className="imgBox">
+                                <img src={selectedImage} />
+                            </div>
                         </div>
                     ))}
             </div>
