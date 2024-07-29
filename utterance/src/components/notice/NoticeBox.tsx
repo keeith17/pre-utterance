@@ -74,7 +74,7 @@ export default function NoticeBox() {
                 postRef,
                 where("tag", "==", "notice"),
                 orderBy("createdAt", "desc"),
-                limit(6)
+                limit(5)
             );
             const NoticePostsSnapshot = await getDocs(postQuery);
             const data = NoticePostsSnapshot.docs.map((doc) => ({
@@ -98,21 +98,36 @@ export default function NoticeBox() {
         <NoticeStyle>
             <div className="noticeBox">
                 {myChar?.nick ? (
-                    noticePosts &&
-                    (noticePosts.length > 0 ? (
-                        noticePosts?.map((post: PostProps, index: number) => (
-                            <PostBoxStyle key={index}>
-                                <div className="profile">
-                                    <div className="postFlex">📢🚨</div>
-                                    <div className="postContent">
-                                        <p>{post?.content}</p>
-                                    </div>
-                                </div>
-                            </PostBoxStyle>
-                        ))
+                    noticePosts && noticePosts.length > 0 ? (
+                        <>
+                            {noticePosts.map(
+                                (post: PostProps, index: number) => (
+                                    <PostBoxStyle key={index}>
+                                        <div className="profile">
+                                            <div className="postFlex">📢🚨</div>
+                                            <div className="postContent">
+                                                <p>{post?.content}</p>
+                                            </div>
+                                        </div>
+                                    </PostBoxStyle>
+                                )
+                            )}
+                            <div className="plusBox">
+                                <button
+                                    onClick={() =>
+                                        window.open(
+                                            "https://pandora-twitter.vercel.app/",
+                                            "_blank"
+                                        )
+                                    }
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </>
                     ) : (
                         <div className="text">해당하는 게시 글이 없습니다</div>
-                    ))
+                    )
                 ) : (
                     <div className="locked">접근 권한이 없습니다</div>
                 )}

@@ -12,7 +12,24 @@ export const NoticeStyle = styled.div`
         background-size: 100% 100%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
+        gap: 0.5vw;
+        .plusBox {
+            width: 100%;
+            height: 10%;
+            padding: 0.5vw 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.7);
+            display: flex;
+            button {
+                width: 100%;
+                height: 100%;
+                border: none;
+                border: 1px solid rgba(255, 255, 255, 0.5);
+                outline: none;
+                background: rgba(75, 31, 165, 0.4);
+                font-size: 1.2vw;
+            }
+        }
         .locked {
             width: 100%;
             height: 100%;
