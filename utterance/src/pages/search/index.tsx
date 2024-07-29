@@ -8,7 +8,7 @@ import {
     getDocs,
     setDoc,
 } from "firebase/firestore";
-import { db } from "@/firebaseApp";
+import { app, db } from "@/firebaseApp";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import { userState } from "@/atom";
@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import ResultButton from "@/components/resultButton/resultButton";
 import { defaultColor } from "@/GlobalStyle";
 import { oneButtonProps } from "./detail";
+import { getAuth, updatePassword } from "firebase/auth";
 
 //버튼 부분 데이터 타입 설정
 export interface GetButtonProps {
@@ -57,6 +58,7 @@ export default function SearchPage() {
 
     const [char, setChar] = useState<string>("");
     const [nick, setNick] = useState<string>("");
+    const [newpw, setNewpw] = useState<string>("");
     const [search, setSearch] = useState<string>("");
 
     // 캐릭터가 존재하는지 여부 확인하는 부분
@@ -85,11 +87,14 @@ export default function SearchPage() {
         } = e;
         if (name === "name") setChar(value);
         if (name === "nick") setNick(value);
+        if (name === "password") setNewpw(value);
     };
     const mutation = useMutation(
         // 첫 번째 매개변수: 비동기 함수, 서버에 요청을 보내는 역할
         async (defaultInfo: defaultInfo) => {
-            if (user?.uid) {
+            const auth = getAuth(app);
+            const userRef = auth.currentUser;
+            if (user?.uid && userRef) {
                 const charRef = doc(db, "character", user?.uid);
                 await setDoc(charRef, {
                     name: defaultInfo.name,
@@ -101,6 +106,7 @@ export default function SearchPage() {
                     credit: defaultInfo.credit,
                     gifUrl: defaultInfo.gifUrl,
                 });
+                await updatePassword(userRef, newpw);
                 await queryClient.invalidateQueries(`char`);
                 await queryClient.invalidateQueries(`charData`);
                 navigate("/");
@@ -196,7 +202,7 @@ export default function SearchPage() {
                                         border="1px solid #fff"
                                         fontFamily="neurimboGothic"
                                         onChange={onChange}
-                                        placeholder="임시 캐릭터명 입력"
+                                        placeholder="임시 캐릭터명 입력 (추후 수정 가능)"
                                     />
                                     <InputStyle
                                         type="text"
@@ -216,7 +222,7 @@ export default function SearchPage() {
                                         border="1px solid #fff"
                                         fontFamily="neurimboGothic"
                                         onChange={onChange}
-                                        placeholder="비밀번호 변경"
+                                        placeholder="새로운 비밀번호"
                                     />
                                 </div>
                                 <div className="submitBox">

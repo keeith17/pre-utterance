@@ -5,6 +5,7 @@ import spaceAge from "./assets/fonts/space_age.ttf";
 
 export const defaultColor = "#5535b0";
 export const dangerColor = "#B70000";
+export const orangeColor = "#FF8000";
 
 export const GlobalStyle = css`
     @font-face {

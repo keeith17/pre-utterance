@@ -1,4 +1,4 @@
-import { dangerColor } from "@/GlobalStyle";
+import { orangeColor } from "@/GlobalStyle";
 import styled from "@emotion/styled";
 
 export const SearcWrap = styled.div`
@@ -63,15 +63,17 @@ export const SearcWrap = styled.div`
                 align-items: center;
                 .pandora {
                     width: 100%;
-                    font-size: 70px;
+                    font-size: 3.5vw;
                     text-align: center;
                     padding: 2.3%;
-                    color: ${dangerColor};
+                    color: ${orangeColor};
+                    font-family: "Giants-Inline";
                 }
                 form {
                     width: 80%;
                     display: flex;
                     gap: 2%;
+                    padding-bottom: 1.5vw;
                     .inputBox {
                         width: 80%;
                         display: flex;
