@@ -232,7 +232,7 @@ export default function MyPageBox() {
                             Logout
                         </ButtonStyle>
                     </div>
-                    잠겨 있습니다
+                    접근 권한이 없습니다
                 </div>
             )}
         </MyPageStyle>

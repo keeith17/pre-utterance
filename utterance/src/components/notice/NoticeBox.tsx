@@ -114,7 +114,7 @@ export default function NoticeBox() {
                         <div className="text">해당하는 게시 글이 없습니다</div>
                     ))
                 ) : (
-                    <div className="locked">잠겨 있습니다</div>
+                    <div className="locked">접근 권한이 없습니다</div>
                 )}
             </div>
             {/* <div className="noticeBox">
