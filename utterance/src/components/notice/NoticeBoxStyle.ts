@@ -82,8 +82,19 @@ export const NoticeStyle = styled.div`
                             align-items: center;
                             cursor: pointer;
                             transition: all 0.1s;
+                            position: relative;
                             &:hover {
                                 background: rgba(85, 53, 176, 0.3);
+                            }
+                            .isRead {
+                                width: 0.4vw;
+                                height: 0.4vw;
+                                border: 1px solid rgba(255, 255, 255, 0.2);
+                                border-radius: 50%;
+                                background: rgb(85, 53, 176);
+                                position: absolute;
+                                top: 35%;
+                                left: 2%;
                             }
                             .name {
                                 width: 25%;
@@ -210,8 +221,8 @@ export const NoticeStyle = styled.div`
         background: rgba(0, 0, 0, 0.9);
         z-index: 30;
         position: absolute;
-        top: 5%;
-        right: 23%;
+        top: 0%;
+        left: 0%;
         border: 2px solid #fff;
         border-radius: 5px;
         padding: 0.8vw;
@@ -224,6 +235,7 @@ export const NoticeStyle = styled.div`
                 width: 100%;
                 height: auto;
                 object-fit: contain;
+                border: 1px solid #fff;
             }
             p {
                 width: 100%;

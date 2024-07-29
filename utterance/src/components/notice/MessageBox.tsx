@@ -4,12 +4,15 @@ import {
     QueryDocumentSnapshot,
     addDoc,
     collection,
+    doc,
     getCountFromServer,
     getDocs,
     limit,
     orderBy,
     query,
+    setDoc,
     startAfter,
+    updateDoc,
 } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { IoMdSend } from "react-icons/io";
@@ -22,12 +25,13 @@ import { RiCloseLine } from "react-icons/ri";
 //     setMake: React.Dispatch<React.SetStateAction<boolean>>;
 //     setRec: React.Dispatch<React.SetStateAction<boolean>>;
 // }
-interface MailProps {
+export interface MailProps {
     id: string;
     content: string;
     createdAt: string;
     rec: string;
     send: string;
+    isRead: boolean;
 }
 
 export default function MessageBox() {
@@ -165,6 +169,7 @@ export default function MessageBox() {
         ["recMail", page],
         () => fetchRecMail(pageSize, lastDocs[page - 1] || null),
         {
+            staleTime: 10000,
             keepPreviousData: true,
             onSuccess: (recMails) => {
                 if (recMails) {
@@ -223,6 +228,7 @@ export default function MessageBox() {
         ["sendMail", sendPage],
         () => fetchSendMail(pageSize, sendLastDocs[sendPage - 1] || null),
         {
+            staleTime: 10000,
             keepPreviousData: true,
             onSuccess: (sendMails) => {
                 if (sendMails) {
@@ -242,11 +248,13 @@ export default function MessageBox() {
             if (user?.uid) {
                 const sendRef = collection(db, "homeMail", user?.uid, "send");
                 const recRef = collection(db, "homeMail", sendTo, "rec");
-                await addDoc(sendRef, {
+
+                // 첫 번째 문서를 추가하고 ID를 가져옵니다.
+                const docRef = await addDoc(sendRef, {
                     send: user.uid,
                     rec: sendTo,
                     content: content,
-                    createdAt: new Date()?.toLocaleDateString("ko", {
+                    createdAt: new Date().toLocaleDateString("ko", {
                         year: "numeric",
                         month: "2-digit",
                         day: "2-digit",
@@ -255,12 +263,15 @@ export default function MessageBox() {
                         second: "2-digit",
                         hour12: false,
                     }),
+                    isRead: false,
                 });
-                await addDoc(recRef, {
+
+                // 첫 번째 문서의 ID를 사용하여 두 번째 문서를 추가합니다.
+                await setDoc(doc(recRef, docRef.id), {
                     send: user.uid,
                     rec: sendTo,
                     content: content,
-                    createdAt: new Date()?.toLocaleDateString("ko", {
+                    createdAt: new Date().toLocaleDateString("ko", {
                         year: "numeric",
                         month: "2-digit",
                         day: "2-digit",
@@ -269,6 +280,7 @@ export default function MessageBox() {
                         second: "2-digit",
                         hour12: false,
                     }),
+                    isRead: false,
                 });
             }
             setContent("");
@@ -278,7 +290,6 @@ export default function MessageBox() {
             setTimeout(() => {
                 setShowSuccess(false);
             }, 1000);
-            // await queryClient.invalidateQueries([packer, selectChar.id]);
         },
         {
             onError: (error) => {
@@ -291,6 +302,25 @@ export default function MessageBox() {
         e.preventDefault();
         sendMail.mutate();
     };
+
+    const checkMail = useMutation<
+        void,
+        unknown,
+        { mailId: string; mailRec: string; mailSend: string }
+    >(async ({ mailId, mailRec, mailSend }) => {
+        if (user?.uid) {
+            const recRef = doc(db, "homeMail", mailRec, "rec", mailId);
+            const sendRef = doc(db, "homeMail", mailSend, "send", mailId);
+            await updateDoc(recRef, {
+                isRead: true,
+            });
+            await updateDoc(sendRef, {
+                isRead: true,
+            });
+            await queryClient.invalidateQueries(["recMail", page]);
+            await queryClient.invalidateQueries(["recMailAlarm"]);
+        }
+    });
 
     const uidToName = (uid: string) => {
         if (allChar) {
@@ -361,8 +391,16 @@ export default function MessageBox() {
                                             setViewUrl(uidToUrl(mail.send));
                                             setViewName(mail.send);
                                             setViewMode("receive");
+                                            checkMail.mutate({
+                                                mailId: mail.id,
+                                                mailRec: mail.rec,
+                                                mailSend: mail.send,
+                                            });
                                         }}
                                     >
+                                        {!mail.isRead && (
+                                            <div className="isRead"></div>
+                                        )}
                                         <div className="name">
                                             {uidToName(mail.send)}
                                         </div>
@@ -409,6 +447,9 @@ export default function MessageBox() {
                                             setViewMode("send");
                                         }}
                                     >
+                                        {!mail.isRead && (
+                                            <div className="isRead"></div>
+                                        )}
                                         <div className="name">
                                             {uidToName(mail.rec)}
                                         </div>

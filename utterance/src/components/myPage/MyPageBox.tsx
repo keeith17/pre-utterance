@@ -9,7 +9,15 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app, db } from "@/firebaseApp";
-import { doc, getDoc } from "firebase/firestore";
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    limit,
+    query,
+    where,
+} from "firebase/firestore";
 import { useQuery, useQueryClient } from "react-query";
 import { ButtonStyle } from "../Style";
 import { MyPageStyle } from "./MyPageBoxStyle";
@@ -28,6 +36,37 @@ export default function MyPageBox() {
     const setSelectChar = useSetRecoilState(selectUserState);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const playerRef = useRef<any>(null);
+
+    //새 메시지 있나 확인
+    const checkUnreadMessages = async () => {
+        try {
+            const userUid = user?.uid; // user 객체가 존재하는지 확인
+            if (userUid) {
+                const mailRef = collection(db, "homeMail", userUid, "rec");
+
+                const unreadQuery = query(
+                    mailRef,
+                    where("isRead", "==", false),
+                    limit(1)
+                );
+
+                const mailSnapshot = await getDocs(unreadQuery);
+
+                return !mailSnapshot.empty; // 문서가 있으면 true, 없으면 false
+            }
+        } catch (error) {
+            console.error("Error checking unread messages:", error);
+            throw error;
+        }
+    };
+
+    const { data: recMailAlarm } = useQuery(
+        ["recMailAlarm"],
+        checkUnreadMessages,
+        {
+            staleTime: 10000,
+        }
+    );
 
     // 내 캐릭터 정보 세팅 함수
     const fetchCharData = async (userUid: string | null) => {
@@ -185,6 +224,9 @@ export default function MyPageBox() {
                                             src="/images/main/icon/messenger.webp"
                                             alt="messenger"
                                         />
+                                        {recMailAlarm && (
+                                            <div className="new"></div>
+                                        )}
                                     </button>
                                     <button
                                         onClick={() =>

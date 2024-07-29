@@ -1,3 +1,4 @@
+import { dangerColor } from "@/GlobalStyle";
 import styled from "@emotion/styled";
 
 export const MyPageStyle = styled.div`
@@ -64,8 +65,18 @@ export const MyPageStyle = styled.div`
                             height: 35%;
                             align-items: flex-end;
                             border: none;
+                            position: relative;
                             img {
                                 height: 100%;
+                            }
+                            .new {
+                                width: 0.4vw;
+                                height: 0.4vw;
+                                border-radius: 50%;
+                                background: ${dangerColor};
+                                position: absolute;
+                                top: 0%;
+                                right: 0%;
                             }
                         }
                     }
