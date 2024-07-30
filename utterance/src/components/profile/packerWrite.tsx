@@ -11,10 +11,17 @@ import {
     WriteTitleBox,
 } from "./pacekrStyle";
 import { useRecoilValue } from "recoil";
-import { selectUserState, userState } from "@/atom";
-import { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { AllCharProps, selectUserState, userState } from "@/atom";
+import { useEffect, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import {
+    addDoc,
+    collection,
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc,
+} from "firebase/firestore";
 import { db } from "@/firebaseApp";
 
 interface PackeWriteProps {
@@ -49,6 +56,26 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
         id: record.id || "", //쓸모없는데 props 맞출라고
     });
 
+    // 내 캐릭터 정보 세팅 함수
+    const fetchCharData = async (userUid: string | null) => {
+        if (userUid) {
+            const charRef = doc(db, "character", userUid);
+            const charSnap = await getDoc(charRef);
+            const data = { ...(charSnap?.data() as AllCharProps), id: userUid };
+            return data;
+        } else {
+            throw new Error("사용자 UID가 존재하지 않습니다.");
+        }
+    };
+    // 내 캐릭터 정보
+    const { data: myChar } = useQuery<AllCharProps>(
+        "charData",
+        () => fetchCharData(user?.uid),
+        {
+            staleTime: 60000,
+        }
+    );
+
     const handleChange = (
         e:
             | React.ChangeEvent<HTMLInputElement>
@@ -79,13 +106,14 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                     });
                 }
                 if (mode === "write") {
-                    console.log("새로 쓰기 모드");
                     const charRef = collection(
                         db,
                         "database",
                         user?.uid,
                         packer
                     );
+                    const charMoneyRef = doc(db, "character", user.uid);
+                    const twitMoneyRef = doc(db, "twiterInfo", user.uid);
                     await addDoc(charRef, {
                         title: data.title,
                         image: data.image,
@@ -100,6 +128,21 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                             hour12: false,
                         }),
                     });
+                    if (myChar && data.content.length > 500) {
+                        await updateDoc(charMoneyRef, {
+                            credit: myChar.credit + 200,
+                        });
+                        await updateDoc(twitMoneyRef, {
+                            credit: myChar.credit + 200,
+                        });
+                    } else if (myChar) {
+                        await updateDoc(charMoneyRef, {
+                            credit: myChar.credit + 100,
+                        });
+                        await updateDoc(twitMoneyRef, {
+                            credit: myChar.credit + 100,
+                        });
+                    }
                 }
             }
             setMode("list");

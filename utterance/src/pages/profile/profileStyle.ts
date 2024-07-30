@@ -414,9 +414,13 @@ export const CharList = styled.div`
     .badgeWrap {
         width: 30%;
         height: 100%;
-        padding: 0.6% 1.8%;
+        // padding: 0.6% 1.8%;
+        padding: 0.6% 1.8% 0 1.8%;
         display: flex;
         justify-content: center;
+        // 거울 효과
+        // -webkit-box-reflect: below 0px
+        //     linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
     }
     .gifWrap {
         width: 70%;
