@@ -327,43 +327,40 @@ export const SynapsePacker = styled.div`
                 display: flex;
                 align-items: center;
                 gap: 3%;
-                &.db1 {
-                    .gage {
-                        .count1 {
-                            background: #89eeff;
-                        }
-                        .count2 {
-                            background: #0089a0;
-                        }
-                        .count3 {
-                            background: #ff0000;
-                        }
+
+                .quasa2 {
+                    .count1 {
+                        background: #f1ceac;
+                    }
+                    .count2 {
+                        background: #fd8719;
+                    }
+                    .count3 {
+                        background: #e86c00;
                     }
                 }
-                &.db2 {
-                    .gage {
-                        .count1 {
-                            background: #fdbe8b;
-                        }
-                        .count2 {
-                            background: #fc7406;
-                        }
-                        .count3 {
-                            background: #ff0000;
-                        }
+
+                .quasa3 {
+                    .count1 {
+                        background: #b6e0e6;
+                    }
+                    .count2 {
+                        background: #1bddfa;
+                    }
+                    .count3 {
+                        background: #00b3ce;
                     }
                 }
-                &.db3 {
-                    .gage {
-                        .count1 {
-                            background: #e3dfd4;
-                        }
-                        .count2 {
-                            background: #2b271c;
-                        }
-                        .count3 {
-                            background: #ff0000;
-                        }
+
+                .quasa1 {
+                    .count1 {
+                        background: #adf1a6;
+                    }
+                    .count2 {
+                        background: #adf1a6;
+                    }
+                    .count3 {
+                        background: #adf1a6;
                     }
                 }
                 .dbTitle {
@@ -381,7 +378,6 @@ export const SynapsePacker = styled.div`
                         width: 3.8%;
                         height: 60%;
                         border: 1px solid #aaa;
-                        background: pink;
                     }
                 }
             }

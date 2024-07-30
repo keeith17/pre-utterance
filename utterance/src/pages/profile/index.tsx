@@ -230,13 +230,19 @@ export default function ProfilePage() {
                 if (SynapsePacker1.length <= 15) {
                     return "count count1";
                 } else if (SynapsePacker1.length <= 30) {
-                    if (SynapsePacker1.length % 15 > index) {
+                    if (
+                        SynapsePacker1.length % 15 > index ||
+                        SynapsePacker1.length % 15 === 0
+                    ) {
                         return "count count2";
                     } else {
                         return "count count1";
                     }
                 } else if (SynapsePacker1.length <= 45) {
-                    if (SynapsePacker1.length % 15 > index) {
+                    if (
+                        SynapsePacker1.length % 15 > index ||
+                        SynapsePacker1.length % 15 === 0
+                    ) {
                         return "count count3";
                     } else {
                         return "count count2";
@@ -350,7 +356,9 @@ export default function ProfilePage() {
                                             }}
                                         >
                                             <p className="dbTitle">DB1</p>
-                                            <div className="gage">
+                                            <div
+                                                className={`gage ${selectChar.badge}`}
+                                            >
                                                 {SynapsePacker1?.slice(
                                                     0,
                                                     15
@@ -393,7 +401,9 @@ export default function ProfilePage() {
                                             }}
                                         >
                                             <p className="dbTitle">DB2</p>
-                                            <div className="gage">
+                                            <div
+                                                className={`gage ${selectChar.badge}`}
+                                            >
                                                 {SynapsePacker2?.slice(
                                                     0,
                                                     15
@@ -416,7 +426,9 @@ export default function ProfilePage() {
                                             }}
                                         >
                                             <p className="dbTitle">DB3</p>
-                                            <div className="gage">
+                                            <div
+                                                className={`gage ${selectChar.badge}`}
+                                            >
                                                 {SynapsePacker3?.slice(
                                                     0,
                                                     15
