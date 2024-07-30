@@ -1,4 +1,11 @@
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    orderBy,
+    query,
+} from "firebase/firestore";
 import {
     CharList,
     Character,
@@ -9,12 +16,13 @@ import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
     AllCharProps,
     houseBadgeState,
     houseState,
     selectUserState,
+    userState,
 } from "@/atom";
 import { Out } from "@/components/Style";
 import { RiCloseLine } from "react-icons/ri";
@@ -23,6 +31,7 @@ import { PackerList } from "@/components/profile/packerList";
 import { DataProps } from "@/components/profile/packerWrite";
 export default function ProfilePage() {
     const navigate = useNavigate();
+    const user = useRecoilValue(userState);
     const [selectChar, setSelectChar] = useRecoilState(selectUserState);
     const [selectHouse, setSelectHouse] = useState<number>(
         selectChar.badge ? parseInt(selectChar.badge.slice(5, 6)) - 1 : 0
@@ -40,6 +49,27 @@ export default function ProfilePage() {
         if (selectHouse > 0) setSelectHouse(selectHouse - 1);
         else setSelectHouse(houseList.length - 1);
     };
+
+    // 내 캐릭터 정보 세팅 함수
+    const fetchCharData = async (userUid: string | null) => {
+        if (userUid) {
+            const charRef = doc(db, "character", userUid);
+            const charSnap = await getDoc(charRef);
+            const data = { ...(charSnap?.data() as AllCharProps), id: userUid };
+            return data;
+        } else {
+            throw new Error("사용자 UID가 존재하지 않습니다.");
+        }
+    };
+    // 내 캐릭터 정보
+    const { data: myChar } = useQuery<AllCharProps>(
+        "charData",
+        () => fetchCharData(user?.uid),
+        {
+            staleTime: 60000,
+        }
+    );
+
     // 전체 캐릭터 데이터 받아 오는 부분
     const fetchAllCharData = async () => {
         const charRef = collection(db, "character");
@@ -455,15 +485,32 @@ export default function ProfilePage() {
                         </div>
                         <div className="charSecretWrap">
                             <div className="charSecret">
-                                <div className="secret secret1">
-                                    <p>{selectChar.secret1}</p>
-                                </div>
-                                <div className="secret secret2">
-                                    <p>{selectChar.secret2}</p>
-                                </div>
-                                <div className="secret secret3">
-                                    <p>{selectChar.secret3}</p>
-                                </div>
+                                {Number(myChar?.grade) >= 1 ||
+                                user.uid === selectChar.id ? (
+                                    <div className="secret secret1">
+                                        <p>{selectChar.secret1}</p>
+                                    </div>
+                                ) : (
+                                    <div className="locked"></div>
+                                )}
+
+                                {Number(myChar?.grade) >= 2 ||
+                                user.uid === selectChar.id ? (
+                                    <div className="secret secret2">
+                                        <p>{selectChar.secret2}</p>
+                                    </div>
+                                ) : (
+                                    <div className="locked"></div>
+                                )}
+
+                                {Number(myChar?.grade) >= 3 ||
+                                user.uid === selectChar.id ? (
+                                    <div className="secret secret3">
+                                        <p>{selectChar.secret3}</p>
+                                    </div>
+                                ) : (
+                                    <div className="locked"></div>
+                                )}
                             </div>
                         </div>
                     </div>

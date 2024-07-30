@@ -206,6 +206,16 @@ export const Character = styled.div`
                         line-height: 1vw;
                     }
                 }
+                .locked {
+                    width: 100%;
+                    height: 27%;
+                    margin-bottom: 1.5%;
+                    display: flex;
+                    align-items: flex-end;
+                    border: 1px solid #fff;
+                    background: url(/images/profile/information2.webp) no-repeat;
+                    background-size: 100% 100%;
+                }
             }
         }
     }
@@ -327,7 +337,9 @@ export const SynapsePacker = styled.div`
                 display: flex;
                 align-items: center;
                 gap: 3%;
-
+                &:hover {
+                    background: rgba(75, 31, 165, 0.1);
+                }
                 .quasa2 {
                     .count1 {
                         background: #f1ceac;

@@ -12,7 +12,7 @@ import {
 } from "./pacekrStyle";
 import { useRecoilValue } from "recoil";
 import { AllCharProps, selectUserState, userState } from "@/atom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
     addDoc,
