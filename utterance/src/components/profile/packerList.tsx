@@ -112,7 +112,11 @@ export const PackerList: React.FC<PackerListProps> = ({ setModal, packer }) => {
                         <ButtonStyle
                             fontSize={"0.8vw"}
                             onClick={() => {
-                                setMode("write");
+                                if (data && data?.length < 45) {
+                                    setMode("write");
+                                } else {
+                                    alert("DB에 공간이 부족합니다!");
+                                }
                             }}
                         />
                     )}

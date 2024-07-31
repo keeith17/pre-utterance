@@ -340,6 +340,11 @@ export const SynapsePacker = styled.div`
                 &:hover {
                     background: rgba(75, 31, 165, 0.1);
                 }
+                &.disabled {
+                    &:hover {
+                        background: rgba(255, 20, 20, 0.1);
+                    }
+                }
                 .quasa2 {
                     .count1 {
                         background: #f1ceac;

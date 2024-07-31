@@ -379,10 +379,24 @@ export default function ProfilePage() {
                                 <div className="packerBack">
                                     <div className="database">
                                         <div
-                                            className="db db1"
+                                            className={
+                                                Number(myChar?.grade) > 0 ||
+                                                user.uid === selectChar.id
+                                                    ? "db db1"
+                                                    : "db db2 disabled"
+                                            }
                                             onClick={() => {
-                                                setModal(true);
-                                                setPacker("database1");
+                                                if (
+                                                    Number(myChar?.grade) > 0 ||
+                                                    user.uid === selectChar.id
+                                                ) {
+                                                    setModal(true);
+                                                    setPacker("database1");
+                                                } else {
+                                                    alert(
+                                                        "접근 권한이 없습니다!"
+                                                    );
+                                                }
                                             }}
                                         >
                                             <p className="dbTitle">DB1</p>
@@ -424,10 +438,24 @@ export default function ProfilePage() {
                                             </div>
                                         </div>
                                         <div
-                                            className="db db2"
+                                            className={
+                                                Number(myChar?.grade) > 1 ||
+                                                user.uid === selectChar.id
+                                                    ? "db db2"
+                                                    : "db db2 disabled"
+                                            }
                                             onClick={() => {
-                                                setModal(true);
-                                                setPacker("database2");
+                                                if (
+                                                    Number(myChar?.grade) > 1 ||
+                                                    user.uid === selectChar.id
+                                                ) {
+                                                    setModal(true);
+                                                    setPacker("database2");
+                                                } else {
+                                                    alert(
+                                                        "접근 권한이 없습니다!"
+                                                    );
+                                                }
                                             }}
                                         >
                                             <p className="dbTitle">DB2</p>
@@ -449,10 +477,24 @@ export default function ProfilePage() {
                                             </div>
                                         </div>
                                         <div
-                                            className="db db3"
+                                            className={
+                                                Number(myChar?.grade) > 2 ||
+                                                user.uid === selectChar.id
+                                                    ? "db db3"
+                                                    : "db db3 disabled"
+                                            }
                                             onClick={() => {
-                                                setModal(true);
-                                                setPacker("database3");
+                                                if (
+                                                    Number(myChar?.grade) > 2 ||
+                                                    user.uid === selectChar.id
+                                                ) {
+                                                    setModal(true);
+                                                    setPacker("database3");
+                                                } else {
+                                                    alert(
+                                                        "접근 권한이 없습니다!"
+                                                    );
+                                                }
                                             }}
                                         >
                                             <p className="dbTitle">DB3</p>
