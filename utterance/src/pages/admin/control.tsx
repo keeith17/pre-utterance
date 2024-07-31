@@ -31,12 +31,42 @@ interface BadgeUpdatesProps {
         [badge: string]: string;
     };
 }
+interface ControlProps {
+    id: string;
+    control: {
+        mail: boolean;
+        profileread: boolean;
+        profilewrite: boolean;
+    };
+}
 export default function Control() {
     const queryClient = useQueryClient();
     const [updates, setUpdates] = useState<MoneyUpdatesProps[]>([]);
     const [gradeUpdates, setGradeUpdates] = useState<GradeUpdatesProps[]>([]);
     const [badegUpdates, setBadgeUpdates] = useState<BadgeUpdatesProps[]>([]);
     const [mode, setMode] = useState<string>("moneyadd");
+
+    // 전체 캐릭터 데이터 받아 오는 부분
+    const fetchControlData = async () => {
+        const controlRef = collection(db, "control");
+        const controlSnapshot = await getDocs(controlRef);
+        const data: ControlProps[] = controlSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        })) as ControlProps[];
+
+        return data;
+    };
+
+    const { data: control } = useQuery<ControlProps[]>(
+        "control",
+        fetchControlData,
+        {
+            staleTime: 600000, // 캐시된 데이터가 10분 후에 만료됨
+        }
+    );
+
+    console.log(control);
 
     const fetchAllCharData = async () => {
         try {
@@ -75,6 +105,7 @@ export default function Control() {
             }
         }
     };
+
     const handleChange = (
         e:
             | React.ChangeEvent<HTMLInputElement>
@@ -178,6 +209,7 @@ export default function Control() {
 
     return (
         <ControlStyle>
+            <div className="controlBox"></div>
             <div className="buttonWrap">
                 <ButtonStyle
                     fontSize="15px"

@@ -11,6 +11,16 @@ export const ControlStyle = styled.div`
     align-items: center;
     padding: 50px;
     gap: 20px;
+    position: relative;
+
+    .controlBox {
+        width: 10vw;
+        height: 10vw;
+        background: pink;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
     .centerWrap {
         width: 80%;
