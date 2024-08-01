@@ -20,6 +20,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import { DropdownStyle, Out } from "../Style";
 import { RiCloseLine } from "react-icons/ri";
+import { ControlProps } from "@/pages/admin/control";
 
 // interface ModalStateProps {
 //     setMake: React.Dispatch<React.SetStateAction<boolean>>;
@@ -59,6 +60,26 @@ export default function MessageBox() {
     const pageSize = 15; //한 페이지 표시 개수
     const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수를 임의로 10으로 설정 (데이터에 맞게 조정 필요)
     const [sendTotalPages, setSendTotalPages] = useState(0); // 전체 페이지 수를 임의로 10으로 설정 (데이터에 맞게 조정 필요)
+
+    //control되고 있는 상황 fetch
+    const fetchControlData = async () => {
+        const controlRef = collection(db, "control");
+        const controlSnapshot = await getDocs(controlRef);
+        const data: ControlProps[] = controlSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        })) as ControlProps[];
+
+        return data;
+    };
+
+    const { data: control } = useQuery<ControlProps[]>(
+        "control",
+        fetchControlData,
+        {
+            staleTime: 600000, // 캐시된 데이터가 10분 후에 만료됨
+        }
+    );
 
     const fetchTotalDocs = useCallback(
         async (userUid: string) => {
@@ -483,15 +504,17 @@ export default function MessageBox() {
                         </div>
                     )}
                 </div>
-                <button
-                    className="makeBtn"
-                    onClick={() => {
-                        setMake(true);
-                        setSendTo("");
-                    }}
-                >
-                    <IoMdSend size={25} />
-                </button>
+                {control && control[0].control.mail && (
+                    <button
+                        className="makeBtn"
+                        onClick={() => {
+                            setMake(true);
+                            setSendTo("");
+                        }}
+                    >
+                        <IoMdSend size={25} />
+                    </button>
+                )}
             </div>
             {make && (
                 <div className="makeMsg">
@@ -553,17 +576,20 @@ export default function MessageBox() {
                     </div>
                     <div className="rightView">
                         <p>{viewmsg}</p>
+
                         <div className="buttonBox">
-                            {viewMode === "receive" && (
-                                <button
-                                    onClick={() => {
-                                        setMake(true);
-                                        setSendTo(viewName);
-                                    }}
-                                >
-                                    REPLY
-                                </button>
-                            )}
+                            {control &&
+                                control[0].control.mail &&
+                                viewMode === "receive" && (
+                                    <button
+                                        onClick={() => {
+                                            setMake(true);
+                                            setSendTo(viewName);
+                                        }}
+                                    >
+                                        REPLY
+                                    </button>
+                                )}
                         </div>
                     </div>
                 </div>

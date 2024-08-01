@@ -29,6 +29,7 @@ import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
 import { PackerList } from "@/components/profile/packerList";
 import { DataProps } from "@/components/profile/packerWrite";
+import { ControlProps } from "../admin/control";
 export default function ProfilePage() {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
@@ -67,6 +68,26 @@ export default function ProfilePage() {
         () => fetchCharData(user?.uid),
         {
             staleTime: 60000,
+        }
+    );
+
+    //control되고 있는 상황 fetch
+    const fetchControlData = async () => {
+        const controlRef = collection(db, "control");
+        const controlSnapshot = await getDocs(controlRef);
+        const data: ControlProps[] = controlSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        })) as ControlProps[];
+
+        return data;
+    };
+
+    const { data: control } = useQuery<ControlProps[]>(
+        "control",
+        fetchControlData,
+        {
+            staleTime: 600000, // 캐시된 데이터가 10분 후에 만료됨
         }
     );
 
@@ -692,34 +713,44 @@ export default function ProfilePage() {
                     <div className="selectDoc">Select Document...</div>
                 </Character>
             )}
-            <CharList>
-                <div className="leftArrow arrow" onClick={handleLeft}>
-                    <IoChevronBack size={60} />
-                </div>
-                <div className="badgeWrap">
-                    <img src={badgeList[selectHouse]} alt="휘장" />
-                </div>
-                <div className="gifWrap">
-                    {allChar?.map(
-                        (char, index) =>
-                            char.badge === houseList[selectHouse] && (
-                                <button
-                                    className={`charGif ${
-                                        char.id === selectChar.id && "selected"
-                                    }`}
-                                    key={index}
-                                    value={char.id}
-                                    onClick={handleCharSet}
-                                >
-                                    <img src={char.gifUrl} alt="캐릭터 두상" />
-                                </button>
-                            )
-                    )}
-                </div>
-                <div className="rightArrow arrow" onClick={handleRight}>
-                    <IoChevronForward size={60} />
-                </div>
-            </CharList>
+            {control && control[0].control.profileread ? (
+                <CharList>
+                    <div className="leftArrow arrow" onClick={handleLeft}>
+                        <IoChevronBack size={60} />
+                    </div>
+                    <div className="badgeWrap">
+                        <img src={badgeList[selectHouse]} alt="휘장" />
+                    </div>
+                    <div className="gifWrap">
+                        {allChar?.map(
+                            (char, index) =>
+                                char.badge === houseList[selectHouse] && (
+                                    <button
+                                        className={`charGif ${
+                                            char.id === selectChar.id &&
+                                            "selected"
+                                        }`}
+                                        key={index}
+                                        value={char.id}
+                                        onClick={handleCharSet}
+                                    >
+                                        <img
+                                            src={char.gifUrl}
+                                            alt="캐릭터 두상"
+                                        />
+                                    </button>
+                                )
+                        )}
+                    </div>
+                    <div className="rightArrow arrow" onClick={handleRight}>
+                        <IoChevronForward size={60} />
+                    </div>
+                </CharList>
+            ) : (
+                <CharList>
+                    <div className="denied">출석부 열람 기간이 아닙니다</div>
+                </CharList>
+            )}
         </CharacterWrap>
     );
 }

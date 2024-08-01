@@ -32,7 +32,7 @@ interface BadgeUpdatesProps {
         [badge: string]: string;
     };
 }
-interface ControlProps {
+export interface ControlProps {
     id: string;
     control: {
         mail: boolean;

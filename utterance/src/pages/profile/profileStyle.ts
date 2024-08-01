@@ -409,6 +409,14 @@ export const CharList = styled.div`
     background: url(/images/profile/listbackground.webp) no-repeat;
     background-size: 100% 100%;
     position: relative;
+    .denied {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.3vw;
+    }
     .leftArrow {
         width: 10%;
         height: 100%;

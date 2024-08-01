@@ -23,6 +23,7 @@ import { ButtonStyle } from "../Style";
 import { MyPageStyle } from "./MyPageBoxStyle";
 import { useRef, useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
+import { ControlProps } from "@/pages/admin/control";
 
 export default function MyPageBox() {
     const navigate = useNavigate();
@@ -95,6 +96,26 @@ export default function MyPageBox() {
         }
         navigate("/ProfilePage");
     };
+
+    //control되고 있는 상황 fetch
+    const fetchControlData = async () => {
+        const controlRef = collection(db, "control");
+        const controlSnapshot = await getDocs(controlRef);
+        const data: ControlProps[] = controlSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        })) as ControlProps[];
+
+        return data;
+    };
+
+    const { data: control } = useQuery<ControlProps[]>(
+        "control",
+        fetchControlData,
+        {
+            staleTime: 600000, // 캐시된 데이터가 10분 후에 만료됨
+        }
+    );
 
     //유튜브 로드 옵션
     const options: YouTubeProps["opts"] = {
@@ -229,9 +250,18 @@ export default function MyPageBox() {
                                         )}
                                     </button>
                                     <button
-                                        onClick={() =>
-                                            navigate("/ProfileEditPage")
-                                        }
+                                        onClick={() => {
+                                            if (
+                                                control &&
+                                                control[0].control.profilewrite
+                                            ) {
+                                                navigate("/ProfileEditPage");
+                                            } else {
+                                                alert(
+                                                    "프로필 작성 기간이 아닙니다"
+                                                );
+                                            }
+                                        }}
                                     >
                                         <img
                                             src="/images/main/icon/icon_modify_26x26.webp"
