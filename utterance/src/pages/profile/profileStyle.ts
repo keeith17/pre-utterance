@@ -353,7 +353,7 @@ export const SynapsePacker = styled.div`
                         background: #fd8719;
                     }
                     .count3 {
-                        background: #e86c00;
+                        background: #c75000;
                     }
                 }
 
@@ -374,10 +374,10 @@ export const SynapsePacker = styled.div`
                         background: #adf1a6;
                     }
                     .count2 {
-                        background: #adf1a6;
+                        background: #2efa1b;
                     }
                     .count3 {
-                        background: #adf1a6;
+                        background: #0fb400;
                     }
                 }
                 .dbTitle {

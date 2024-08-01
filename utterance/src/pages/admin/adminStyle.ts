@@ -15,11 +15,35 @@ export const ControlStyle = styled.div`
 
     .controlBox {
         width: 10vw;
-        height: 10vw;
-        background: pink;
+        height: 13vw;
+        padding: 0.5vw;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background: rgba(0, 0, 0, 0.7);
         position: absolute;
         top: 0;
         left: 0;
+        .boxWrap {
+            width: 100%;
+            display: flex;
+            flex-flow: wrap;
+            justify-content: center;
+            .eachBox {
+                width: 100%;
+                padding-bottom: 1vw;
+                display: flex;
+                flex-flow: wrap;
+                p {
+                    width: 100%;
+                    padding-right: 1vw;
+                }
+            }
+            button {
+                border: none;
+                outline: none;
+                border: 1px solid white;
+                padding: 0.3vw;
+            }
+        }
     }
 
     .centerWrap {
