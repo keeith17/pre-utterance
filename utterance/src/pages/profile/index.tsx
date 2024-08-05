@@ -104,10 +104,11 @@ export default function ProfilePage() {
             if (char.badge) {
                 if (!houseList.includes(char.badge)) {
                     setHouseList([...houseList, char.badge]);
+                    setBadgeList([...badgeList, "/images/etc/badge4.gif"]);
                 }
-                if (!badgeList.includes(char.badgeImg)) {
-                    setBadgeList([...badgeList, char.badgeImg]);
-                }
+                // if (!badgeList.includes(char.badgeImg)) {
+                //     setBadgeList([...badgeList, char.badgeImg]);
+                // }
             }
         }
         return data;
