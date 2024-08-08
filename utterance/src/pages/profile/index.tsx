@@ -51,6 +51,12 @@ export default function ProfilePage() {
         else setSelectHouse(houseList.length - 1);
     };
 
+    const dummyData = Array.from({ length: 40 }, (v, i) => ({
+        id: i + 1,
+        badge: "quasa4",
+        gifUrl: `https://example.com/gif${i + 1}.gif`, // 임의의 URL
+    }));
+    console.log(dummyData);
     // 내 캐릭터 정보 세팅 함수
     const fetchCharData = async (userUid: string | null) => {
         if (userUid) {
