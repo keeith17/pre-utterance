@@ -130,7 +130,7 @@ export const SearcDetailWrap = styled.div`
                     background: url(/images/world/menu/menu_266x61.webp) 0 50%
                         no-repeat;
                     background-size: auto 100%;
-                    padding-left: 30%;
+                    padding-left: 20%;
                     p {
                         font-size: 28px;
                         // background: red;
@@ -150,7 +150,7 @@ export const SearcDetailWrap = styled.div`
                         background: url(/images/world/menu/menu_hover_266x61.webp)
                             0 50% no-repeat;
                         background-size: auto 100%;
-                        padding-left: 30%;
+                        padding-left: 20%;
                         p {
                             font-size: 28px;
                             // background: red;
