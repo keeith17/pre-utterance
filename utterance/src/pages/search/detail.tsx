@@ -90,7 +90,7 @@ export default function SearchDetailPage() {
                 {searchData &&
                     (selectedImage === "" ? (
                         <div className="guideWrap">
-                            열람할 페이지를 선택해 주세요
+                            {/* 열람할 페이지를 선택해 주세요 */}
                         </div>
                     ) : (
                         <div className="imgWrap">

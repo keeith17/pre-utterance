@@ -174,7 +174,7 @@ export const SearcDetailWrap = styled.div`
         .imgWrap {
             width: 100%;
             height: 100%;
-            padding: 3vw 0 1vw 0;
+            padding: 3.5vw 0 1vw 0;
             background: url(/images/world/mainframe/mainframe_969x950.webp) 50%
                 50% no-repeat;
             background-size: auto 100%;
@@ -182,7 +182,7 @@ export const SearcDetailWrap = styled.div`
             justify-content: center;
             align-items: center;
             .imgBox {
-                width: 85%;
+                width: 90%;
                 height: 90%;
                 padding-right: 1vw;
                 overflow-y: scroll;
