@@ -5,7 +5,6 @@ import {
     getDocs,
     orderBy,
     query,
-    where,
 } from "firebase/firestore";
 import {
     CharList,
