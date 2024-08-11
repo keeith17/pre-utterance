@@ -454,6 +454,10 @@ export const CharList = styled.div`
         flex-flow: wrap;
         justify-content: flex-start;
         gap: 1.3%;
+        &.teacher {
+            width: 100%;
+            align-items: center;
+        }
         .charGif {
             cursor: pointer;
             height: 45%;

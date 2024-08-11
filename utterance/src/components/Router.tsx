@@ -6,6 +6,7 @@ import AddIdPage from "@/pages/admin/addId";
 import SearchDetailPage from "@/pages/search/detail";
 import ProfileEditPage from "@/pages/profileEdit";
 import Control from "@/pages/admin/control";
+import TeacherProfilePage from "@/pages/profile/teacher";
 
 interface RouterProps {
     isAuthenticated: boolean;
@@ -19,6 +20,10 @@ export default function Router({ isAuthenticated }: RouterProps) {
                     <Route path="/" element={<SearchPage />} />
                     <Route path="/:id" element={<SearchDetailPage />} />
                     <Route path="/ProfilePage" element={<ProfilePage />} />
+                    <Route
+                        path="/TeacherProfilePage"
+                        element={<TeacherProfilePage />}
+                    />
                     <Route
                         path="/ProfileEditPage"
                         element={<ProfileEditPage />}
