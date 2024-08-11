@@ -74,11 +74,7 @@ export default function TeacherProfilePage() {
     // 전체 캐릭터 데이터 받아 오는 부분
     const fetchAllCharData = async () => {
         const charRef = collection(db, "character");
-        const charQuery = query(
-            charRef,
-            orderBy("name", "asc"),
-            where("badge", "==", "teacher")
-        );
+        const charQuery = query(charRef, orderBy("name", "asc"));
         const allCharSnapshot = await getDocs(charQuery);
         const data: AllCharProps[] = allCharSnapshot.docs.map((doc) => ({
             id: doc.id,
@@ -89,7 +85,7 @@ export default function TeacherProfilePage() {
     };
 
     const { data: allChar } = useQuery<AllCharProps[]>(
-        "allChar",
+        "allCharTeacher",
         fetchAllCharData,
         {
             staleTime: 30000, // 캐시된 데이터가 30초 후에 만료됨
@@ -692,18 +688,25 @@ export default function TeacherProfilePage() {
             {control && control[0].control.profileread ? (
                 <CharList>
                     <div className="gifWrap teacher">
-                        {allChar?.map((char, index) => (
-                            <button
-                                className={`charGif ${
-                                    char.id === selectChar.id && "selected"
-                                }`}
-                                key={index}
-                                value={char.id}
-                                onClick={handleCharSet}
-                            >
-                                <img src={char.gifUrl} alt="캐릭터 두상" />
-                            </button>
-                        ))}
+                        {allChar?.map(
+                            (char, index) =>
+                                char.badge === "teacher" && (
+                                    <button
+                                        className={`charGif ${
+                                            char.id === selectChar.id &&
+                                            "selected"
+                                        }`}
+                                        key={index}
+                                        value={char.id}
+                                        onClick={handleCharSet}
+                                    >
+                                        <img
+                                            src={char.gifUrl}
+                                            alt="캐릭터 두상"
+                                        />
+                                    </button>
+                                )
+                        )}
                     </div>
                 </CharList>
             ) : (

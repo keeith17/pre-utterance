@@ -107,7 +107,7 @@ export default function ProfilePage() {
             ...doc.data(),
         })) as AllCharProps[];
         for (const char of data) {
-            if (char.badge) {
+            if (char.badge && char.badge !== "teacher") {
                 if (!houseList.includes(char.badge)) {
                     setHouseList([...houseList, char.badge]);
                     setBadgeList([...badgeList, "/images/etc/badge4.gif"]);
@@ -731,7 +731,8 @@ export default function ProfilePage() {
                     <div className="gifWrap">
                         {allChar?.map(
                             (char, index) =>
-                                char.badge === houseList[selectHouse] && (
+                                char.badge === houseList[selectHouse] &&
+                                char.badge !== "teacher" && (
                                     <button
                                         className={`charGif ${
                                             char.id === selectChar.id &&

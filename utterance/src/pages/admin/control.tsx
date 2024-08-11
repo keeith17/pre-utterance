@@ -237,7 +237,7 @@ export default function Control() {
             try {
                 await batch.commit();
                 await queryClient.invalidateQueries("allChar");
-                console.log("Batch write successfully committed!");
+                alert("저장 성공");
             } catch (error) {
                 console.error("Error writing batch: ", error);
             }
@@ -473,7 +473,10 @@ export default function Control() {
                                     <option value="quasa1">quasa1</option>
                                     <option value="quasa2">quasa2</option>
                                     <option value="quasa3">quasa3</option>
-                                    <option value="quasa4">quasa4</option>
+                                    <option value="quasa4">
+                                        quasa4(훈련생)
+                                    </option>
+                                    <option value="teacher">teacher</option>
                                     {/* <option>
                                       {(character?.grade || 0) + "등급"}
                                   </option> */}

@@ -94,7 +94,11 @@ export default function MyPageBox() {
         if (myChar) {
             setSelectChar(myChar);
         }
-        navigate("/ProfilePage");
+        if (myChar?.badge === "teacher") {
+            navigate("/TeacherProfilePage");
+        } else {
+            navigate("/ProfilePage");
+        }
     };
 
     //control되고 있는 상황 fetch

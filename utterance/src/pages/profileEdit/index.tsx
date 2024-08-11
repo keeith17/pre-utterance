@@ -265,7 +265,11 @@ export default function ProfileEditPage() {
                     rela4: input.rela4 || "",
                     desc4: input.desc4 || "",
                 });
-                navigate("/ProfilePage");
+                if (myChar?.badge === "teacher") {
+                    navigate("/TeacherProfilePage");
+                } else {
+                    navigate("/ProfilePage");
+                }
             },
             onError: (error) => {
                 console.error("POST 실패:", error);
@@ -394,24 +398,16 @@ export default function ProfileEditPage() {
                         <div className="inputGroup">
                             <div className="profBox">행성</div>
                             <div className="inputBox">
-                                <DropdownStyle
+                                <InputStyle
+                                    placeholder="숫자만 입력해 주세요"
+                                    fontSize=" 13px"
+                                    border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
                                     value={input.planet}
                                     name="planet"
                                     onChange={handleChange}
-                                >
-                                    <option value="행성 없음">
-                                        행성을 선택해 주세요.
-                                    </option>
-                                    <option value="소버린">소버린</option>
-                                    <option value="아스화리탈">
-                                        아스화리탈
-                                    </option>
-                                    <option value="할라">할라</option>
-                                    <option value="테라">테라</option>
-                                    <option value="카르툼">카르툼</option>
-                                </DropdownStyle>
+                                ></InputStyle>
                             </div>
                         </div>
                         <div className="inputGroup">
@@ -419,7 +415,7 @@ export default function ProfileEditPage() {
                             <div className="inputBox">
                                 <TextAreaStyle
                                     fontFamily={thisFont}
-                                    placeholder="정보 권한 2등급에 해당되는 정보를 입력해 주세요."
+                                    placeholder="정보 권한 1등급에 해당되는 정보를 입력해 주세요."
                                     value={input.secret1}
                                     name="secret1"
                                     onChange={handleChange}
@@ -431,7 +427,7 @@ export default function ProfileEditPage() {
                             <div className="inputBox">
                                 <TextAreaStyle
                                     fontFamily={thisFont}
-                                    placeholder="정보 권한 3등급에 해당되는 정보를 입력해 주세요."
+                                    placeholder="정보 권한 2등급에 해당되는 정보를 입력해 주세요."
                                     value={input.secret2}
                                     name="secret2"
                                     onChange={handleChange}
@@ -444,7 +440,7 @@ export default function ProfileEditPage() {
                             <div className="inputBox">
                                 <TextAreaStyle
                                     fontFamily={thisFont}
-                                    placeholder="정보 권한 4등급에 해당되는 정보를 입력해 주세요."
+                                    placeholder="정보 권한 3등급에 해당되는 정보를 입력해 주세요."
                                     value={input.secret3}
                                     name="secret3"
                                     onChange={handleChange}
