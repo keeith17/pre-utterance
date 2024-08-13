@@ -14,7 +14,7 @@ import {
 } from "./profileStyle";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
