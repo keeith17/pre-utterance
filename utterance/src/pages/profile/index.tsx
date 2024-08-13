@@ -14,7 +14,7 @@ import {
 } from "./profileStyle";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -106,20 +106,23 @@ export default function ProfilePage() {
             id: doc.id,
             ...doc.data(),
         })) as AllCharProps[];
+        const imsiHouseList: string[] = [];
+        const imsiBadgeList: string[] = [];
         for (const char of data) {
             if (char.badge && char.badge !== "teacher") {
                 if (!houseList.includes(char.badge)) {
-                    setHouseList([...houseList, char.badge]);
-                    setBadgeList([...badgeList, "/images/etc/badge4.gif"]);
+                    console.log("숙소", char.badge, "리스트", houseList);
+                    if (!imsiHouseList.includes(char.badge)) {
+                        imsiHouseList.push(char.badge);
+                        imsiBadgeList.push("/images/etc/badge4.gif");
+                    }
                 }
-                // if (!badgeList.includes(char.badgeImg)) {
-                //     setBadgeList([...badgeList, char.badgeImg]);
-                // }
             }
         }
+        setHouseList([...houseList, ...imsiHouseList]);
+        setBadgeList([...badgeList, ...imsiBadgeList]);
         return data;
     };
-
     const { data: allChar } = useQuery<AllCharProps[]>(
         "allChar",
         fetchAllCharData,

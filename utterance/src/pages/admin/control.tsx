@@ -473,9 +473,9 @@ export default function Control() {
                                     <option value="quasa1">quasa1</option>
                                     <option value="quasa2">quasa2</option>
                                     <option value="quasa3">quasa3</option>
-                                    <option value="quasa4">
-                                        quasa4(훈련생)
-                                    </option>
+                                    <option value="quasa4">훈련생1</option>
+                                    <option value="quasa5">훈련생2</option>
+                                    <option value="quasa6">훈련생3</option>
                                     <option value="teacher">teacher</option>
                                     {/* <option>
                                       {(character?.grade || 0) + "등급"}
