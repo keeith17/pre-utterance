@@ -114,6 +114,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                     );
                     const charMoneyRef = doc(db, "character", user.uid);
                     const twitMoneyRef = doc(db, "twiterInfo", user.uid);
+                    const twitMoneySnap = await getDoc(twitMoneyRef);
                     await addDoc(charRef, {
                         title: data.title,
                         image: data.image,
@@ -132,16 +133,20 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                         await updateDoc(charMoneyRef, {
                             credit: myChar.credit + 200,
                         });
-                        await updateDoc(twitMoneyRef, {
-                            credit: myChar.credit + 200,
-                        });
+                        if (twitMoneySnap.exists()) {
+                            await updateDoc(twitMoneyRef, {
+                                credit: myChar.credit + 200,
+                            });
+                        }
                     } else if (myChar) {
                         await updateDoc(charMoneyRef, {
                             credit: myChar.credit + 100,
                         });
-                        await updateDoc(twitMoneyRef, {
-                            credit: myChar.credit + 100,
-                        });
+                        if (twitMoneySnap.exists()) {
+                            await updateDoc(twitMoneyRef, {
+                                credit: myChar.credit + 100,
+                            });
+                        }
                     }
                 }
             }
