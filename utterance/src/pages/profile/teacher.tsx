@@ -686,6 +686,9 @@ export default function TeacherProfilePage() {
             )}
             {control && control[0].control.profileread ? (
                 <CharList>
+                    <div className="badgeWrap">
+                        <img src="/images/etc/teacher_badge.png" alt="휘장" />
+                    </div>
                     <div className="gifWrap teacher">
                         {allChar?.map(
                             (char, index) =>

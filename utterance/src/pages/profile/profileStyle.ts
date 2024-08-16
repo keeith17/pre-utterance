@@ -380,6 +380,19 @@ export const SynapsePacker = styled.div`
                         background: #0fb400;
                     }
                 }
+
+                .teacher {
+                    .count1 {
+                        background: #ccb3ff;
+                    }
+                    .count2 {
+                        background: #6812fe;
+                    }
+                    .count3 {
+                        background: #2f1860;
+                    }
+                }
+
                 .dbTitle {
                     width: 10%;
                     padding-top: 1%;
@@ -455,7 +468,7 @@ export const CharList = styled.div`
         justify-content: flex-start;
         gap: 1.3%;
         &.teacher {
-            width: 100%;
+            width: 70%;
             align-items: center;
         }
         .charGif {
