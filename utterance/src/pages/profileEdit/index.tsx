@@ -328,10 +328,10 @@ export default function ProfileEditPage() {
                             </div>
                         </div>
                         <div className="inputGroup">
-                            <div className="profBox">이름</div>
+                            <div className="profBox">코드 네임</div>
                             <div className="inputBox">
                                 <InputStyle
-                                    placeholder="뭐든 써 주세요"
+                                    placeholder="본명이 아닌 코드 네임을 입력해 주세요."
                                     fontSize=" 13px"
                                     border="none"
                                     height={thisHeight}
@@ -399,7 +399,7 @@ export default function ProfileEditPage() {
                             <div className="profBox">행성</div>
                             <div className="inputBox">
                                 <InputStyle
-                                    placeholder="숫자만 입력해 주세요"
+                                    placeholder="출신 행성을 입력해 주세요."
                                     fontSize=" 13px"
                                     border="none"
                                     height={thisHeight}

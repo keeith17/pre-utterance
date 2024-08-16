@@ -49,6 +49,8 @@ export const ControlStyle = styled.div`
     .centerWrap {
         width: 80%;
         height: 100%;
+        overflow-y: scroll;
+        padding-right: 0.5vw;
         .eachlow {
             width: 100%;
             padding: 10px;

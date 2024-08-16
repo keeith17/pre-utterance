@@ -88,7 +88,26 @@ export const PackerList: React.FC<PackerListProps> = ({ setModal, packer }) => {
             {/* {read && <PackerDetail setRead={setRead} record={record} />} */}
             <NameBox>
                 <p className="mainTitle">{packer.toUpperCase()}</p>
-                <p className="subTitle">보안이 취약한 데이터베이스입니다.</p>
+                {packer === "database1" && (
+                    <p className="subTitle">
+                        보안이 매우 취약한 데이터베이스입니다.
+                        <br />
+                        의도하지 않은 데이터 손실 및 유출이 일어날 수 있습니다.
+                    </p>
+                )}
+                {packer === "database2" && (
+                    <p className="subTitle">
+                        보안이 다소 취약한 데이터베이스입니다.
+                        <br />
+                        데이터 암호화 및 접근 권한을 제어합니다.
+                    </p>
+                )}
+                {packer === "database3" && (
+                    <p className="subTitle">
+                        보안이 강력한 데이터베이스입니다. <br />
+                        엄격한 인증 프로토콜 및 정기적인 보안 감사를 시행합니다.
+                    </p>
+                )}
             </NameBox>
             <ListBox>
                 {data &&

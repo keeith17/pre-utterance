@@ -184,7 +184,8 @@ export const SearcDetailWrap = styled.div`
             .imgBox {
                 width: 90%;
                 height: 90%;
-                padding-right: 1vw;
+                padding-right: 0.2vw;
+                padding-left: 0.2vw;
                 overflow-y: scroll;
                 img {
                     width: 100%;

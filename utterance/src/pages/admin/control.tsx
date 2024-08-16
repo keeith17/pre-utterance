@@ -11,8 +11,15 @@ import { ControlStyle } from "./adminStyle";
 import { db } from "@/firebaseApp";
 import { AllCharProps } from "@/atom";
 import { useQuery, useQueryClient } from "react-query";
-import { ButtonStyle, DropdownStyle, InputStyle } from "@/components/Style";
+import {
+    ButtonStyle,
+    DropdownStyle,
+    InputStyle,
+    Out,
+} from "@/components/Style";
 import { useEffect, useState } from "react";
+import { RiCloseLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 interface MoneyUpdatesProps {
     id: string;
@@ -42,6 +49,7 @@ export interface ControlProps {
 }
 export default function Control() {
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
     const [updates, setUpdates] = useState<MoneyUpdatesProps[]>([]);
     const [gradeUpdates, setGradeUpdates] = useState<GradeUpdatesProps[]>([]);
     const [badegUpdates, setBadgeUpdates] = useState<BadgeUpdatesProps[]>([]);
@@ -223,6 +231,7 @@ export default function Control() {
             try {
                 await batch.commit();
                 await queryClient.invalidateQueries("allChar");
+                alert("저장 성공");
                 console.log("Batch write successfully committed!");
             } catch (error) {
                 console.error("Error writing batch: ", error);
@@ -251,6 +260,7 @@ export default function Control() {
             try {
                 await batch.commit();
                 await queryClient.invalidateQueries("allChar");
+                alert("저장 성공");
                 console.log("Batch write successfully committed!");
             } catch (error) {
                 console.error("Error writing batch: ", error);
@@ -260,6 +270,9 @@ export default function Control() {
 
     return (
         <ControlStyle>
+            <Out onClick={() => navigate("/")}>
+                <RiCloseLine size={25} color="white" />
+            </Out>
             {control && (
                 <div className="controlBox">
                     <div className="boxWrap">

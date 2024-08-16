@@ -466,7 +466,9 @@ export const CharList = styled.div`
         flex: 1;
         flex-flow: wrap;
         justify-content: flex-start;
-        gap: 1.3%;
+        gap: 3%;
+        padding: 0.2vw;
+        align-items: center;
         &.teacher {
             width: 70%;
             align-items: center;

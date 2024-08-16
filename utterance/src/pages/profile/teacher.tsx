@@ -188,7 +188,7 @@ export default function TeacherProfilePage() {
                     return char.gifUrl;
                 }
             }
-            return "none";
+            return "Loading";
         }
     };
     // uid -> 이름
@@ -199,7 +199,7 @@ export default function TeacherProfilePage() {
                     return char.name;
                 }
             }
-            return "none";
+            return "Loading...";
         }
     };
 
@@ -555,9 +555,11 @@ export default function TeacherProfilePage() {
                                     <div className="imgBox">
                                         <img
                                             src={
-                                                uidToProfile(
-                                                    selectChar.rela1
-                                                ) || "/images/default_head.webp"
+                                                selectChar.rela1
+                                                    ? uidToProfile(
+                                                          selectChar.rela1
+                                                      )
+                                                    : "/images/etc/locker.webp"
                                             }
                                             className="headRela"
                                             alt="관계1두상"
@@ -571,7 +573,20 @@ export default function TeacherProfilePage() {
                                 </div>
                                 <div className="relaContent">
                                     <div className="textBox">
-                                        <p>{selectChar.desc1}</p>
+                                        {selectChar.desc1 ? (
+                                            <p>{selectChar.desc1}</p>
+                                        ) : (
+                                            <p
+                                                style={{
+                                                    width: "100%",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                }}
+                                            >
+                                                데이터 수집 중입니다.
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -587,9 +602,11 @@ export default function TeacherProfilePage() {
                                     <div className="imgBox">
                                         <img
                                             src={
-                                                uidToProfile(
-                                                    selectChar.rela2
-                                                ) || "/images/default_head.webp"
+                                                selectChar.rela2
+                                                    ? uidToProfile(
+                                                          selectChar.rela2
+                                                      )
+                                                    : "/images/etc/locker.webp"
                                             }
                                             className="headRela"
                                             alt="관계2두상"
@@ -603,7 +620,20 @@ export default function TeacherProfilePage() {
                                 </div>
                                 <div className="relaContent">
                                     <div className="textBox">
-                                        <p>{selectChar.desc2}</p>
+                                        {selectChar.desc2 ? (
+                                            <p>{selectChar.desc2}</p>
+                                        ) : (
+                                            <p
+                                                style={{
+                                                    width: "100%",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                }}
+                                            >
+                                                데이터 수집 중입니다.
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -619,9 +649,11 @@ export default function TeacherProfilePage() {
                                     <div className="imgBox">
                                         <img
                                             src={
-                                                uidToProfile(
-                                                    selectChar.rela3
-                                                ) || "/images/default_head.webp"
+                                                selectChar.rela3
+                                                    ? uidToProfile(
+                                                          selectChar.rela3
+                                                      )
+                                                    : "/images/etc/locker.webp"
                                             }
                                             className="headRela"
                                             alt="관계3두상"
@@ -635,7 +667,20 @@ export default function TeacherProfilePage() {
                                 </div>
                                 <div className="relaContent">
                                     <div className="textBox">
-                                        <p>{selectChar.desc3}</p>
+                                        {selectChar.desc3 ? (
+                                            <p>{selectChar.desc3}</p>
+                                        ) : (
+                                            <p
+                                                style={{
+                                                    width: "100%",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                }}
+                                            >
+                                                데이터 수집 중입니다.
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -651,9 +696,11 @@ export default function TeacherProfilePage() {
                                     <div className="imgBox">
                                         <img
                                             src={
-                                                uidToProfile(
-                                                    selectChar.rela4
-                                                ) || "/images/default_head.webp"
+                                                selectChar.rela4
+                                                    ? uidToProfile(
+                                                          selectChar.rela4
+                                                      )
+                                                    : "/images/etc/locker.webp"
                                             }
                                             className="headRela"
                                             alt="관계4두상"
@@ -667,7 +714,20 @@ export default function TeacherProfilePage() {
                                 </div>
                                 <div className="relaContent">
                                     <div className="textBox">
-                                        <p>{selectChar.desc4}</p>
+                                        {selectChar.desc4 ? (
+                                            <p>{selectChar.desc4}</p>
+                                        ) : (
+                                            <p
+                                                style={{
+                                                    width: "100%",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                }}
+                                            >
+                                                데이터 수집 중입니다.
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -684,38 +744,29 @@ export default function TeacherProfilePage() {
                     <div className="selectDoc">Select Document...</div>
                 </Character>
             )}
-            {control && control[0].control.profileread ? (
-                <CharList>
-                    <div className="badgeWrap">
-                        <img src="/images/etc/teacher_badge.png" alt="휘장" />
-                    </div>
-                    <div className="gifWrap teacher">
-                        {allChar?.map(
-                            (char, index) =>
-                                char.badge === "teacher" && (
-                                    <button
-                                        className={`charGif ${
-                                            char.id === selectChar.id &&
-                                            "selected"
-                                        }`}
-                                        key={index}
-                                        value={char.id}
-                                        onClick={handleCharSet}
-                                    >
-                                        <img
-                                            src={char.gifUrl}
-                                            alt="캐릭터 두상"
-                                        />
-                                    </button>
-                                )
-                        )}
-                    </div>
-                </CharList>
-            ) : (
-                <CharList>
-                    <div className="denied">출석부 열람 기간이 아닙니다</div>
-                </CharList>
-            )}
+
+            <CharList>
+                <div className="badgeWrap">
+                    <img src="/images/etc/teacher_badge.png" alt="휘장" />
+                </div>
+                <div className="gifWrap teacher">
+                    {allChar?.map(
+                        (char, index) =>
+                            char.badge === "teacher" && (
+                                <button
+                                    className={`charGif ${
+                                        char.id === selectChar.id && "selected"
+                                    }`}
+                                    key={index}
+                                    value={char.id}
+                                    onClick={handleCharSet}
+                                >
+                                    <img src={char.gifUrl} alt="캐릭터 두상" />
+                                </button>
+                            )
+                    )}
+                </div>
+            </CharList>
         </CharacterWrap>
     );
 }

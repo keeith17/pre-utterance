@@ -22,7 +22,10 @@ interface ResultButtonProps {
 export default function ResultButton({ button }: ResultButtonProps) {
     const setSelectChar = useSetRecoilState(selectUserState);
     const handleProfileSet = () => {
-        if (button?.link === "/ProfilePage") {
+        if (
+            button?.link === "/ProfilePage" ||
+            button?.link === "/TeacherProfilePage"
+        ) {
             setSelectChar({
                 badge: "",
                 badgeImg: "",
