@@ -218,6 +218,15 @@ export default function MyPageBox() {
                                     <div className="myName">{myChar?.name}</div>
                                 </div>
                                 <div className="icons">
+                                    {Number(myChar?.grade) >= 4 && (
+                                        <button
+                                            onClick={() =>
+                                                navigate("/admin/control")
+                                            }
+                                        >
+                                            어드민
+                                        </button>
+                                    )}
                                     {bgm ? (
                                         <button
                                             name="pause"

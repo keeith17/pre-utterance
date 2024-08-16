@@ -783,7 +783,8 @@ export default function ProfilePage() {
                     <div className="selectDoc">Select Document...</div>
                 </Character>
             )}
-            {control && control[0].control.profileread ? (
+            {(control && control[0].control.profileread) ||
+            Number(myChar?.grade) >= 4 ? (
                 <CharList>
                     <div className="leftArrow arrow" onClick={handleLeft}>
                         <IoChevronBack size={60} />
