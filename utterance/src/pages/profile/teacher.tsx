@@ -52,7 +52,7 @@ export default function TeacherProfilePage() {
     // 전체 캐릭터 데이터 받아 오는 부분
     const fetchAllCharData = async () => {
         const charRef = collection(db, "character");
-        const charQuery = query(charRef, orderBy("name", "asc"));
+        const charQuery = query(charRef, orderBy("grade", "desc"));
         const allCharSnapshot = await getDocs(charQuery);
         const data: AllCharProps[] = allCharSnapshot.docs.map((doc) => ({
             id: doc.id,
