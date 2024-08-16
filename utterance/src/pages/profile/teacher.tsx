@@ -167,7 +167,7 @@ export default function TeacherProfilePage() {
                     return char.gifUrl;
                 }
             }
-            return "Loading";
+            return "none";
         }
     };
     // uid -> 이름

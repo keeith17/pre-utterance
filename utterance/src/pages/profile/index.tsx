@@ -239,7 +239,7 @@ export default function ProfilePage() {
                     return char.name;
                 }
             }
-            return "none";
+            return "Loading...";
         }
     };
 
