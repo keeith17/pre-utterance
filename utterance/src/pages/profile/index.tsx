@@ -406,9 +406,29 @@ export default function ProfilePage() {
                                     />
                                 </div>
                             </div>
+                            {/* 시냅스 패커 해금 잠금 */}
                             <SynapsePacker>
                                 <div className="packerBack">
-                                    <div className="database">
+                                    <div
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            fontSize: "0.9vw",
+                                            color: "black",
+                                            fontWeight: 700,
+                                            paddingBottom: "0.5vw",
+                                            paddingRight: "0.3vw",
+                                        }}
+                                    >
+                                        ACCESS DENIED
+                                    </div>
+                                    <div
+                                        className="database"
+                                        style={{ display: "none" }}
+                                    >
                                         <div
                                             className={
                                                 Number(myChar?.grade) > 0 ||
@@ -446,26 +466,6 @@ export default function ProfilePage() {
                                                         )}
                                                     />
                                                 ))}
-                                                {/* {SynapsePacker1?.slice(
-                                                    0,
-                                                    15
-                                                ).map((record, index) => {
-                                                    const red = Math.min(
-                                                        255,
-                                                        index * 20
-                                                    ); // 빨간색 값 계산
-                                                    const bgColor = `rgb(${red}, 0, 0)`; // RGB 색상 값 생성
-                                                    return (
-                                                        <div
-                                                            key={record.id}
-                                                            className="count"
-                                                            style={{
-                                                                backgroundColor:
-                                                                    bgColor,
-                                                            }}
-                                                        />
-                                                    );
-                                                })} */}
                                             </div>
                                         </div>
                                         <div

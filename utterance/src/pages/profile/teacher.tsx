@@ -22,7 +22,6 @@ import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
 import { PackerList } from "@/components/profile/packerList";
 import { DataProps } from "@/components/profile/packerWrite";
-import { ControlProps } from "../admin/control";
 export default function TeacherProfilePage() {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
@@ -47,26 +46,6 @@ export default function TeacherProfilePage() {
         () => fetchCharData(user?.uid),
         {
             staleTime: 60000,
-        }
-    );
-
-    //control되고 있는 상황 fetch
-    const fetchControlData = async () => {
-        const controlRef = collection(db, "control");
-        const controlSnapshot = await getDocs(controlRef);
-        const data: ControlProps[] = controlSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-        })) as ControlProps[];
-
-        return data;
-    };
-
-    const { data: control } = useQuery<ControlProps[]>(
-        "control",
-        fetchControlData,
-        {
-            staleTime: 600000, // 캐시된 데이터가 10분 후에 만료됨
         }
     );
 
@@ -368,7 +347,28 @@ export default function TeacherProfilePage() {
                             </div>
                             <SynapsePacker>
                                 <div className="packerBack">
-                                    <div className="database">
+                                    <div
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            fontSize: "0.9vw",
+                                            color: "black",
+                                            fontWeight: 700,
+                                            paddingBottom: "0.5vw",
+                                            paddingRight: "0.3vw",
+                                        }}
+                                    >
+                                        ACCESS DENIED
+                                    </div>
+                                    <div
+                                        className="database"
+                                        style={{
+                                            display: "none",
+                                        }}
+                                    >
                                         <div
                                             className={
                                                 Number(myChar?.grade) >= 0 || //등급 다른 부분
@@ -407,26 +407,6 @@ export default function TeacherProfilePage() {
                                                         )}
                                                     />
                                                 ))}
-                                                {/* {SynapsePacker1?.slice(
-                                                    0,
-                                                    15
-                                                ).map((record, index) => {
-                                                    const red = Math.min(
-                                                        255,
-                                                        index * 20
-                                                    ); // 빨간색 값 계산
-                                                    const bgColor = `rgb(${red}, 0, 0)`; // RGB 색상 값 생성
-                                                    return (
-                                                        <div
-                                                            key={record.id}
-                                                            className="count"
-                                                            style={{
-                                                                backgroundColor:
-                                                                    bgColor,
-                                                            }}
-                                                        />
-                                                    );
-                                                })} */}
                                             </div>
                                         </div>
                                         <div

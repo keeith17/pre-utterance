@@ -463,6 +463,7 @@ export default function Control() {
                                     <option value="1">1 등급</option>
                                     <option value="2">2 등급</option>
                                     <option value="3">3 등급</option>
+                                    <option value="4">4 등급</option>
                                     {/* <option>
                                       {(character?.grade || 0) + "등급"}
                                   </option> */}

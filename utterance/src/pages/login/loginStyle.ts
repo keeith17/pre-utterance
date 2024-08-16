@@ -10,6 +10,24 @@ export const LoginWrap = styled.div`
     position: relative;
     background: url(/images/loginbackground.webp) no-repeat 50% 0;
     background-size: 100% 100%;
+    @media (max-width: 700px) {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url(/images/loginbackground.webp) no-repeat 50% 0;
+        &::before {
+            content: "PC 환경에서 접속해 주세요.";
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5vw;
+            color: white;
+        }
+    }
     .yImsi {
         width: 100%;
         position: absolute;
@@ -125,6 +143,7 @@ export const LoginWrap = styled.div`
             transform: perspective(2000px) rotateZ(360deg);
         }
     }
+
     .login {
         width: 20%;
         height: 565px;
@@ -132,6 +151,9 @@ export const LoginWrap = styled.div`
         padding-bottom: 30px;
         position: relative;
         // display: flex;
+        @media (max-width: 700px) {
+            display: none;
+        }
         .logo {
             width: 100%;
             display: flex;
