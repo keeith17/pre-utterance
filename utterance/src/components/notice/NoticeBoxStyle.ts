@@ -97,14 +97,14 @@ export const NoticeStyle = styled.div`
                                 left: 2%;
                             }
                             .name {
-                                width: 25%;
+                                width: 35%;
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
                                 font-weight: 700;
                             }
                             .preview {
-                                width: 75%;
+                                width: 65%;
                                 padding-right: 1vw;
                                 white-space: nowrap;
                                 overflow: hidden;
