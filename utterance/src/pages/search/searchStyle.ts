@@ -132,7 +132,7 @@ export const SearcDetailWrap = styled.div`
                     background-size: auto 100%;
                     padding-left: 20%;
                     p {
-                        font-size: 28px;
+                        font-size: 1.1vw;
                         // background: red;
                         padding-top: 1px;
                         color: black;
