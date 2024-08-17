@@ -20,7 +20,7 @@ import {
 import { db } from "@/firebaseApp";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { AllCharProps, selectUserState, userState } from "@/atom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 interface InputCharProps {
