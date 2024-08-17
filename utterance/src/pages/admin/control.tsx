@@ -178,7 +178,10 @@ export default function Control() {
                     id: name,
                     data: {
                         grade: value,
-                        gradeImg: `/images/etc/lv${value}.webp`,
+                        gradeImg:
+                            Number(value) < 4
+                                ? `/images/etc/lv${value}.webp`
+                                : `/images/etc/lv4.webp`,
                     },
                 },
             ]);
@@ -464,6 +467,10 @@ export default function Control() {
                                     <option value="2">2 등급</option>
                                     <option value="3">3 등급</option>
                                     <option value="4">4 등급</option>
+                                    <option value="5">5 등급</option>
+                                    <option value="6">6 등급</option>
+                                    <option value="7">7 등급</option>
+                                    <option value="8">8 등급</option>
                                     {/* <option>
                                       {(character?.grade || 0) + "등급"}
                                   </option> */}
