@@ -246,9 +246,15 @@ export const NoticeStyle = styled.div`
         .rightView {
             width: 72%;
             height: 100%;
-            p {
+            .sere {
                 width: 97%;
-                height: 80%;
+                height: 13%;
+                display: flex;
+                align-items: flex-start;
+            }
+            .viewMsg {
+                width: 97%;
+                height: 67%;
                 padding-right: 0.4vw;
                 white-space: pre-wrap;
                 overflow: auto;

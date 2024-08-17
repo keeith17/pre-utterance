@@ -266,7 +266,9 @@ export default function MyPageBox() {
                                         onClick={() => {
                                             if (
                                                 control &&
-                                                control[0].control.profilewrite
+                                                (control[0].control
+                                                    .profilewrite ||
+                                                    Number(myChar?.grade) >= 4)
                                             ) {
                                                 navigate("/ProfileEditPage");
                                             } else {

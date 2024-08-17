@@ -575,7 +575,12 @@ export default function MessageBox() {
                         <p>{uidToName(viewName)}</p>
                     </div>
                     <div className="rightView">
-                        <p>{viewmsg}</p>
+                        {viewMode === "receive" ? (
+                            <p className="sere">[받은 메시지]</p>
+                        ) : (
+                            <p className="sere">[보낸 메시지]</p>
+                        )}
+                        <p className="viewMsg">{viewmsg}</p>
 
                         <div className="buttonBox">
                             {control &&
