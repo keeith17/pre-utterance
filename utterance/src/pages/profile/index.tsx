@@ -558,7 +558,7 @@ export default function ProfilePage() {
                         </div>
                         <div className="charSecretWrap">
                             <div className="charSecret">
-                                {Number(myChar?.grade) >= 1 ||
+                                {Number(myChar?.grade) >= 0 ||
                                 user.uid === selectChar.id ? (
                                     <div className="secret secret1">
                                         <p>{selectChar.secret1}</p>
