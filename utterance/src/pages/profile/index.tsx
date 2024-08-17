@@ -111,7 +111,7 @@ export default function ProfilePage() {
         for (const char of data) {
             if (char.badge && char.badge !== "teacher") {
                 if (!houseList.includes(char.badge)) {
-                    console.log("숙소", char.badge, "리스트", houseList);
+                    // console.log("숙소", char.badge, "리스트", houseList);
                     if (!imsiHouseList.includes(char.badge)) {
                         imsiHouseList.push(char.badge);
                         imsiBadgeList.push("/images/etc/badge4.gif");

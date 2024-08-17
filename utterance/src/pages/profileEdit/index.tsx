@@ -281,11 +281,6 @@ export default function ProfileEditPage() {
         mutation.mutate(input);
     };
 
-    useEffect(() => {
-        console.log("rela4", input.rela4);
-        console.log("desc4", input.desc4);
-    }, [input.desc4, input.rela4]);
-
     return (
         <ProfileLayout>
             <div className="profileLayout">
