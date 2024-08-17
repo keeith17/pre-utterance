@@ -93,11 +93,11 @@ export const Character = styled.div`
                         width: 90%;
                         height: 22.5%;
                         // padding: 15px 15px 25px 15px;
-                        font-size: 0.7vw;
+                        font-size: 0.8vw;
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        padding-bottom: 2%;
+                        padding-bottom: 3%;
                         &.charName {
                             background: url(/images/profile/infoname.webp)
                                 no-repeat;
@@ -112,12 +112,12 @@ export const Character = styled.div`
                             padding: 0;
                             display: flex;
                             gap: 1.5%;
-                            font-size: 0.7vw;
+                            font-size: 0.8vw;
                             .charFrom {
                                 width: 50%;
                                 height: 100%;
                                 display: flex;
-                                padding-bottom: 2%;
+                                padding-bottom: 3%;
                                 justify-content: center;
                                 align-items: center;
                                 background: url(/images/profile/jongjok.webp)
@@ -128,7 +128,7 @@ export const Character = styled.div`
                                 width: 50%;
                                 height: 100%;
                                 display: flex;
-                                padding-bottom: 2%;
+                                padding-bottom: 3%;
                                 justify-content: center;
                                 align-items: center;
                                 background: url(/images/profile/hangsung.webp)

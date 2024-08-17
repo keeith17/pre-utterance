@@ -38,7 +38,8 @@ export const MyPageStyle = styled.div`
                     height: 100%;
                     .texts {
                         width: 100%;
-                        height: 50%;
+                        height: 75%;
+
                         padding: 0 3.5%;
                         .grade {
                             width: 100%;
@@ -53,16 +54,20 @@ export const MyPageStyle = styled.div`
                             line-height: 1vw;
                             font-size: 1.1vw;
                         }
+                        .myNumber {
+                            line-height: 1.2vw;
+                            padding-left: 0.1vw;
+                        }
                     }
                     .icons {
-                        height: 50%;
+                        height: 25%;
                         display: flex;
                         justify-content: flex-end;
                         align-items: flex-end;
                         gap: 2%;
                         button {
                             display: flex;
-                            height: 35%;
+                            height: 70%;
                             align-items: flex-end;
                             border: none;
                             position: relative;

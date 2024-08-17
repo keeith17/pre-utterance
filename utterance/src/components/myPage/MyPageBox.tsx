@@ -216,6 +216,9 @@ export default function MyPageBox() {
                                         {myChar?.grade} 등급
                                     </div>
                                     <div className="myName">{myChar?.name}</div>
+                                    <div className="myNumber">
+                                        {user?.email?.split("@")[0]}
+                                    </div>
                                 </div>
                                 <div className="icons">
                                     {Number(myChar?.grade) >= 4 && (
