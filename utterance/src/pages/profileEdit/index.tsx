@@ -48,7 +48,7 @@ export default function ProfileEditPage() {
     const navigate = useNavigate();
     const setSelectChar = useSetRecoilState(selectUserState);
     // 스타일링 통일
-    const thisHeight: string = "30px";
+    const thisHeight: string = "1.5vw";
     const thisFont: string = "nexonGothic";
     // 현재 접속 유저 정보
     const user = useRecoilValue(userState);
@@ -312,7 +312,7 @@ export default function ProfileEditPage() {
                             <div className="inputBox">
                                 <InputStyle
                                     placeholder="1:1 비율의 gif 링크를 삽입해 주세요"
-                                    fontSize=" 13px"
+                                    fontSize=" 0.65vw"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
@@ -327,7 +327,7 @@ export default function ProfileEditPage() {
                             <div className="inputBox">
                                 <InputStyle
                                     placeholder="본명이 아닌 코드 네임을 입력해 주세요."
-                                    fontSize=" 13px"
+                                    fontSize=" 0.65vw"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
@@ -342,7 +342,7 @@ export default function ProfileEditPage() {
                             <div className="inputBox">
                                 <InputStyle
                                     placeholder="숫자만 입력해 주세요"
-                                    fontSize=" 13px"
+                                    fontSize=" 0.65vw"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
@@ -357,7 +357,7 @@ export default function ProfileEditPage() {
                             <div className="inputBox">
                                 <InputStyle
                                     placeholder="숫자만 입력해 주세요"
-                                    fontSize=" 13px"
+                                    fontSize=" 0.65vw"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
@@ -395,7 +395,7 @@ export default function ProfileEditPage() {
                             <div className="inputBox">
                                 <InputStyle
                                     placeholder="출신 행성을 입력해 주세요."
-                                    fontSize=" 13px"
+                                    fontSize=" 0.65vw"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
@@ -462,7 +462,7 @@ export default function ProfileEditPage() {
                                     ))}
                                 </DropdownStyle>
                                 <InputStyle
-                                    fontSize=" 13px"
+                                    fontSize=" 0.65vw"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
@@ -493,7 +493,7 @@ export default function ProfileEditPage() {
                                     ))}
                                 </DropdownStyle>
                                 <InputStyle
-                                    fontSize=" 13px"
+                                    fontSize=" 0.65vw"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
@@ -524,7 +524,7 @@ export default function ProfileEditPage() {
                                     ))}
                                 </DropdownStyle>
                                 <InputStyle
-                                    fontSize="13px"
+                                    fontSize="0.65vw"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
@@ -555,7 +555,7 @@ export default function ProfileEditPage() {
                                     ))}
                                 </DropdownStyle>
                                 <InputStyle
-                                    fontSize="13px"
+                                    fontSize="0.65vw"
                                     border="none"
                                     height={thisHeight}
                                     fontFamily={thisFont}
@@ -568,7 +568,7 @@ export default function ProfileEditPage() {
                         </div>
                     </div>
                     <Save>
-                        <ButtonStyle type="submit" fontSize="17px">
+                        <ButtonStyle type="submit" fontSize="0.9vw">
                             저장
                         </ButtonStyle>
                     </Save>

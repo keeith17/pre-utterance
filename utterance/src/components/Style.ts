@@ -49,7 +49,7 @@ export const Out = styled.button`
 export const InputStyle = styled.input<InputProps>`
     width: 100%;
     height: ${(props) => props.height};
-    text-indent: 10px;
+    text-indent: 0.5vw;
     font-size: ${(props) => props.fontSize};
     background: transparent;
     border: ${(props) => props.border};
@@ -68,6 +68,7 @@ export const InputStyle = styled.input<InputProps>`
 export const DropdownStyle = styled.select<DropdownProps>`
     width: 100%;
     height: ${(props) => props.height};
+    font-size: 0.65vw;
     font-family: ${(props) => props.fontFamily};
     // background: transparent;
     // border: 1px solid #fff;
@@ -76,7 +77,7 @@ export const DropdownStyle = styled.select<DropdownProps>`
     border-radius: 3px;
     caret-color: #fff;
     color: #fff;
-    text-indent: 5px;
+    text-indent: 0.25vw;
     &:focus {
         outline: none;
     }
@@ -87,9 +88,10 @@ export const DropdownStyle = styled.select<DropdownProps>`
 
 export const TextAreaStyle = styled.textarea<textAreaProps>`
     width: 100%;
-    height: 150px;
-    padding: 8px;
+    height: 6vw;
+    padding: 0.4vw;
     background: transparent;
+    font-size: 0.65vw;
     color: #fff;
     font-family: ${(props) => props.fontFamily};
     // border: 1px solid #fff;
