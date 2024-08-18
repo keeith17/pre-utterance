@@ -742,7 +742,9 @@ export default function TeacherProfilePage() {
                                     onClick={handleCharSet}
                                 >
                                     <img src={char.gifUrl} alt={char.gifUrl} />
-                                    <div className="hover">{char.name}</div>
+                                    <div className="hover">
+                                        {char.name.replace(/\s/g, "\n")}
+                                    </div>
                                 </button>
                             )
                     )}
