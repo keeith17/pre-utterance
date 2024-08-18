@@ -482,8 +482,16 @@ export const CharList = styled.div`
             border: none;
             outline: none;
             border: 1px solid #fff;
+            position: relative;
             .hover {
                 display: none;
+            }
+            img {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
             }
             &:hover,
             &.selected {
@@ -497,6 +505,9 @@ export const CharList = styled.div`
                     font-size: 0.65vw;
                     font-weight: 700;
                     white-space: pre-wrap;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
                 }
             }
             // &.selected {

@@ -740,14 +740,9 @@ export default function TeacherProfilePage() {
                                     key={index}
                                     value={char.id}
                                     onClick={handleCharSet}
-                                    style={{
-                                        background: `url(${char.gifUrl}) 50% 50% no-repeat`,
-                                        backgroundSize: "cover",
-                                    }}
                                 >
-                                    <div className="hover">
-                                        {char.name.replace(/\s/g, "\n")}
-                                    </div>
+                                    <img src={char.gifUrl} alt={char.gifUrl} />
+                                    <div className="hover">{char.name}</div>
                                 </button>
                             )
                     )}
