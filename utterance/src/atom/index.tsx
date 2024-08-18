@@ -81,17 +81,19 @@ export const videoState = atom<boolean>({
 
 export const houseState = atom<string[]>({
     key: "houseState",
-    default: ["quasa1", "quasa2", "quasa3"],
+    // default: ["quasa1", "quasa2", "quasa3"],
+    default: [],
 });
 
 export const houseBadgeState = atom<string[]>({
     key: "houseBadgeState",
-    default: [
-        // "/images/etc/badge1.png",
-        "/images/etc/badge1.gif",
-        "/images/etc/badge2.gif",
-        "/images/etc/badge3.gif",
-    ],
+    default: [],
+    // default: [
+    //     // "/images/etc/badge1.png",
+    //     "/images/etc/badge1.gif",
+    //     "/images/etc/badge2.gif",
+    //     "/images/etc/badge3.gif",
+    // ],
 });
 
 export const mailState = atom<boolean>({
