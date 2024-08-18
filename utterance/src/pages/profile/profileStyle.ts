@@ -482,12 +482,26 @@ export const CharList = styled.div`
             border: none;
             outline: none;
             border: 1px solid #fff;
-            img {
-                width: 100%;
+            .hover {
+                display: none;
             }
+            &:hover,
             &.selected {
-                border: 1px solid ${defaultColor};
+                .hover {
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(40, 8, 131, 0.8);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.65vw;
+                    font-weight: 700;
+                    white-space: pre-wrap;
+                }
             }
+            // &.selected {
+            //     border: 1px solid ${defaultColor};
+            // }
         }
     }
     .rightArrow {

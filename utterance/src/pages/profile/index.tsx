@@ -805,11 +805,12 @@ export default function ProfilePage() {
                                         key={index}
                                         value={char.id}
                                         onClick={handleCharSet}
+                                        style={{
+                                            background: `url(${char.gifUrl}) 50% 50% no-repeat`,
+                                            backgroundSize: "cover",
+                                        }}
                                     >
-                                        <img
-                                            src={char.gifUrl}
-                                            alt="캐릭터 두상"
-                                        />
+                                        <div className="hover">{char.name}</div>
                                     </button>
                                 )
                         )}
