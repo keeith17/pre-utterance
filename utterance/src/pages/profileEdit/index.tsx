@@ -53,7 +53,6 @@ export default function ProfileEditPage() {
     // 현재 접속 유저 정보
     const user = useRecoilValue(userState);
     const userUid = user.uid;
-    const imsi = false;
 
     // uid -> 이름
     const uidToName = (uid: string) => {
@@ -443,154 +442,131 @@ export default function ProfileEditPage() {
                                 />
                             </div>
                         </div>
-                        {imsi && (
-                            <>
-                                <div className="inputGroup">
-                                    <div className="profBox">
-                                        소셜 네트워크 A
-                                    </div>
-                                    <div className="inputBox">
-                                        <DropdownStyle
-                                            height={thisHeight}
-                                            fontFamily={thisFont}
-                                            value={input.rela1}
-                                            name="rela1"
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">
-                                                상대 캐릭터를 선택해 주세요.
-                                            </option>
-                                            {allChar?.map((char, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={char.id}
-                                                >
-                                                    {uidToName(char.id)}
-                                                </option>
-                                            ))}
-                                        </DropdownStyle>
-                                        <InputStyle
-                                            fontSize=" 0.65vw"
-                                            border="none"
-                                            height={thisHeight}
-                                            fontFamily={thisFont}
-                                            placeholder="관계를 간단히 서술해 주세요"
-                                            value={input.desc1}
-                                            name="desc1"
-                                            onChange={handleChange}
-                                        ></InputStyle>
-                                    </div>
-                                </div>
-                                <div className="inputGroup">
-                                    <div className="profBox">
-                                        소셜 네트워크 B
-                                    </div>
-                                    <div className="inputBox">
-                                        <DropdownStyle
-                                            height={thisHeight}
-                                            fontFamily={thisFont}
-                                            value={input.rela2}
-                                            name="rela2"
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">
-                                                상대 캐릭터를 선택해 주세요.
-                                            </option>
-                                            {allChar?.map((char, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={char.id}
-                                                >
-                                                    {uidToName(char.id)}
-                                                </option>
-                                            ))}
-                                        </DropdownStyle>
-                                        <InputStyle
-                                            fontSize=" 0.65vw"
-                                            border="none"
-                                            height={thisHeight}
-                                            fontFamily={thisFont}
-                                            placeholder="관계를 간단히 서술해 주세요"
-                                            value={input.desc2}
-                                            name="desc2"
-                                            onChange={handleChange}
-                                        ></InputStyle>
-                                    </div>
-                                </div>
-                                <div className="inputGroup">
-                                    <div className="profBox">
-                                        소셜 네트워크 C
-                                    </div>
-                                    <div className="inputBox">
-                                        <DropdownStyle
-                                            height={thisHeight}
-                                            fontFamily={thisFont}
-                                            value={input.rela3}
-                                            name="rela3"
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">
-                                                상대 캐릭터를 선택해 주세요.
-                                            </option>
-                                            {allChar?.map((char, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={char.id}
-                                                >
-                                                    {uidToName(char.id)}
-                                                </option>
-                                            ))}
-                                        </DropdownStyle>
-                                        <InputStyle
-                                            fontSize="0.65vw"
-                                            border="none"
-                                            height={thisHeight}
-                                            fontFamily={thisFont}
-                                            placeholder="관계를 간단히 서술해 주세요"
-                                            value={input.desc3}
-                                            name="desc3"
-                                            onChange={handleChange}
-                                        ></InputStyle>
-                                    </div>
-                                </div>
-                                <div className="inputGroup">
-                                    <div className="profBox">
-                                        소셜 네트워크 D
-                                    </div>
-                                    <div className="inputBox">
-                                        <DropdownStyle
-                                            height={thisHeight}
-                                            fontFamily={thisFont}
-                                            value={input.rela4}
-                                            name="rela4"
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">
-                                                상대 캐릭터를 선택해 주세요.
-                                            </option>
-                                            {allChar?.map((char, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={char.id}
-                                                >
-                                                    {uidToName(char.id)}
-                                                </option>
-                                            ))}
-                                        </DropdownStyle>
-                                        <InputStyle
-                                            fontSize="0.65vw"
-                                            border="none"
-                                            height={thisHeight}
-                                            fontFamily={thisFont}
-                                            placeholder="관계를 간단히 서술해 주세요"
-                                            value={input.desc4}
-                                            name="desc4"
-                                            onChange={handleChange}
-                                        ></InputStyle>
-                                    </div>
-                                </div>
-                            </>
-                        )}
+
+                        <div className="inputGroup">
+                            <div className="profBox">소셜 네트워크 A</div>
+                            <div className="inputBox">
+                                <DropdownStyle
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                    value={input.rela1}
+                                    name="rela1"
+                                    onChange={handleChange}
+                                >
+                                    <option value="">
+                                        상대 캐릭터를 선택해 주세요.
+                                    </option>
+                                    {allChar?.map((char, index) => (
+                                        <option key={index} value={char.id}>
+                                            {uidToName(char.id)}
+                                        </option>
+                                    ))}
+                                </DropdownStyle>
+                                <InputStyle
+                                    fontSize=" 0.65vw"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc1}
+                                    name="desc1"
+                                    onChange={handleChange}
+                                ></InputStyle>
+                            </div>
+                        </div>
+                        <div className="inputGroup">
+                            <div className="profBox">소셜 네트워크 B</div>
+                            <div className="inputBox">
+                                <DropdownStyle
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                    value={input.rela2}
+                                    name="rela2"
+                                    onChange={handleChange}
+                                >
+                                    <option value="">
+                                        상대 캐릭터를 선택해 주세요.
+                                    </option>
+                                    {allChar?.map((char, index) => (
+                                        <option key={index} value={char.id}>
+                                            {uidToName(char.id)}
+                                        </option>
+                                    ))}
+                                </DropdownStyle>
+                                <InputStyle
+                                    fontSize=" 0.65vw"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc2}
+                                    name="desc2"
+                                    onChange={handleChange}
+                                ></InputStyle>
+                            </div>
+                        </div>
+                        <div className="inputGroup">
+                            <div className="profBox">소셜 네트워크 C</div>
+                            <div className="inputBox">
+                                <DropdownStyle
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                    value={input.rela3}
+                                    name="rela3"
+                                    onChange={handleChange}
+                                >
+                                    <option value="">
+                                        상대 캐릭터를 선택해 주세요.
+                                    </option>
+                                    {allChar?.map((char, index) => (
+                                        <option key={index} value={char.id}>
+                                            {uidToName(char.id)}
+                                        </option>
+                                    ))}
+                                </DropdownStyle>
+                                <InputStyle
+                                    fontSize="0.65vw"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc3}
+                                    name="desc3"
+                                    onChange={handleChange}
+                                ></InputStyle>
+                            </div>
+                        </div>
+                        <div className="inputGroup">
+                            <div className="profBox">소셜 네트워크 D</div>
+                            <div className="inputBox">
+                                <DropdownStyle
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                    value={input.rela4}
+                                    name="rela4"
+                                    onChange={handleChange}
+                                >
+                                    <option value="">
+                                        상대 캐릭터를 선택해 주세요.
+                                    </option>
+                                    {allChar?.map((char, index) => (
+                                        <option key={index} value={char.id}>
+                                            {uidToName(char.id)}
+                                        </option>
+                                    ))}
+                                </DropdownStyle>
+                                <InputStyle
+                                    fontSize="0.65vw"
+                                    border="none"
+                                    height={thisHeight}
+                                    fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc4}
+                                    name="desc4"
+                                    onChange={handleChange}
+                                ></InputStyle>
+                            </div>
+                        </div>
                     </div>
                     <Save>
                         <ButtonStyle type="submit" fontSize="0.9vw">
