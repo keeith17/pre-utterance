@@ -4,6 +4,8 @@ import {
     getDocs,
     orderBy,
     query,
+    serverTimestamp,
+    Timestamp,
     updateDoc,
     writeBatch,
 } from "firebase/firestore";
@@ -21,6 +23,11 @@ import { useEffect, useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
+export interface MoneyProps {
+    uid: string;
+    credit: number;
+    name: string;
+}
 interface MoneyUpdatesProps {
     id: string;
     data: {
@@ -39,6 +46,13 @@ interface BadgeUpdatesProps {
         [badge: string]: string;
     };
 }
+interface LogUpdatesProps {
+    id: string;
+    data: {
+        log: string; // log는 string 타입
+        timeStamp: Timestamp | null; // timeStamp는 Timestamp | null 타입
+    };
+}
 export interface ControlProps {
     id: string;
     control: {
@@ -53,6 +67,8 @@ export default function Control() {
     const [updates, setUpdates] = useState<MoneyUpdatesProps[]>([]);
     const [gradeUpdates, setGradeUpdates] = useState<GradeUpdatesProps[]>([]);
     const [badegUpdates, setBadgeUpdates] = useState<BadgeUpdatesProps[]>([]);
+    const [logUpdates, setLogUpdates] = useState<LogUpdatesProps[]>([]);
+    const [reason, setReason] = useState<string>("");
     const [mode, setMode] = useState<string>("moneyadd");
 
     const [sendmail, setSendmail] = useState<boolean>(false);
@@ -104,11 +120,27 @@ export default function Control() {
     const { data: allChar } = useQuery("allChar", fetchAllCharData, {
         staleTime: 20000,
     });
+    const fetchMoneyData = async () => {
+        try {
+            const charRef = collection(db, "money");
+            const charQuery = query(charRef, orderBy("name", "asc"));
+            const allCharSnapshot = await getDocs(charQuery);
+            const data: MoneyProps[] = allCharSnapshot.docs.map((doc) => ({
+                ...doc.data(),
+            })) as MoneyProps[];
+            return data;
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
+    };
+    const { data: moneyData } = useQuery("moneyData", fetchMoneyData, {
+        staleTime: 20000,
+    });
 
     const searchCredit = (myId: string) => {
-        if (allChar) {
-            for (const char of allChar) {
-                if (char.id === myId) {
+        if (moneyData) {
+            for (const char of moneyData) {
+                if (char.uid === myId) {
                     return char.credit;
                 }
             }
@@ -144,6 +176,9 @@ export default function Control() {
         }
     };
 
+    useEffect(() => {
+        console.log(reason);
+    }, [reason]);
     //플레이어 개인 설정 change
     const handleChange = (
         e:
@@ -155,17 +190,45 @@ export default function Control() {
         } = e;
         // const tempArr = updates.filter((update) => update.id !== name);
         const myCredit = searchCredit(name);
-        if (myCredit) {
+        if (name === "reason") {
+            setReason(value);
+        }
+        if (myCredit || myCredit === 0) {
             if (mode === "moneyadd") {
                 setUpdates([
                     ...updates.filter((update) => update.id !== name),
-                    { id: name, data: { credit: myCredit + Number(value) } },
+                    {
+                        id: name,
+                        data: {
+                            credit: myCredit + Number(value),
+                        },
+                    },
+                ]);
+                setLogUpdates([
+                    ...logUpdates.filter((update) => update.id !== name),
+                    {
+                        id: name,
+                        data: {
+                            log: `${reason} ${value}Q 입금되었습니다.`,
+                            timeStamp: serverTimestamp() as Timestamp | null,
+                        },
+                    },
                 ]);
             }
             if (mode === "moneysub") {
                 setUpdates([
                     ...updates.filter((update) => update.id !== name),
                     { id: name, data: { credit: myCredit - Number(value) } },
+                ]);
+                setLogUpdates([
+                    ...logUpdates.filter((update) => update.id !== name),
+                    {
+                        id: name,
+                        data: {
+                            log: `${reason} ${value}Q 차감되었습니다.`,
+                            timeStamp: serverTimestamp() as Timestamp | null,
+                        },
+                    },
                 ]);
             }
         }
@@ -227,13 +290,18 @@ export default function Control() {
 
         if (mode === "moneyadd" || mode === "moneysub") {
             updates.forEach((update) => {
-                const docRef = doc(db, "character", update.id);
+                const docRef = doc(db, "money", update.id);
                 batch.update(docRef, update.data);
+            });
+            logUpdates.forEach((update) => {
+                const LogRef = doc(collection(db, "money", update.id, "log"));
+                batch.set(LogRef, update.data);
             });
 
             try {
                 await batch.commit();
-                await queryClient.invalidateQueries("allChar");
+                await queryClient.invalidateQueries("moneyData");
+                setReason("");
                 alert("저장 성공");
                 console.log("Batch write successfully committed!");
             } catch (error) {
@@ -249,6 +317,7 @@ export default function Control() {
             try {
                 await batch.commit();
                 await queryClient.invalidateQueries("allChar");
+                setReason("");
                 alert("저장 성공");
             } catch (error) {
                 console.error("Error writing batch: ", error);
@@ -365,6 +434,7 @@ export default function Control() {
                     onClick={() => {
                         setMode("moneyadd");
                         setUpdates([]);
+                        setLogUpdates([]);
                     }}
                 >
                     재화 추가
@@ -375,6 +445,7 @@ export default function Control() {
                     onClick={() => {
                         setMode("moneysub");
                         setUpdates([]);
+                        setLogUpdates([]);
                     }}
                 >
                     재화 차감
@@ -385,6 +456,7 @@ export default function Control() {
                     onClick={() => {
                         setMode("grade");
                         setUpdates([]);
+                        setLogUpdates([]);
                     }}
                 >
                     등급
@@ -395,15 +467,27 @@ export default function Control() {
                     onClick={() => {
                         setMode("badge");
                         setUpdates([]);
+                        setLogUpdates([]);
                     }}
                 >
                     소대 배치
                 </ButtonStyle>
             </div>
             <ul className="centerWrap">
-                {allChar &&
+                <li className="eachlow">
+                    <div className="charname">사유</div>
+                    <InputStyle
+                        fontSize="13px"
+                        fontFamily="nexonGothic"
+                        height="30px"
+                        border="1px solid #fff"
+                        name="reason"
+                        onChange={handleChange}
+                    />
+                </li>
+                {moneyData &&
                     mode === "moneyadd" &&
-                    allChar?.map((character, index) => (
+                    moneyData?.map((character, index) => (
                         <li className="eachlow" key={index}>
                             <div className="charname">{character?.name}</div>
                             <div className="money">
@@ -415,19 +499,19 @@ export default function Control() {
                                     fontFamily="nexonGothic"
                                     height="30px"
                                     border="1px solid #fff"
-                                    name={character.id}
+                                    name={character.uid}
                                     onChange={handleChange}
                                 />
                             </div>
                             <div className="leftMoney">
-                                {(searchLeftCredit(character.id) ||
+                                {(searchLeftCredit(character.uid) ||
                                     character.credit) + " Q"}
                             </div>
                         </li>
                     ))}
-                {allChar &&
+                {moneyData &&
                     mode === "moneysub" &&
-                    allChar?.map((character, index) => (
+                    moneyData?.map((character, index) => (
                         <li className="eachlow" key={index}>
                             <div className="charname">{character?.name}</div>
                             <div className="money">
@@ -439,12 +523,12 @@ export default function Control() {
                                     fontFamily="nexonGothic"
                                     height="30px"
                                     border="1px solid #fff"
-                                    name={character.id}
+                                    name={character.uid}
                                     onChange={handleChange}
                                 />
                             </div>
                             <div className="leftMoney">
-                                {(searchLeftCredit(character.id) ||
+                                {(searchLeftCredit(character.uid) ||
                                     character.credit) + " Q"}
                             </div>
                         </li>
