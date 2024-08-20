@@ -14,7 +14,7 @@ import {
 } from "./profileStyle";
 import { db } from "@/firebaseApp";
 import { useQuery } from "react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -57,6 +57,9 @@ export default function ProfilePage() {
     //     gifUrl: `https://example.com/gif${i + 1}.gif`, // 임의의 URL
     // }));
     // console.log(dummyData);
+    useEffect(() => {
+        console.log(selectHouse);
+    }, [selectHouse]);
     // 내 캐릭터 정보 세팅 함수
     const fetchCharData = async (userUid: string | null) => {
         if (userUid) {
@@ -123,7 +126,7 @@ export default function ProfilePage() {
         setBadgeList([...badgeList, ...imsiBadgeList]);
         return data;
     };
-    const { data: allChar } = useQuery<AllCharProps[]>(
+    const { data: allChar, isFetched } = useQuery<AllCharProps[]>(
         "allChar",
         fetchAllCharData,
         {
@@ -785,42 +788,44 @@ export default function ProfilePage() {
             )}
             {(control && control[0].control.profileread) ||
             Number(myChar?.grade) >= 4 ? (
-                <CharList>
-                    <div className="leftArrow arrow" onClick={handleLeft}>
-                        <IoChevronBack size={60} />
-                    </div>
-                    <div className="badgeWrap">
-                        <img src={badgeList[selectHouse]} alt="휘장" />
-                    </div>
-                    <div className="gifWrap">
-                        {allChar?.map(
-                            (char, index) =>
-                                char.badge === houseList[selectHouse] &&
-                                char.badge !== "teacher" && (
-                                    <button
-                                        className={`charGif ${
-                                            char.id === selectChar.id &&
-                                            "selected"
-                                        }`}
-                                        key={index}
-                                        value={char.id}
-                                        onClick={handleCharSet}
-                                    >
-                                        <img
-                                            src={char.gifUrl}
-                                            alt={char.gifUrl}
-                                        />
-                                        <div className="hover">
-                                            {char.name.replace(/\s/g, "\n")}
-                                        </div>
-                                    </button>
-                                )
-                        )}
-                    </div>
-                    <div className="rightArrow arrow" onClick={handleRight}>
-                        <IoChevronForward size={60} />
-                    </div>
-                </CharList>
+                isFetched && (
+                    <CharList>
+                        <div className="leftArrow arrow" onClick={handleLeft}>
+                            <IoChevronBack size={60} />
+                        </div>
+                        <div className="badgeWrap">
+                            <img src={badgeList[selectHouse - 3]} alt="휘장" />
+                        </div>
+                        <div className="gifWrap">
+                            {allChar?.map(
+                                (char, index) =>
+                                    char.badge === houseList[selectHouse - 3] &&
+                                    char.badge !== "teacher" && (
+                                        <button
+                                            className={`charGif ${
+                                                char.id === selectChar.id &&
+                                                "selected"
+                                            }`}
+                                            key={index}
+                                            value={char.id}
+                                            onClick={handleCharSet}
+                                        >
+                                            <img
+                                                src={char.gifUrl}
+                                                alt={char.gifUrl}
+                                            />
+                                            <div className="hover">
+                                                {char.name.replace(/\s/g, "\n")}
+                                            </div>
+                                        </button>
+                                    )
+                            )}
+                        </div>
+                        <div className="rightArrow arrow" onClick={handleRight}>
+                            <IoChevronForward size={60} />
+                        </div>
+                    </CharList>
+                )
             ) : (
                 <CharList>
                     <div className="denied">출석부 열람 기간이 아닙니다</div>
