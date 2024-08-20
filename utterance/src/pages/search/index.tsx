@@ -60,6 +60,7 @@ export default function SearchPage() {
     const [nick, setNick] = useState<string>("");
     const [newpw, setNewpw] = useState<string>("");
     const [search, setSearch] = useState<string>("");
+    const [exist, setExist] = useState<boolean>(true);
 
     // 캐릭터가 존재하는지 여부 확인하는 부분
     const getChar = async (userId: string | null) => {
@@ -68,10 +69,11 @@ export default function SearchPage() {
         }
         const charRef = doc(db, "character", userId);
         const charSnap: DocumentSnapshot = await getDoc(charRef);
-
+        setExist(charSnap.exists());
         return charSnap.exists();
     };
-    const { data: haveCharacter, isLoading } = useQuery<boolean>(
+
+    const { isLoading } = useQuery<boolean>(
         ["char", userId],
         () => getChar(userId),
         {
@@ -156,7 +158,7 @@ export default function SearchPage() {
             <div className="searchBox">
                 {isLoading ? (
                     <Loader />
-                ) : haveCharacter ? (
+                ) : exist ? (
                     <div className="content">
                         <div className="pandora">
                             <img
