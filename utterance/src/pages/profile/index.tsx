@@ -40,15 +40,24 @@ export default function ProfilePage() {
     // 이것도 전역으로 빼야 할 것 같기도 함 -> 결국 뺌
     const [houseList, setHouseList] = useRecoilState(houseState);
     const [badgeList, setBadgeList] = useRecoilState(houseBadgeState);
+    // const handleRight = () => {
+    //     if (selectHouse < houseList.length - 1) setSelectHouse(selectHouse + 1);
+    //     else setSelectHouse(0);
+    // };
     const handleRight = () => {
-        if (selectHouse < houseList.length - 1) setSelectHouse(selectHouse + 1);
-        else setSelectHouse(0);
+        if (selectHouse - 3 < houseList.length - 1)
+            setSelectHouse(selectHouse + 1);
+        else setSelectHouse(3);
     };
     const [modal, setModal] = useState<boolean>(false);
     const [packer, setPacker] = useState<string>("database1");
+    // const handleLeft = () => {
+    //     if (selectHouse > 0) setSelectHouse(selectHouse - 1);
+    //     else setSelectHouse(houseList.length - 1);
+    // };
     const handleLeft = () => {
-        if (selectHouse > 0) setSelectHouse(selectHouse - 1);
-        else setSelectHouse(houseList.length - 1);
+        if (selectHouse - 3 > 0) setSelectHouse(selectHouse - 1);
+        else setSelectHouse(houseList.length + 2);
     };
     // 더미 데이터
     // const dummyData = Array.from({ length: 40 }, (v, i) => ({
