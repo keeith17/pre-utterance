@@ -35,11 +35,16 @@ export default function ProfilePage() {
     const user = useRecoilValue(userState);
     const [selectChar, setSelectChar] = useRecoilState(selectUserState);
     const [selectHouse, setSelectHouse] = useState<number>(
-        selectChar.badge ? parseInt(selectChar.badge.slice(5, 6)) - 1 : 0
+        selectChar.badge ? parseInt(selectChar.badge.slice(5, 6)) - 1 : 3
     );
+    // 이곳도 소대 배정 시 변경해야 할 부분
+    // const [selectHouse, setSelectHouse] = useState<number>(
+    //     selectChar.badge ? parseInt(selectChar.badge.slice(5, 6)) - 1 : 0
+    // );
     // 이것도 전역으로 빼야 할 것 같기도 함 -> 결국 뺌
     const [houseList, setHouseList] = useRecoilState(houseState);
     const [badgeList, setBadgeList] = useRecoilState(houseBadgeState);
+    // 소대 배정 시 변경해야 할 부분
     // const handleRight = () => {
     //     if (selectHouse < houseList.length - 1) setSelectHouse(selectHouse + 1);
     //     else setSelectHouse(0);
@@ -51,6 +56,7 @@ export default function ProfilePage() {
     };
     const [modal, setModal] = useState<boolean>(false);
     const [packer, setPacker] = useState<string>("database1");
+    // 소대 배정 시 변경해야 할 부분
     // const handleLeft = () => {
     //     if (selectHouse > 0) setSelectHouse(selectHouse - 1);
     //     else setSelectHouse(houseList.length - 1);
@@ -803,11 +809,13 @@ export default function ProfilePage() {
                             <IoChevronBack size={60} />
                         </div>
                         <div className="badgeWrap">
+                            {/* // 소대 배정 시 변경해야 할 부분 */}
                             <img src={badgeList[selectHouse - 3]} alt="휘장" />
                         </div>
                         <div className="gifWrap">
                             {allChar?.map(
                                 (char, index) =>
+                                    // 소대 배정 시 변경해야 할 부분
                                     char.badge === houseList[selectHouse - 3] &&
                                     char.badge !== "teacher" && (
                                         <button
