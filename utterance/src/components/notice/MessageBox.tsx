@@ -37,6 +37,7 @@ export interface MailProps {
 
 export default function MessageBox() {
     const queryClient = useQueryClient();
+    const [sending, setSending] = useState<boolean>(false); //보내는 중 체크
     const [box, setBox] = useState<string>("receive"); // 보낸 메시지, 받은 메시지 모드 설정 (css적 요소)
     const [make, setMake] = useState<boolean>(false); // 메시지 작성하기 모달 오픈 여부
     const [rec, setRec] = useState<boolean>(false); // 받은 메시지 내용 확인 모달 오픈 여부
@@ -267,6 +268,7 @@ export default function MessageBox() {
     const sendMail = useMutation(
         async () => {
             if (user?.uid) {
+                setSending(true);
                 const sendRef = collection(db, "homeMail", user?.uid, "send");
                 const recRef = collection(db, "homeMail", sendTo, "rec");
 
@@ -311,6 +313,7 @@ export default function MessageBox() {
             setTimeout(() => {
                 setShowSuccess(false);
             }, 1000);
+            setSending(false);
         },
         {
             onError: (error) => {
@@ -558,7 +561,7 @@ export default function MessageBox() {
                                 />
                             </div>
                             <div className="submitBox">
-                                <button>SEND</button>
+                                <button disabled={sending}>SEND</button>
                             </div>
                         </form>
                     )}
