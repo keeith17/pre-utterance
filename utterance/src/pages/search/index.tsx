@@ -75,7 +75,7 @@ export default function SearchPage() {
         ["char", userId],
         () => getChar(userId),
         {
-            staleTime: 60000 * 60,
+            staleTime: 60000 * 60 * 24, //하루로 확대
             enabled: !!userId, // 쿼리 활성화 여부를 유저 ID의 존재 여부에 따라 설정
         }
     );

@@ -45,7 +45,7 @@ export default function TeacherProfilePage() {
         "charData",
         () => fetchCharData(user?.uid),
         {
-            staleTime: 60000,
+            staleTime: 60000 * 60 * 3,
         }
     );
 

@@ -104,7 +104,7 @@ export default function ProfileEditPage() {
         "charData",
         () => fetchCharData(userUid),
         {
-            staleTime: 60000,
+            staleTime: 60000 * 60 * 3,
         }
     );
 
