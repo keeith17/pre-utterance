@@ -96,6 +96,7 @@ export default function SearchPage() {
             const userRef = auth.currentUser;
             if (user?.uid && userRef) {
                 const charRef = doc(db, "character", user?.uid);
+                const charMoneyRef = doc(db, "money", user?.uid);
                 await setDoc(charRef, {
                     name: defaultInfo.name,
                     nick: defaultInfo.nick,
@@ -105,6 +106,11 @@ export default function SearchPage() {
                     gradeImg: defaultInfo.gradeImg,
                     credit: defaultInfo.credit,
                     gifUrl: defaultInfo.gifUrl,
+                });
+                await setDoc(charMoneyRef, {
+                    name: defaultInfo.name,
+                    credit: defaultInfo.credit,
+                    uid: user?.uid,
                 });
                 await updatePassword(userRef, newpw);
                 await queryClient.invalidateQueries(`char`);

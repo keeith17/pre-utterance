@@ -19,6 +19,7 @@ import {
     collection,
     doc,
     getDoc,
+    serverTimestamp,
     setDoc,
     updateDoc,
 } from "firebase/firestore";
@@ -56,10 +57,10 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
         id: record.id || "", //쓸모없는데 props 맞출라고
     });
 
-    // 내 캐릭터 정보 세팅 함수
+    // 내 캐릭터 돈...
     const fetchCharData = async (userUid: string | null) => {
         if (userUid) {
-            const charRef = doc(db, "character", userUid);
+            const charRef = doc(db, "money", userUid);
             const charSnap = await getDoc(charRef);
             const data = { ...(charSnap?.data() as AllCharProps), id: userUid };
             return data;
@@ -68,8 +69,8 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
         }
     };
     // 내 캐릭터 정보
-    const { data: myChar } = useQuery<AllCharProps>(
-        "charData",
+    const { data: myCharMoney } = useQuery<AllCharProps>(
+        "myCharMoney",
         () => fetchCharData(user?.uid),
         {
             staleTime: 60000,
@@ -112,9 +113,13 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                         user?.uid,
                         packer
                     );
-                    const charMoneyRef = doc(db, "character", user.uid);
-                    const twitMoneyRef = doc(db, "twiterInfo", user.uid);
-                    const twitMoneySnap = await getDoc(twitMoneyRef);
+                    const charMoneyRef = doc(db, "money", user.uid);
+                    const charMoneyLogRef = collection(
+                        db,
+                        "money",
+                        user.uid,
+                        "log"
+                    );
                     await addDoc(charRef, {
                         title: data.title,
                         image: data.image,
@@ -129,29 +134,28 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                             hour12: false,
                         }),
                     });
-                    if (myChar && data.content.length > 500) {
+                    if (myCharMoney && data.content.length > 500) {
                         await updateDoc(charMoneyRef, {
-                            credit: myChar.credit + 200,
+                            credit: myCharMoney.credit + 200,
                         });
-                        if (twitMoneySnap.exists()) {
-                            await updateDoc(twitMoneyRef, {
-                                credit: myChar.credit + 200,
-                            });
-                        }
-                    } else if (myChar) {
+                        await addDoc(charMoneyLogRef, {
+                            log: "로그 작성 200Q 입금되었습니다.",
+                            timeStamp: serverTimestamp(),
+                        });
+                    } else if (myCharMoney) {
                         await updateDoc(charMoneyRef, {
-                            credit: myChar.credit + 100,
+                            credit: myCharMoney.credit + 100,
                         });
-                        if (twitMoneySnap.exists()) {
-                            await updateDoc(twitMoneyRef, {
-                                credit: myChar.credit + 100,
-                            });
-                        }
+                        await addDoc(charMoneyLogRef, {
+                            log: "로그 작성 100Q 입금되었습니다.",
+                            timeStamp: serverTimestamp(),
+                        });
                     }
                 }
             }
             setMode("list");
             await queryClient.invalidateQueries([packer, selectChar.id]);
+            await queryClient.invalidateQueries("myCharMoney");
         },
         {
             onError: (error) => {
