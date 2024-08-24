@@ -73,7 +73,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
         "myCharMoney",
         () => fetchCharData(user?.uid),
         {
-            staleTime: 60000,
+            staleTime: 60000 * 60 * 3,
         }
     );
 
