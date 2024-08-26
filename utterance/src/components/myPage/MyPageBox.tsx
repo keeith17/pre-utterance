@@ -192,6 +192,7 @@ export default function MyPageBox() {
         if (userRef) {
             try {
                 await updatePassword(userRef, imsipw);
+                alert("변경되었습니다");
             } catch (error) {
                 console.log(error);
             }
