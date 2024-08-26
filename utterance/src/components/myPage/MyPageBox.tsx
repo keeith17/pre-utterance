@@ -6,7 +6,7 @@ import {
     videoState,
 } from "@/atom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { getAuth, signOut, updatePassword } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app, db } from "@/firebaseApp";
 import {
@@ -19,7 +19,7 @@ import {
     where,
 } from "firebase/firestore";
 import { useQuery, useQueryClient } from "react-query";
-import { ButtonStyle, InputStyle } from "../Style";
+import { ButtonStyle } from "../Style";
 import { MyPageStyle } from "./MyPageBoxStyle";
 import { useRef, useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
@@ -178,26 +178,26 @@ export default function MyPageBox() {
     };
 
     /////// 여기부터
-    const [imsipw, setimsipw] = useState<string>("");
-    const imsipwchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        const {
-            target: { value },
-        } = e;
-        setimsipw(value);
-    };
-    const imsipwchangesubmit = async () => {
-        const auth = getAuth(app);
-        const userRef = auth.currentUser;
-        if (userRef) {
-            try {
-                await updatePassword(userRef, imsipw);
-                alert("변경되었습니다");
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };
+    // const [imsipw, setimsipw] = useState<string>("");
+    // const imsipwchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     e.preventDefault();
+    //     const {
+    //         target: { value },
+    //     } = e;
+    //     setimsipw(value);
+    // };
+    // const imsipwchangesubmit = async () => {
+    //     const auth = getAuth(app);
+    //     const userRef = auth.currentUser;
+    //     if (userRef) {
+    //         try {
+    //             await updatePassword(userRef, imsipw);
+    //             alert("변경되었습니다");
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    // };
     ///////// 여기까지
     return (
         <MyPageStyle>
@@ -210,7 +210,7 @@ export default function MyPageBox() {
                 />
             )}
             {/* 여기부터 */}
-            <div
+            {/* <div
                 style={{
                     position: "absolute",
                     top: 0,
@@ -250,7 +250,7 @@ export default function MyPageBox() {
                         임시 변경
                     </ButtonStyle>
                 </div>
-            </div>
+            </div> */}
             {/* 여기까지 */}
             {myChar?.nick ? (
                 <div className="myPageBox">
