@@ -6,7 +6,7 @@ import {
     videoState,
 } from "@/atom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, updatePassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app, db } from "@/firebaseApp";
 import {
@@ -19,7 +19,7 @@ import {
     where,
 } from "firebase/firestore";
 import { useQuery, useQueryClient } from "react-query";
-import { ButtonStyle } from "../Style";
+import { ButtonStyle, InputStyle } from "../Style";
 import { MyPageStyle } from "./MyPageBoxStyle";
 import { useRef, useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
@@ -177,6 +177,27 @@ export default function MyPageBox() {
         }
     };
 
+    /////// 여기부터
+    const [imsipw, setimsipw] = useState<string>("");
+    const imsipwchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        const {
+            target: { value },
+        } = e;
+        setimsipw(value);
+    };
+    const imsipwchangesubmit = async () => {
+        const auth = getAuth(app);
+        const userRef = auth.currentUser;
+        if (userRef) {
+            try {
+                await updatePassword(userRef, imsipw);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+    ///////// 여기까지
     return (
         <MyPageStyle>
             {video && (
@@ -187,6 +208,49 @@ export default function MyPageBox() {
                     onReady={handleReady}
                 />
             )}
+            {/* 여기부터 */}
+            <div
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "500px",
+                    height: "200px",
+                    background: "rgba(0,0,0,.8)",
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: "0 30px",
+                }}
+            >
+                <div
+                    style={{
+                        width: "100%",
+                        height: "50%",
+                        display: "flex",
+                        alignItems: "center",
+                    }}
+                >
+                    <InputStyle
+                        fontSize={"1vw"}
+                        fontFamily={"nexonGothic"}
+                        height={"50px"}
+                        border={"1px solid white"}
+                        onChange={imsipwchange}
+                    ></InputStyle>
+                </div>
+                <div
+                    style={{
+                        width: "100%",
+                        height: "50%",
+                        padding: "1vw 0",
+                    }}
+                >
+                    <ButtonStyle fontSize={"1vw"} onClick={imsipwchangesubmit}>
+                        임시 변경
+                    </ButtonStyle>
+                </div>
+            </div>
+            {/* 여기까지 */}
             {myChar?.nick ? (
                 <div className="myPageBox">
                     <div className="contentArea">
