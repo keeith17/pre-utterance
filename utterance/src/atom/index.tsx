@@ -87,13 +87,12 @@ export const houseState = atom<string[]>({
 
 export const houseBadgeState = atom<string[]>({
     key: "houseBadgeState",
-    default: [],
-    // default: [
-    //     // "/images/etc/badge1.png",
-    //     "/images/etc/badge1.gif",
-    //     "/images/etc/badge2.gif",
-    //     "/images/etc/badge3.gif",
-    // ],
+    default: [
+        // "/images/etc/badge1.png",
+        "/images/etc/badge1.webp",
+        "/images/etc/badge2.webp",
+        "/images/etc/badge3.webp",
+    ],
 });
 
 export const mailState = atom<boolean>({
