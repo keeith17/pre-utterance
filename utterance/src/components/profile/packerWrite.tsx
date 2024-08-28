@@ -139,7 +139,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                             credit: myCharMoney.credit + 200,
                         });
                         await addDoc(charMoneyLogRef, {
-                            log: "로그 작성 200Q 입금되었습니다.",
+                            log: "시냅스 패커 200Q 입금되었습니다.",
                             timeStamp: serverTimestamp(),
                         });
                     } else if (myCharMoney) {
@@ -147,7 +147,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                             credit: myCharMoney.credit + 100,
                         });
                         await addDoc(charMoneyLogRef, {
-                            log: "로그 작성 100Q 입금되었습니다.",
+                            log: "시냅스 패커 100Q 입금되었습니다.",
                             timeStamp: serverTimestamp(),
                         });
                     }
