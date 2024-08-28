@@ -427,7 +427,7 @@ export default function ProfilePage() {
                             {/* 시냅스 패커 해금 잠금 */}
                             <SynapsePacker>
                                 <div className="packerBack">
-                                    <div
+                                    {/* <div
                                         style={{
                                             width: "100%",
                                             height: "100%",
@@ -442,11 +442,8 @@ export default function ProfilePage() {
                                         }}
                                     >
                                         ACCESS DENIED
-                                    </div>
-                                    <div
-                                        className="database"
-                                        style={{ display: "none" }}
-                                    >
+                                    </div> */}
+                                    <div className="database">
                                         <div
                                             className={
                                                 Number(myChar?.grade) > 0 ||

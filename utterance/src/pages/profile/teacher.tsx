@@ -347,7 +347,7 @@ export default function TeacherProfilePage() {
                             </div>
                             <SynapsePacker>
                                 <div className="packerBack">
-                                    <div
+                                    {/* <div
                                         style={{
                                             width: "100%",
                                             height: "100%",
@@ -362,13 +362,8 @@ export default function TeacherProfilePage() {
                                         }}
                                     >
                                         ACCESS DENIED
-                                    </div>
-                                    <div
-                                        className="database"
-                                        style={{
-                                            display: "none",
-                                        }}
-                                    >
+                                    </div> */}
+                                    <div className="database">
                                         <div
                                             className={
                                                 Number(myChar?.grade) >= 0 || //등급 다른 부분
