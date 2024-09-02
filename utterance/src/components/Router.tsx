@@ -7,6 +7,7 @@ import SearchDetailPage from "@/pages/search/detail";
 import ProfileEditPage from "@/pages/profileEdit";
 import Control from "@/pages/admin/control";
 import TeacherProfilePage from "@/pages/profile/teacher";
+import ShopPage from "@/pages/shop";
 
 interface RouterProps {
     isAuthenticated: boolean;
@@ -28,6 +29,7 @@ export default function Router({ isAuthenticated }: RouterProps) {
                         path="/ProfileEditPage"
                         element={<ProfileEditPage />}
                     />
+                    <Route path="/ShopPage" element={<ShopPage />} />
                     <Route path="/admin/control" element={<Control />} />
                 </>
             ) : (
