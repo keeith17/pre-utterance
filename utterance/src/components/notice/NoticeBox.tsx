@@ -116,7 +116,7 @@ export default function NoticeBox() {
                                 <button
                                     onClick={() =>
                                         window.open(
-                                            "https://pandora-twitter.vercel.app/",
+                                            "https://www.aturnetwork.online/",
                                             "_blank"
                                         )
                                     }
