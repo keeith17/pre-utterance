@@ -4,6 +4,10 @@ import { useRecoilValue } from "recoil";
 import { userState } from "@/atom";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebaseApp";
+import ShopList from "@/components/shop/ShopList";
+import { useState } from "react";
+import ShopInfo from "@/components/shop/ShopInfo";
+import Inventory from "@/components/shop/Inventory";
 
 interface defaultInfo {
     thingName: string;
@@ -16,7 +20,7 @@ interface defaultInfo {
     soldout: boolean;
     howMuch: number;
 }
-interface defaultInfo2 {
+export interface defaultInfo2 {
     thingName: string;
     uploadUid: string;
     imageLink: string;
@@ -31,6 +35,7 @@ interface defaultInfo2 {
 
 export default function ShopPage() {
     const user = useRecoilValue(userState);
+    const [select, setSelect] = useState<defaultInfo2>();
 
     // 물건 페치
     const fetchShopData = async () => {
@@ -79,12 +84,12 @@ export default function ShopPage() {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         mutation.mutate({
-            thingName: "제목2",
+            thingName: "제목4",
             uploadUid: user?.uid || "",
             imageLink: "/images/seederEdit.webp",
-            imageDesc: "이미지 설명 예시입니다2",
-            justDesc: "단순 정보라면 이곳입니다2",
-            thingType: "charm",
+            imageDesc: "이미지 설명 예시입니다4",
+            justDesc: "단순 정보라면 이곳입니다4",
+            thingType: "etc",
             createdAt: new Date().toLocaleDateString("ko", {
                 year: "numeric",
                 month: "2-digit",
@@ -95,16 +100,19 @@ export default function ShopPage() {
                 hour12: false,
             }),
             soldout: false,
-            howMuch: 300,
+            howMuch: 700,
         });
     };
     return (
         <ShopWrap>
+            <ShopList things={things} setSelect={setSelect} />
+            <div className="infos">
+                <ShopInfo select={select} />
+                <Inventory />
+            </div>
+
             <form onSubmit={onSubmit}>
                 <button type="submit">임시 등록 버튼</button>
-                {things?.map((thing) => (
-                    <div className="thing">{thing.thingName}</div>
-                ))}
             </form>
         </ShopWrap>
     );
