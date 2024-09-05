@@ -1,8 +1,12 @@
 import { userState } from "@/atom";
 import { db } from "@/firebaseApp";
+import { AddShopWrap } from "@/pages/shop/shopStyle";
 import { addDoc, collection } from "firebase/firestore";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
+import { InputStyle, Out } from "../Style";
+import { RiCloseLine } from "react-icons/ri";
+import { useState } from "react";
 
 interface defaultInfo {
     thingName: string;
@@ -15,9 +19,20 @@ interface defaultInfo {
     soldout: boolean;
     howMuch: number;
 }
-
-export default function AddShop() {
+interface AddShopProps {
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export default function AddShop({ setOpen }: AddShopProps) {
     const user = useRecoilValue(userState);
+    const queryClient = useQueryClient();
+    const [cate, setCate] = useState("charm");
+
+    const categories = [
+        { name: "배지", type: "charm" },
+        { name: "정보", type: "info" },
+        { name: "기타", type: "etc" },
+    ];
+
     // 새 물건 제출
     const mutation = useMutation(
         // 첫 번째 매개변수: 비동기 함수, 서버에 요청을 보내는 역할
@@ -36,6 +51,7 @@ export default function AddShop() {
                     howMuch: defaultInfo.howMuch,
                 });
             }
+            await queryClient.invalidateQueries("shopData");
         },
         {
             onError: (error) => {
@@ -47,12 +63,12 @@ export default function AddShop() {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         mutation.mutate({
-            thingName: "제목4",
+            thingName: "제목7",
             uploadUid: user?.uid || "",
             imageLink: "/images/seederEdit.webp",
-            imageDesc: "이미지 설명 예시입니다4",
-            justDesc: "단순 정보라면 이곳입니다4",
-            thingType: "etc",
+            imageDesc: "이미지 설명 예시입니다7",
+            justDesc: "단순 정보라면 이곳입니다7",
+            thingType: cate,
             createdAt: new Date().toLocaleDateString("ko", {
                 year: "numeric",
                 month: "2-digit",
@@ -67,8 +83,67 @@ export default function AddShop() {
         });
     };
     return (
-        <form onSubmit={onSubmit}>
-            <button type="submit">임시 등록 버튼</button>
-        </form>
+        <AddShopWrap>
+            <div className="modal">
+                <Out onClick={() => setOpen(false)}>
+                    <RiCloseLine size={25} color="white" />
+                </Out>
+                <form onSubmit={onSubmit}>
+                    <div className="category">
+                        {categories.map((cate) => (
+                            <button
+                                key={cate.type}
+                                onClick={() => setCate(cate.type)}
+                            >
+                                {cate.name}
+                            </button>
+                        ))}
+                    </div>
+                    <div className="inputBox">
+                        <p className="inputTitle">아이템 이름</p>
+                        <InputStyle
+                            fontSize={"1vw"}
+                            fontFamily={"nexonGothic"}
+                            height={"90%"}
+                            border={"1px solid #fff"}
+                            placeholder="아이템 이름을 작성하세요"
+                        ></InputStyle>
+                    </div>
+                    <div className="inputBox">
+                        <p className="inputTitle">이미지 주소</p>
+                        <InputStyle
+                            fontSize={"1vw"}
+                            fontFamily={"nexonGothic"}
+                            height={"90%"}
+                            border={"1px solid #fff"}
+                            placeholder="1:1 비율의 이미지 링크를 삽입해 주세요"
+                        ></InputStyle>
+                    </div>
+                    <div className="inputBox">
+                        <p className="inputTitle">이미지 설명</p>
+                        <InputStyle
+                            fontSize={"1vw"}
+                            fontFamily={"nexonGothic"}
+                            height={"90%"}
+                            border={"1px solid #fff"}
+                            placeholder="디테일한 이미지 설명을 곁들여 주세요"
+                        ></InputStyle>
+                    </div>
+                    <div className="inputBox">
+                        <p className="inputTitle">아이템 설명 / 내용</p>
+                        <InputStyle
+                            fontSize={"1vw"}
+                            fontFamily={"nexonGothic"}
+                            height={"90%"}
+                            border={"1px solid #fff"}
+                            placeholder="아이템의 설명이나 정보 내용을 기입하세요"
+                        ></InputStyle>
+                    </div>
+                    <div className="buttonBox">
+                        <button type="submit">등록</button>
+                    </div>
+                </form>
+            </div>
+        </AddShopWrap>
     );
 }

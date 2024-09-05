@@ -44,8 +44,14 @@ export default function ShopPage() {
 
     return (
         <ShopWrap>
-            {open && <AddShop />}
-            <ShopList things={things} setSelect={setSelect} setOpen={setOpen} />
+            {open && <AddShop setOpen={setOpen} />}
+            <div className="shopList">
+                <ShopList
+                    things={things}
+                    setSelect={setSelect}
+                    setOpen={setOpen}
+                />
+            </div>
             <div className="infos">
                 <ShopInfo select={select} />
                 <Inventory />
