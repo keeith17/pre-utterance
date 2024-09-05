@@ -117,7 +117,7 @@ export const AddShopWrap = styled.div`
     justify-content: center;
     .modal {
         width: 40%;
-        height: 50%;
+        height: 60%;
         background: rgba(0, 0, 0, 0.8);
         border: 2px solid #fff;
         border-radius: 10px;
@@ -129,11 +129,13 @@ export const AddShopWrap = styled.div`
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
             .category {
                 width: 100%;
                 height: 7%;
                 display: flex;
                 gap: 0.5vw;
+                margin-bottom: 0.5vw;
                 button {
                     width: 5vw;
                     height: 100%;
@@ -147,7 +149,8 @@ export const AddShopWrap = styled.div`
             }
             .inputBox {
                 width: 100%;
-                height: 15%;
+                height: 12%;
+                margin: 0.3vw 0;
                 display: flex;
                 flex-direction: column;
                 gap: 0.3vw;
@@ -157,12 +160,28 @@ export const AddShopWrap = styled.div`
                     font-size: 1vw;
                 }
             }
+            .textBox {
+                width: 100%;
+                height: 30%;
+                display: flex;
+                flex-direction: column;
+                gap: 0.3vw;
+                .textTitle {
+                    width: 100%;
+                    text-align: left;
+                    font-size: 1vw;
+                }
+                textarea {
+                    border: 1px solid #fff;
+                }
+            }
             .buttonBox {
                 width: 100%;
-                height: 10%;
+                height: 8%;
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
+                margin-top: 0.5vw;
                 button {
                     width: 15%;
                     height: 100%;
