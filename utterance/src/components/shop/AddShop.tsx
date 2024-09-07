@@ -115,35 +115,56 @@ export default function AddShop({ setOpen }: AddShopProps) {
                 <Out onClick={() => setOpen(false)}>
                     <RiCloseLine size={25} color="white" />
                 </Out>
+                <div className="category">
+                    {categories.map((cate) => (
+                        <button
+                            key={cate.type}
+                            onClick={() => setCate(cate.type)}
+                        >
+                            {cate.name}
+                        </button>
+                    ))}
+                </div>
                 <form onSubmit={onSubmit}>
-                    <div className="category">
-                        {categories.map((cate) => (
-                            <button
-                                key={cate.type}
-                                onClick={() => setCate(cate.type)}
-                            >
-                                {cate.name}
-                            </button>
-                        ))}
+                    <div className="topBox">
+                        <div className="imgBox">
+                            <p className="inputTitle">이미지</p>
+                            <div className="imageBox">이미지 삽입 자리</div>
+                        </div>
+                        <div className="textBox">
+                            <div className="inputBox">
+                                <p className="inputTitle">아이템 이름</p>
+                                <InputStyle
+                                    fontSize={"0.8vw"}
+                                    fontFamily={"nexonGothic"}
+                                    height={"90%"}
+                                    border={"1px solid #fff"}
+                                    placeholder="아이템 이름을 작성하세요"
+                                    name="thingName"
+                                    value={thingName}
+                                    onChange={onChange}
+                                ></InputStyle>
+                            </div>
+                            <div className="inputBox">
+                                <p className="inputTitle">가격</p>
+                                <InputStyle
+                                    fontSize={"0.8vw"}
+                                    fontFamily={"nexonGothic"}
+                                    height={"90%"}
+                                    border={"1px solid #fff"}
+                                    placeholder="가격을 책정해 주세요"
+                                    value={howMuch}
+                                    name="howMuch"
+                                    onChange={onChange}
+                                ></InputStyle>
+                            </div>
+                        </div>
                     </div>
-                    <div className="inputBox">
-                        <p className="inputTitle">아이템 이름</p>
+
+                    {/* <div className="inputBox">
+                        <p className="inputTitle">이미지</p>
                         <InputStyle
-                            fontSize={"1vw"}
-                            fontFamily={"nexonGothic"}
-                            height={"90%"}
-                            border={"1px solid #fff"}
-                            placeholder="아이템 이름을 작성하세요"
-                            name="thingName"
-                            value={thingName}
-                            onChange={onChange}
-                        ></InputStyle>
-                    </div>
-                    {}
-                    <div className="inputBox">
-                        <p className="inputTitle">이미지 주소</p>
-                        <InputStyle
-                            fontSize={"1vw"}
+                            fontSize={"0.8vw"}
                             fontFamily={"nexonGothic"}
                             height={"90%"}
                             border={"1px solid #fff"}
@@ -152,11 +173,11 @@ export default function AddShop({ setOpen }: AddShopProps) {
                             name="imageLink"
                             onChange={onChange}
                         ></InputStyle>
-                    </div>
-                    <div className="inputBox">
+                    </div> */}
+                    {/* <div className="inputBox">
                         <p className="inputTitle">이미지 설명</p>
                         <InputStyle
-                            fontSize={"1vw"}
+                            fontSize={"0.8vw"}
                             fontFamily={"nexonGothic"}
                             height={"90%"}
                             border={"1px solid #fff"}
@@ -165,20 +186,8 @@ export default function AddShop({ setOpen }: AddShopProps) {
                             name="imageDesc"
                             onChange={onChange}
                         ></InputStyle>
-                    </div>
-                    <div className="inputBox">
-                        <p className="inputTitle">가격</p>
-                        <InputStyle
-                            fontSize={"1vw"}
-                            fontFamily={"nexonGothic"}
-                            height={"90%"}
-                            border={"1px solid #fff"}
-                            placeholder="가격을 책정해 주세요"
-                            value={howMuch}
-                            name="howMuch"
-                            onChange={onChange}
-                        ></InputStyle>
-                    </div>
+                    </div> */}
+
                     <div className="textBox">
                         <p className="textTitle">아이템 설명 / 내용</p>
                         <TextAreaStyle

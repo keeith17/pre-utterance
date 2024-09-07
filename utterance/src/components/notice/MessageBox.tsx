@@ -1,17 +1,14 @@
 import { AllCharProps, userState } from "@/atom";
 import { db } from "@/firebaseApp";
 import {
-    QueryDocumentSnapshot,
     addDoc,
     collection,
     doc,
     getCountFromServer,
     getDocs,
-    limit,
     orderBy,
     query,
     setDoc,
-    startAfter,
     updateDoc,
 } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
@@ -52,16 +49,15 @@ export default function MessageBox() {
 
     const [page, setPage] = useState(0); //받은 메시지의 현재 페이지
     const [sendPage, setSendPage] = useState(0); //보낸 메시지의 현재 페이지
-    const [lastDocs, setLastDocs] = useState<(QueryDocumentSnapshot | null)[]>( //받은 메시지 지난 페이지
-        []
-    );
-    const [sendLastDocs, setSendLastDocs] = useState<
-        (QueryDocumentSnapshot | null)[]
-    >([]); //보낸 메시지 지난 페이지
     const pageSize = 15; //한 페이지 표시 개수
     const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수를 임의로 10으로 설정 (데이터에 맞게 조정 필요)
     const [sendTotalPages, setSendTotalPages] = useState(0); // 전체 페이지 수를 임의로 10으로 설정 (데이터에 맞게 조정 필요)
 
+    const startIndex = page * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const sendStartIndex = sendPage * pageSize;
+    const sendEndIndex = sendStartIndex + pageSize;
     //control되고 있는 상황 fetch
     const fetchControlData = async () => {
         const controlRef = collection(db, "control");
@@ -146,30 +142,12 @@ export default function MessageBox() {
         staleTime: 20000,
     });
     // 받은 메시지 페치
-    const fetchRecMail = async (
-        pageSize: number,
-        lastDoc: QueryDocumentSnapshot | null
-    ) => {
+    const fetchRecMail = async () => {
         try {
             const userUid = user.uid;
             if (userUid) {
                 const mailRef = collection(db, "homeMail", userUid, "rec");
-                let mailQuery;
-
-                if (lastDoc) {
-                    mailQuery = query(
-                        mailRef,
-                        orderBy("createdAt", "desc"),
-                        startAfter(lastDoc),
-                        limit(pageSize)
-                    );
-                } else {
-                    mailQuery = query(
-                        mailRef,
-                        orderBy("createdAt", "desc"),
-                        limit(pageSize)
-                    );
-                }
+                const mailQuery = query(mailRef, orderBy("createdAt", "desc"));
 
                 const mailSnapshot = await getDocs(mailQuery);
                 const lastVisibleDoc =
@@ -187,48 +165,16 @@ export default function MessageBox() {
         }
     };
 
-    const { data: recMails } = useQuery(
-        ["recMail", page],
-        () => fetchRecMail(pageSize, lastDocs[page - 1] || null),
-        {
-            staleTime: 10000,
-            keepPreviousData: true,
-            onSuccess: (recMails) => {
-                if (recMails) {
-                    setLastDocs((prevLastDocs) => {
-                        const newLastDocs = [...prevLastDocs];
-                        newLastDocs[page] = recMails.lastVisibleDoc;
-                        return newLastDocs;
-                    });
-                }
-            },
-        }
-    );
+    const { data: recMails } = useQuery(["recMail"], () => fetchRecMail(), {
+        staleTime: 10000,
+    });
     // 보낸 메시지 페치
-    const fetchSendMail = async (
-        pageSize: number,
-        lastDoc: QueryDocumentSnapshot | null
-    ) => {
+    const fetchSendMail = async () => {
         try {
             const userUid = user.uid;
             if (userUid) {
                 const mailRef = collection(db, "homeMail", userUid, "send");
-                let mailQuery;
-
-                if (lastDoc) {
-                    mailQuery = query(
-                        mailRef,
-                        orderBy("createdAt", "desc"),
-                        startAfter(lastDoc),
-                        limit(pageSize)
-                    );
-                } else {
-                    mailQuery = query(
-                        mailRef,
-                        orderBy("createdAt", "desc"),
-                        limit(pageSize)
-                    );
-                }
+                const mailQuery = query(mailRef, orderBy("createdAt", "desc"));
 
                 const mailSnapshot = await getDocs(mailQuery);
                 const lastVisibleDoc =
@@ -246,23 +192,9 @@ export default function MessageBox() {
         }
     };
 
-    const { data: sendMails } = useQuery(
-        ["sendMail", sendPage],
-        () => fetchSendMail(pageSize, sendLastDocs[sendPage - 1] || null),
-        {
-            staleTime: 10000,
-            keepPreviousData: true,
-            onSuccess: (sendMails) => {
-                if (sendMails) {
-                    setSendLastDocs((prevLastDocs) => {
-                        const newLastDocs = [...prevLastDocs];
-                        newLastDocs[sendPage] = sendMails.lastVisibleDoc;
-                        return newLastDocs;
-                    });
-                }
-            },
-        }
-    );
+    const { data: sendMails } = useQuery(["sendMail"], () => fetchSendMail(), {
+        staleTime: 10000,
+    });
 
     //우편 보내기
     const sendMail = useMutation(
@@ -405,34 +337,36 @@ export default function MessageBox() {
                     {box === "receive" && (
                         <div className="letters">
                             <div className="letterBox">
-                                {recMails?.data.map((mail) => (
-                                    <div
-                                        key={mail.id}
-                                        className="letter"
-                                        onClick={() => {
-                                            setRec(true);
-                                            setViewmsg(mail.content);
-                                            setViewUrl(uidToUrl(mail.send));
-                                            setViewName(mail.send);
-                                            setViewMode("receive");
-                                            checkMail.mutate({
-                                                mailId: mail.id,
-                                                mailRec: mail.rec,
-                                                mailSend: mail.send,
-                                            });
-                                        }}
-                                    >
-                                        {!mail.isRead && (
-                                            <div className="isRead"></div>
-                                        )}
-                                        <div className="name">
-                                            {uidToName(mail.send)}
+                                {recMails?.data
+                                    .slice(startIndex, endIndex)
+                                    .map((mail) => (
+                                        <div
+                                            key={mail.id}
+                                            className="letter"
+                                            onClick={() => {
+                                                setRec(true);
+                                                setViewmsg(mail.content);
+                                                setViewUrl(uidToUrl(mail.send));
+                                                setViewName(mail.send);
+                                                setViewMode("receive");
+                                                checkMail.mutate({
+                                                    mailId: mail.id,
+                                                    mailRec: mail.rec,
+                                                    mailSend: mail.send,
+                                                });
+                                            }}
+                                        >
+                                            {!mail.isRead && (
+                                                <div className="isRead"></div>
+                                            )}
+                                            <div className="name">
+                                                {uidToName(mail.send)}
+                                            </div>
+                                            <div className="preview">
+                                                {mail.content}
+                                            </div>
                                         </div>
-                                        <div className="preview">
-                                            {mail.content}
-                                        </div>
-                                    </div>
-                                ))}
+                                    ))}
                             </div>
                             <div className="pageButton">
                                 {Array.from(
@@ -459,29 +393,31 @@ export default function MessageBox() {
                     {box === "send" && (
                         <div className="letters">
                             <div className="letterBox">
-                                {sendMails?.data.map((mail) => (
-                                    <div
-                                        key={mail.id}
-                                        className="letter"
-                                        onClick={() => {
-                                            setRec(true);
-                                            setViewmsg(mail.content);
-                                            setViewUrl(uidToUrl(mail.rec));
-                                            setViewName(mail.rec);
-                                            setViewMode("send");
-                                        }}
-                                    >
-                                        {!mail.isRead && (
-                                            <div className="isRead"></div>
-                                        )}
-                                        <div className="name">
-                                            {uidToName(mail.rec)}
+                                {sendMails?.data
+                                    ?.slice(sendStartIndex, sendEndIndex)
+                                    .map((mail) => (
+                                        <div
+                                            key={mail.id}
+                                            className="letter"
+                                            onClick={() => {
+                                                setRec(true);
+                                                setViewmsg(mail.content);
+                                                setViewUrl(uidToUrl(mail.rec));
+                                                setViewName(mail.rec);
+                                                setViewMode("send");
+                                            }}
+                                        >
+                                            {!mail.isRead && (
+                                                <div className="isRead"></div>
+                                            )}
+                                            <div className="name">
+                                                {uidToName(mail.rec)}
+                                            </div>
+                                            <div className="preview">
+                                                {mail.content}
+                                            </div>
                                         </div>
-                                        <div className="preview">
-                                            {mail.content}
-                                        </div>
-                                    </div>
-                                ))}
+                                    ))}
                             </div>
                             <div className="pageButton">
                                 {Array.from(

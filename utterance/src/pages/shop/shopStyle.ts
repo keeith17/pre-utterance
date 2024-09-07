@@ -117,49 +117,65 @@ export const AddShopWrap = styled.div`
     justify-content: center;
     .modal {
         width: 40%;
-        height: 60%;
+        height: 50%;
         background: rgba(0, 0, 0, 0.8);
         border: 2px solid #fff;
         border-radius: 10px;
         padding: 1vw;
         position: relative;
+        .category {
+            width: 100%;
+            height: 7%;
+            display: flex;
+            gap: 0.5vw;
+            margin-bottom: 0.5vw;
+            button {
+                width: 5vw;
+                height: 100%;
+                border: none;
+                ouline: none;
+                border-radius: 5px;
+                background: #fff;
+                color: #444;
+                font-weight: 700;
+                font-size: 0.8vw;
+            }
+        }
         form {
             width: 100%;
-            height: 100%;
+            height: 93%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-
-            .category {
+            .topBox {
                 width: 100%;
-                height: 7%;
+                height: 40%;
                 display: flex;
-                gap: 0.5vw;
-                margin-bottom: 0.5vw;
-                button {
-                    width: 5vw;
+                gap: 1vw;
+                .imgBox {
                     height: 100%;
-                    border: none;
-                    ouline: none;
-                    border-radius: 5px;
-                    background: #fff;
-                    color: #444;
-                    font-weight: 700;
+                    border: 1px solid #fff;
+                    aspect-ratio: 1/1;
+                }
+                .textBox {
+                    flex: 1 1 auto;
+                    height: 100%;
+                    .inputBox {
+                        width: 100%;
+                        height: 40%;
+                        margin: 0.3vw 0;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.3vw;
+                        .inputTitle {
+                            width: 100%;
+                            text-align: left;
+                            font-size: 1vw;
+                        }
+                    }
                 }
             }
-            .inputBox {
-                width: 100%;
-                height: 12%;
-                margin: 0.3vw 0;
-                display: flex;
-                flex-direction: column;
-                gap: 0.3vw;
-                .inputTitle {
-                    width: 100%;
-                    text-align: left;
-                    font-size: 1vw;
-                }
-            }
+
             .textBox {
                 width: 100%;
                 height: 30%;
@@ -188,6 +204,7 @@ export const AddShopWrap = styled.div`
                     border: none;
                     ouline: none;
                     border-radius: 20px;
+                    font-size: 0.7vw;
                     background: ${defaultColor};
                 }
             }
