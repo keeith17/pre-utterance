@@ -91,11 +91,8 @@ export default function ProfilePage() {
     };
     // 내 캐릭터 정보
     const { data: myInventory } = useQuery(
-        "myInventory",
-        () => fetchInvenData(user.uid),
-        {
-            staleTime: 60000 * 3,
-        }
+        ["selectInventory", selectChar.id],
+        () => fetchInvenData(selectChar.id)
     );
 
     // 내 캐릭터 정보 세팅 함수
