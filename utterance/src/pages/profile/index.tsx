@@ -164,13 +164,13 @@ export default function ProfilePage() {
         setBadgeList([...badgeList, ...imsiBadgeList]);
         return data;
     };
-    const {
-        data: allChar,
-        isFetched,
-        isLoading,
-    } = useQuery<AllCharProps[]>("allChar", fetchAllCharData, {
-        staleTime: 30000, // 캐시된 데이터가 30초 후에 만료됨
-    });
+    const { data: allChar, isLoading } = useQuery<AllCharProps[]>(
+        "allChar",
+        fetchAllCharData,
+        {
+            staleTime: 30000, // 캐시된 데이터가 30초 후에 만료됨
+        }
+    );
 
     // 선택된 시냅스 패커 가지고 오기.....
     const fetchData1 = async () => {
