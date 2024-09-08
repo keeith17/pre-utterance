@@ -18,12 +18,13 @@ export interface defaultInfo2 {
     createdAt: string;
     soldout: boolean;
     howMuch: number;
+    checkOn: boolean;
     id: string;
 }
 
 export default function ShopPage() {
     const [open, setOpen] = useState<boolean>(false);
-    const [select, setSelect] = useState<defaultInfo2>();
+    const [select, setSelect] = useState<defaultInfo2 | null>(null);
 
     // 물건 페치
     const fetchShopData = async () => {
@@ -53,8 +54,8 @@ export default function ShopPage() {
                 />
             </div>
             <div className="infos">
-                <ShopInfo select={select} />
-                <Inventory />
+                <ShopInfo setSelect={setSelect} select={select} />
+                <Inventory setSelect={setSelect} />
             </div>
         </ShopWrap>
     );

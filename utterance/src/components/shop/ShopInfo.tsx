@@ -5,6 +5,7 @@ import { defaultInfo2 } from "@/pages/shop";
 import { ShopInfoWrap } from "@/pages/shop/shopStyle";
 import {
     addDoc,
+    arrayRemove,
     arrayUnion,
     collection,
     doc,
@@ -13,16 +14,68 @@ import {
     setDoc,
     updateDoc,
 } from "firebase/firestore";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
+import { InvenProps } from "./Inventory";
 
 interface ShopInfoProps {
     select: defaultInfo2 | undefined;
+    setSelect: (thing: defaultInfo2 | null) => void;
 }
 
-export default function ShopInfo({ select }: ShopInfoProps) {
+export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
     const user = useRecoilValue(userState);
+    const [showSuccess, setShowSuccess] = useState(false);
     const queryClient = useQueryClient();
+
+    // 인벤토리 소환
+    const fetchInvenData = async (userUid: string | null) => {
+        if (userUid) {
+            const invenRef = doc(db, "inventory", userUid);
+            const invenSanpshot = await getDoc(invenRef);
+            const data = {
+                ...invenSanpshot?.data(),
+                uid: userUid,
+            } as InvenProps;
+            return data;
+        } else {
+            throw new Error("사용자 UID가 존재하지 않습니다.");
+        }
+    };
+    // 내 캐릭터 정보
+    const { data: myInventory } = useQuery("myInventory", () =>
+        fetchInvenData(user.uid)
+    );
+
+    const checkingHave = (selectId: string) => {
+        //true일 경우 구매 버튼 표시/ fasle면 안 하기
+        if (myInventory) {
+            if (myInventory.charm) {
+                for (const item of myInventory.charm) {
+                    if (item.id === selectId) {
+                        return false;
+                    }
+                }
+            }
+            if (myInventory.info) {
+                for (const item of myInventory.info) {
+                    if (item.id === selectId) {
+                        return false;
+                    }
+                }
+            }
+            if (myInventory.etc) {
+                for (const item of myInventory.etc) {
+                    if (item.id === selectId) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return true;
+    };
 
     // 일단 내 돈 얼마 있는지 정보 받기
     const fetchmoneyData = async (userUid: string | null) => {
@@ -61,12 +114,19 @@ export default function ShopInfo({ select }: ShopInfoProps) {
                         //인벤토리에 넣어 주기
                         await updateDoc(invenRef, {
                             uid: user.uid,
-                            [select?.thingType]: arrayUnion(select),
+                            [select?.thingType]: arrayUnion({
+                                ...select,
+                                checkOn: false,
+                            }),
                         });
                         //샵 솔드아웃 표시하기
-                        await updateDoc(thingRef, {
-                            soldout: true,
-                        });
+                        if (
+                            select.uploadUid !== "LlZ41QVfUkcj0yVVRSTWJrXhuYv2"
+                        ) {
+                            await updateDoc(thingRef, {
+                                soldout: true,
+                            });
+                        }
                         //돈 차감
                         await updateDoc(moneyRef, {
                             credit: myQinfo?.credit - select.howMuch,
@@ -99,6 +159,11 @@ export default function ShopInfo({ select }: ShopInfoProps) {
                 }
                 await queryClient.invalidateQueries("myQinfo");
                 await queryClient.invalidateQueries("shopData");
+                await queryClient.invalidateQueries("myInventory");
+                setShowSuccess(true);
+                setTimeout(() => {
+                    setShowSuccess(false);
+                }, 1000);
             }
         },
         {
@@ -113,10 +178,81 @@ export default function ShopInfo({ select }: ShopInfoProps) {
         e.preventDefault();
         mutation.mutate();
     };
+
+    // 장착!!
+
+    const updateArrayItem = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (user.uid) {
+            const docRef = doc(db, "inventory", user.uid);
+            await updateDoc(docRef, {
+                charm: arrayRemove(select),
+            });
+            await updateDoc(docRef, {
+                charm: arrayUnion({ ...select, checkOn: true }),
+            });
+            await queryClient.invalidateQueries("myInventory");
+        }
+        setSelect(null);
+    };
+    //해제!!!
+
+    const removeArrayItem = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (user.uid) {
+            const docRef = doc(db, "inventory", user.uid);
+            await updateDoc(docRef, {
+                charm: arrayRemove(select),
+            });
+            await updateDoc(docRef, {
+                charm: arrayUnion({ ...select, checkOn: false }),
+            });
+            await queryClient.invalidateQueries("myInventory");
+        }
+        setSelect(null);
+    };
+
     return (
         <ShopInfoWrap>
-            설명: {select?.thingName} {select?.howMuch}
-            <button onClick={makePurchase}>임시 구매</button>
+            {showSuccess ? (
+                <div className="success">구매가 완료되었습니다.</div>
+            ) : select ? (
+                <>
+                    <div className="left">
+                        <img src={select?.imageLink} alt="image" />
+                        <p>{select?.thingName}</p>
+                    </div>
+                    <div className="right">
+                        <p>{select?.justDesc}</p>
+                        {select && checkingHave(select?.id) && (
+                            <div className="buttonBox">
+                                <span>소지 금액: {myQinfo?.credit} Q </span>
+                                <span>아이템 가격: {select?.howMuch} Q</span>
+                                <button onClick={makePurchase}>구매</button>
+                            </div>
+                        )}
+                        {select &&
+                            !checkingHave(select?.id) &&
+                            select.thingType === "charm" && (
+                                <div className="buttonBox">
+                                    {select.checkOn ? (
+                                        <button onClick={removeArrayItem}>
+                                            해제
+                                        </button>
+                                    ) : (
+                                        <button onClick={updateArrayItem}>
+                                            장착
+                                        </button>
+                                    )}
+                                </div>
+                            )}
+                    </div>
+                </>
+            ) : (
+                <div className="success">아이템을 선택해 주세요</div>
+            )}
+
+            {/* <button onClick={makePurchase}>임시 구매</button> */}
         </ShopInfoWrap>
     );
 }

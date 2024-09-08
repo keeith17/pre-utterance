@@ -1,8 +1,15 @@
 import { userState } from "@/atom";
 import { db, storage } from "@/firebaseApp";
 import { AddShopWrap } from "@/pages/shop/shopStyle";
-import { addDoc, collection } from "firebase/firestore";
-import { useMutation, useQueryClient } from "react-query";
+import {
+    addDoc,
+    collection,
+    doc,
+    getDoc,
+    serverTimestamp,
+    updateDoc,
+} from "firebase/firestore";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import { InputStyle, Out, TextAreaStyle } from "../Style";
 import { RiCloseLine } from "react-icons/ri";
@@ -10,6 +17,7 @@ import { FiImage } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { MoneyProps } from "@/pages/admin/control";
 
 interface defaultInfo {
     thingName: string;
@@ -40,6 +48,22 @@ export default function AddShop({ setOpen }: AddShopProps) {
         { name: "정보", type: "info" },
         { name: "기타", type: "etc" },
     ];
+
+    // 일단 내 돈 얼마 있는지 정보 받기
+    const fetchmoneyData = async (userUid: string | null) => {
+        if (userUid) {
+            const charRef = doc(db, "money", userUid);
+            const charSnap = await getDoc(charRef);
+            const data = { ...charSnap?.data(), uid: userUid } as MoneyProps;
+            return data;
+        } else {
+            throw new Error("사용자 UID가 존재하지 않습니다.");
+        }
+    };
+    // 내 캐릭터 정보
+    const { data: myQinfo } = useQuery("myQinfo", () =>
+        fetchmoneyData(user.uid)
+    );
 
     const onChange = (
         e:
@@ -91,8 +115,10 @@ export default function AddShop({ setOpen }: AddShopProps) {
     const mutation = useMutation(
         // 첫 번째 매개변수: 비동기 함수, 서버에 요청을 보내는 역할
         async (defaultInfo: defaultInfo) => {
-            if (user?.uid) {
+            if (user?.uid && myQinfo) {
                 const shopRef = collection(db, "shop");
+                const moneyRef = doc(db, "money", user.uid);
+                const moneyLogRef = collection(db, "money", user.uid, "log");
                 const key = `${user?.uid}/${uuidv4()}`;
                 const storageRef = ref(storage, key);
                 let newImageUrl = "/images/null.webp";
@@ -117,6 +143,14 @@ export default function AddShop({ setOpen }: AddShopProps) {
                     createdAt: defaultInfo.createdAt,
                     soldout: defaultInfo.soldout,
                     howMuch: defaultInfo.howMuch,
+                });
+                await updateDoc(moneyRef, {
+                    credit: myQinfo?.credit + 50,
+                });
+                //돈 로그 생성
+                await addDoc(moneyLogRef, {
+                    log: `아이템 등록하여 50Q 지급되었습니다.`,
+                    timeStamp: serverTimestamp(),
                 });
             }
             await queryClient.invalidateQueries("shopData");
