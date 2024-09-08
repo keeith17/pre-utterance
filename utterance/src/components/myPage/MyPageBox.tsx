@@ -134,7 +134,7 @@ export default function MyPageBox() {
             fs: 0,
             controls: 1,
             disablekb: 1,
-            playlist: "jcEw1Bsbnq0,Cp5y1hvtKPQ,NaLuuHmnb0Y",
+            playlist: "FDJDNuY23vw,Eoe5CNZAxb4,KbC5_JEhqL8",
             playsinline: 1,
             enablejsapi: 1,
             mute: 0,
@@ -348,6 +348,18 @@ export default function MyPageBox() {
                                     >
                                         <img
                                             src="/images/main/icon/icon_modify_26x26.webp"
+                                            alt="icon_modify_26x26"
+                                        />
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            if (Number(myChar?.grade) >= 4) {
+                                                navigate("/ShopPage");
+                                            }
+                                        }}
+                                    >
+                                        <img
+                                            src="/images/main/icon/shop.webp"
                                             alt="icon_modify_26x26"
                                         />
                                     </button>

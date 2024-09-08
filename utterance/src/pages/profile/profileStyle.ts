@@ -144,8 +144,36 @@ export const Character = styled.div`
                     position: absolute;
                     bottom: 8%;
                     right: 8%;
-                    .gradeImg {
-                        height: 100%;
+                    display: flex;
+                    gap: 0.1vw;
+                    .imgContainer {
+                        position: relative;
+                        display: inline-block;
+                        .gradeImg {
+                            height: 100%;
+                        }
+                        .tooltip {
+                            visibility: hidden;
+                            background-color: rgba(0, 0, 0, 0.7);
+                            color: #fff;
+                            text-align: center;
+                            border-radius: 5px;
+                            padding: 5px;
+                            position: absolute;
+                            bottom: -120%; /* 이미지 위에 위치 */
+                            left: 50%;
+                            transform: translateX(-50%);
+                            z-index: 3;
+                            white-space: nowrap;
+                            opacity: 0;
+                            transition: opacity 0.3s;
+                        }
+                        &:hover {
+                            .tooltip {
+                                visibility: visible;
+                                opacity: 1;
+                            }
+                        }
                     }
                 }
             }

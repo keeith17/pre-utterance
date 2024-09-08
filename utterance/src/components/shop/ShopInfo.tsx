@@ -20,7 +20,7 @@ import { useRecoilValue } from "recoil";
 import { InvenProps } from "./Inventory";
 
 interface ShopInfoProps {
-    select: defaultInfo2 | undefined;
+    select: defaultInfo2 | null;
     setSelect: (thing: defaultInfo2 | null) => void;
 }
 
@@ -223,7 +223,13 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                         <p>{select?.thingName}</p>
                     </div>
                     <div className="right">
-                        <p>{select?.justDesc}</p>
+                        {select?.thingType === "info" &&
+                        checkingHave(select?.id) ? (
+                            <p>?</p>
+                        ) : (
+                            <p>{select?.justDesc}</p>
+                        )}
+
                         {select && checkingHave(select?.id) && (
                             <div className="buttonBox">
                                 <span>소지 금액: {myQinfo?.credit} Q </span>

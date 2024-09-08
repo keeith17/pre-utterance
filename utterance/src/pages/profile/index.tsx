@@ -30,6 +30,7 @@ import { useNavigate } from "react-router";
 import { PackerList } from "@/components/profile/packerList";
 import { DataProps } from "@/components/profile/packerWrite";
 import { ControlProps } from "../admin/control";
+import { InvenProps } from "@/components/shop/Inventory";
 export default function ProfilePage() {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
@@ -72,9 +73,26 @@ export default function ProfilePage() {
     //     gifUrl: `https://example.com/gif${i + 1}.gif`, // 임의의 URL
     // }));
     // console.log(dummyData);
-    useEffect(() => {
-        console.log(selectHouse);
-    }, [selectHouse]);
+
+    // 인벤토리 소환
+    const fetchInvenData = async (userUid: string | null) => {
+        if (userUid) {
+            const invenRef = doc(db, "inventory", userUid);
+            const invenSanpshot = await getDoc(invenRef);
+            const data = {
+                ...invenSanpshot?.data(),
+                uid: userUid,
+            } as InvenProps;
+            return data;
+        } else {
+            throw new Error("사용자 UID가 존재하지 않습니다.");
+        }
+    };
+    // 내 캐릭터 정보
+    const { data: myInventory } = useQuery("myInventory", () =>
+        fetchInvenData(user.uid)
+    );
+
     // 내 캐릭터 정보 세팅 함수
     const fetchCharData = async (userUid: string | null) => {
         if (userUid) {
@@ -417,11 +435,35 @@ export default function ProfilePage() {
                                     </div>
                                 </div>
                                 <div className="imgBox">
-                                    <img
-                                        src={selectChar.gradeImg}
-                                        alt="gradeImg"
-                                        className="gradeImg"
-                                    />
+                                    {myInventory &&
+                                        myInventory.charm.map(
+                                            (item) =>
+                                                item.checkOn && (
+                                                    <div className="imgContainer">
+                                                        <img
+                                                            src={item.imageLink}
+                                                            alt="itemImage"
+                                                            className="gradeImg"
+                                                        />
+                                                        <span className="tooltip">
+                                                            {item.thingName}
+                                                            <br />
+                                                            {item.justDesc}
+                                                        </span>
+                                                    </div>
+                                                )
+                                        )}
+                                    <div className="imgContainer">
+                                        <img
+                                            src={selectChar.gradeImg}
+                                            alt="gradeImg"
+                                            className="gradeImg"
+                                        />
+                                        <span className="tooltip">
+                                            정보 권한 <br />
+                                            {selectChar.grade} 등급
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             {/* 시냅스 패커 해금 잠금 */}

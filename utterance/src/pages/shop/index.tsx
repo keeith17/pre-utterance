@@ -7,6 +7,9 @@ import { useState } from "react";
 import ShopInfo from "@/components/shop/ShopInfo";
 import Inventory from "@/components/shop/Inventory";
 import AddShop from "@/components/shop/AddShop";
+import { Out } from "@/components/Style";
+import { RiCloseLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 export interface defaultInfo2 {
     thingName: string;
@@ -23,6 +26,7 @@ export interface defaultInfo2 {
 }
 
 export default function ShopPage() {
+    const navigate = useNavigate();
     const [open, setOpen] = useState<boolean>(false);
     const [select, setSelect] = useState<defaultInfo2 | null>(null);
 
@@ -45,6 +49,9 @@ export default function ShopPage() {
 
     return (
         <ShopWrap>
+            <Out onClick={() => navigate("/")}>
+                <RiCloseLine size={25} color="white" />
+            </Out>
             {open && <AddShop setOpen={setOpen} />}
             <div className="shopList">
                 <ShopList

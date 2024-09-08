@@ -22,12 +22,32 @@ import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
 import { PackerList } from "@/components/profile/packerList";
 import { DataProps } from "@/components/profile/packerWrite";
+import { InvenProps } from "@/components/shop/Inventory";
 export default function TeacherProfilePage() {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
     const [selectChar, setSelectChar] = useRecoilState(selectUserState);
     const [modal, setModal] = useState<boolean>(false);
     const [packer, setPacker] = useState<string>("database1");
+
+    // 인벤토리 소환
+    const fetchInvenData = async (userUid: string | null) => {
+        if (userUid) {
+            const invenRef = doc(db, "inventory", userUid);
+            const invenSanpshot = await getDoc(invenRef);
+            const data = {
+                ...invenSanpshot?.data(),
+                uid: userUid,
+            } as InvenProps;
+            return data;
+        } else {
+            throw new Error("사용자 UID가 존재하지 않습니다.");
+        }
+    };
+    // 내 캐릭터 정보
+    const { data: myInventory } = useQuery("myInventory", () =>
+        fetchInvenData(user.uid)
+    );
 
     // 내 캐릭터 정보 세팅 함수
     const fetchCharData = async (userUid: string | null) => {
@@ -338,11 +358,35 @@ export default function TeacherProfilePage() {
                                     </div>
                                 </div>
                                 <div className="imgBox">
-                                    <img
-                                        src={selectChar.gradeImg}
-                                        alt="gradeImg"
-                                        className="gradeImg"
-                                    />
+                                    {myInventory &&
+                                        myInventory.charm.map(
+                                            (item) =>
+                                                item.checkOn && (
+                                                    <div className="imgContainer">
+                                                        <img
+                                                            src={item.imageLink}
+                                                            alt="itemImage"
+                                                            className="gradeImg"
+                                                        />
+                                                        <span className="tooltip">
+                                                            {item.thingName}
+                                                            <br />
+                                                            {item.justDesc}
+                                                        </span>
+                                                    </div>
+                                                )
+                                        )}
+                                    <div className="imgContainer">
+                                        <img
+                                            src={selectChar.gradeImg}
+                                            alt="gradeImg"
+                                            className="gradeImg"
+                                        />
+                                        <span className="tooltip">
+                                            정보 권한 <br />
+                                            {selectChar.grade} 등급
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <SynapsePacker>
