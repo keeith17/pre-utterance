@@ -31,6 +31,7 @@ import { PackerList } from "@/components/profile/packerList";
 import { DataProps } from "@/components/profile/packerWrite";
 import { ControlProps } from "../admin/control";
 import { InvenProps } from "@/components/shop/Inventory";
+import Loader from "@/components/loader/Loader";
 export default function ProfilePage() {
     const navigate = useNavigate();
     const user = useRecoilValue(userState);
@@ -163,13 +164,13 @@ export default function ProfilePage() {
         setBadgeList([...badgeList, ...imsiBadgeList]);
         return data;
     };
-    const { data: allChar, isFetched } = useQuery<AllCharProps[]>(
-        "allChar",
-        fetchAllCharData,
-        {
-            staleTime: 30000, // 캐시된 데이터가 30초 후에 만료됨
-        }
-    );
+    const {
+        data: allChar,
+        isFetched,
+        isLoading,
+    } = useQuery<AllCharProps[]>("allChar", fetchAllCharData, {
+        staleTime: 30000, // 캐시된 데이터가 30초 후에 만료됨
+    });
 
     // 선택된 시냅스 패커 가지고 오기.....
     const fetchData1 = async () => {
@@ -846,7 +847,9 @@ export default function ProfilePage() {
             )}
             {(control && control[0].control.profileread) ||
             Number(myChar?.grade) >= 4 ? (
-                isFetched && (
+                isLoading ? (
+                    <Loader />
+                ) : (
                     <CharList>
                         <div className="leftArrow arrow" onClick={handleLeft}>
                             <IoChevronBack size={60} />
