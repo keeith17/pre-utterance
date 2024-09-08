@@ -1,12 +1,15 @@
 import { userState } from "@/atom";
-import { db } from "@/firebaseApp";
+import { db, storage } from "@/firebaseApp";
 import { AddShopWrap } from "@/pages/shop/shopStyle";
 import { addDoc, collection } from "firebase/firestore";
 import { useMutation, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import { InputStyle, Out, TextAreaStyle } from "../Style";
 import { RiCloseLine } from "react-icons/ri";
-import { useState } from "react";
+import { FiImage } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 interface defaultInfo {
     thingName: string;
@@ -25,7 +28,7 @@ interface AddShopProps {
 export default function AddShop({ setOpen }: AddShopProps) {
     const user = useRecoilValue(userState);
     const queryClient = useQueryClient();
-    const [cate, setCate] = useState<string>("charm");
+    const [category, setCategory] = useState<string>("");
     const [thingName, setThingName] = useState<string>("");
     const [imageLink, setImageLink] = useState<string>("");
     const [imageDesc, setImageDesc] = useState<string>("");
@@ -47,10 +50,41 @@ export default function AddShop({ setOpen }: AddShopProps) {
             target: { name, value },
         } = e;
         if (name === "thingName") setThingName(value);
-        if (name === "imageLink") setImageLink(value);
         if (name === "imageDesc") setImageDesc(value);
         if (name === "justDesc") setJustDesc(value);
         if (name === "howMuch") setHowMuch(Number(value));
+    };
+    useEffect(() => {
+        console.log(category);
+    }, [category]);
+    //이미지 등록
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {
+            target: { files },
+        } = e;
+
+        // 파일이 선택되지 않았을 경우 예외 처리
+        if (!files || files.length === 0) {
+            console.error("No file selected");
+            return;
+        }
+
+        const file = files[0];
+        const fileReader = new FileReader();
+
+        fileReader.onloadend = (e: ProgressEvent<FileReader>) => {
+            const result = (e.target as FileReader).result;
+
+            // result가 문자열인지 확인
+            if (result && typeof result === "string") {
+                setImageLink(result);
+            } else {
+                console.error("Invalid result type");
+            }
+        };
+
+        // readAsDataURL 호출
+        fileReader.readAsDataURL(file);
     };
 
     // 새 물건 제출
@@ -59,10 +93,24 @@ export default function AddShop({ setOpen }: AddShopProps) {
         async (defaultInfo: defaultInfo) => {
             if (user?.uid) {
                 const shopRef = collection(db, "shop");
+                const key = `${user?.uid}/${uuidv4()}`;
+                const storageRef = ref(storage, key);
+                let newImageUrl = "/images/null.webp";
+                if (defaultInfo.imageLink) {
+                    const data = await uploadString(
+                        storageRef,
+                        imageLink,
+                        "data_url"
+                    );
+                    newImageUrl = await getDownloadURL(data?.ref);
+                } else {
+                    newImageUrl = "/images/seederEdit.webp";
+                }
+
                 await addDoc(shopRef, {
                     thingName: defaultInfo.thingName,
                     uploadUid: defaultInfo.uploadUid,
-                    imageLink: defaultInfo.imageLink,
+                    imageLink: newImageUrl,
                     imageDesc: defaultInfo.imageDesc,
                     justDesc: defaultInfo.justDesc,
                     thingType: defaultInfo.thingType,
@@ -89,25 +137,29 @@ export default function AddShop({ setOpen }: AddShopProps) {
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        mutation.mutate({
-            thingName: thingName,
-            uploadUid: user?.uid || "",
-            imageLink: imageLink || "/images/seederEdit.webp",
-            imageDesc: imageDesc,
-            justDesc: justDesc,
-            thingType: cate,
-            createdAt: new Date().toLocaleDateString("ko", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: false,
-            }),
-            soldout: false,
-            howMuch: howMuch,
-        });
+        if (thingName && justDesc && category) {
+            mutation.mutate({
+                thingName: thingName,
+                uploadUid: user?.uid || "",
+                imageLink: imageLink,
+                imageDesc: imageDesc,
+                justDesc: justDesc,
+                thingType: category,
+                createdAt: new Date().toLocaleDateString("ko", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false,
+                }),
+                soldout: false,
+                howMuch: howMuch,
+            });
+        } else {
+            alert("모든 정보를 작성해 주세요");
+        }
     };
     return (
         <AddShopWrap>
@@ -119,7 +171,8 @@ export default function AddShop({ setOpen }: AddShopProps) {
                     {categories.map((cate) => (
                         <button
                             key={cate.type}
-                            onClick={() => setCate(cate.type)}
+                            className={cate.type === category ? "selected" : ""}
+                            onClick={() => setCategory(cate.type)}
                         >
                             {cate.name}
                         </button>
@@ -128,8 +181,26 @@ export default function AddShop({ setOpen }: AddShopProps) {
                 <form onSubmit={onSubmit}>
                     <div className="topBox">
                         <div className="imgBox">
-                            <p className="inputTitle">이미지</p>
-                            <div className="imageBox">이미지 삽입 자리</div>
+                            <div className="imageBox">
+                                <label className="fileForm" htmlFor="fileInput">
+                                    {imageLink ? (
+                                        <img src={imageLink} />
+                                    ) : (
+                                        <FiImage
+                                            className="fileIcon"
+                                            size={40}
+                                        />
+                                    )}
+                                </label>
+                                <input
+                                    type="file"
+                                    name="fileInput"
+                                    id="fileInput"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={handleFileUpload}
+                                />
+                            </div>
                         </div>
                         <div className="textBox">
                             <div className="inputBox">

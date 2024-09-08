@@ -17,7 +17,7 @@ export default function ShopList({
         { name: "정보", type: "info" },
         { name: "기타", type: "etc" },
     ];
-    const [cate, setCate] = useState("charm");
+    const [category, setCategory] = useState("charm");
     return (
         <ShopListWrap>
             <div className="thingBox">
@@ -25,7 +25,8 @@ export default function ShopList({
                     {categories.map((cate) => (
                         <button
                             key={cate.type}
-                            onClick={() => setCate(cate.type)}
+                            onClick={() => setCategory(cate.type)}
+                            className={category === cate.type ? "selected" : ""}
                         >
                             {cate.name}
                         </button>
@@ -35,7 +36,7 @@ export default function ShopList({
                     {things?.map(
                         (thing) =>
                             !thing.soldout &&
-                            cate === thing.thingType && (
+                            category === thing.thingType && (
                                 <div
                                     className="thing"
                                     key={thing.id}
@@ -56,7 +57,7 @@ export default function ShopList({
                 </div>
             </div>
             <div className="buttonBox">
-                <button onClick={() => setOpen(true)}>임시 등록 열기</button>
+                <button onClick={() => setOpen(true)}>등록하기</button>
             </div>
         </ShopListWrap>
     );

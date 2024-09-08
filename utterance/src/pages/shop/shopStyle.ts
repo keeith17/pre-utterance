@@ -35,12 +35,19 @@ export const ShopListWrap = styled.div`
             button {
                 width: 5vw;
                 height: 100%;
+                padding-bottom: 0.2vw;
                 border: none;
                 ouline: none;
                 border-radius: 5px;
                 background: #fff;
                 color: #444;
                 font-weight: 700;
+                font-size: 0.8vw;
+                font-family: neurimboGothic;
+                &.selected {
+                    background: ${defaultColor};
+                    color: #fff;
+                }
             }
         }
         .things {
@@ -56,6 +63,7 @@ export const ShopListWrap = styled.div`
                 padding: 1%;
                 border: 1px solid #fff;
                 border-radius: 5px;
+                cursor: pointer;
                 .thingImg {
                     width: 100%;
                     height: 80%;
@@ -74,6 +82,8 @@ export const ShopListWrap = styled.div`
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    font-family: nexonGothic;
+                    font-size: 0.6vw;
                 }
             }
         }
@@ -85,12 +95,15 @@ export const ShopListWrap = styled.div`
         align-items: center;
         justify-content: flex-end;
         button {
-            width: 7vw;
+            width: 5vw;
             height: 100%;
+            padding-bottom: 0.2vw;
             border: none;
             ouline: none;
-            border-radius: 20px;
+            border-radius: 25px;
             background: ${defaultColor};
+            font-size: 0.8vw;
+            font-family: neurimboGothic;
         }
     }
 `;
@@ -132,6 +145,7 @@ export const AddShopWrap = styled.div`
             button {
                 width: 5vw;
                 height: 100%;
+                padding-bottom: 0.2vw;
                 border: none;
                 ouline: none;
                 border-radius: 5px;
@@ -139,6 +153,11 @@ export const AddShopWrap = styled.div`
                 color: #444;
                 font-weight: 700;
                 font-size: 0.8vw;
+                font-family: neurimboGothic;
+                &.selected {
+                    background: ${defaultColor};
+                    color: white;
+                }
             }
         }
         form {
@@ -156,6 +175,26 @@ export const AddShopWrap = styled.div`
                     height: 100%;
                     border: 1px solid #fff;
                     aspect-ratio: 1/1;
+                    .imageBox {
+                        width: 100%;
+                        height: 100%;
+                        .fileForm {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            img {
+                                width: 100%;
+                                aspect-ratio: 1/1;
+                                object-fit: cover;
+                            }
+                        }
+                        .hidden {
+                            display: none;
+                        }
+                    }
                 }
                 .textBox {
                     flex: 1 1 auto;
