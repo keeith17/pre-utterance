@@ -14,7 +14,7 @@ import {
     setDoc,
     updateDoc,
 } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 import { InvenProps } from "./Inventory";
@@ -26,6 +26,7 @@ interface ShopInfoProps {
 
 export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
     const user = useRecoilValue(userState);
+    const [charmCount, setCharmCount] = useState<number>(0);
     const [showSuccess, setShowSuccess] = useState(false);
     const queryClient = useQueryClient();
 
@@ -48,6 +49,21 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
         fetchInvenData(user.uid)
     );
 
+    useEffect(() => {
+        let count = 0;
+        if (myInventory?.charm) {
+            for (const charm of myInventory.charm) {
+                if (charm.checkOn === true) {
+                    count = count + 1;
+                }
+            }
+            setCharmCount(count);
+        }
+    }, [myInventory?.charm]);
+
+    useEffect(() => {
+        console.log(charmCount);
+    }, [charmCount]);
     const checkingHave = (selectId: string) => {
         //true일 경우 구매 버튼 표시/ fasle면 안 하기
         if (myInventory) {
@@ -206,17 +222,21 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
 
     const updateArrayItem = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (user.uid) {
-            const docRef = doc(db, "inventory", user.uid);
-            await updateDoc(docRef, {
-                charm: arrayRemove(select),
-            });
-            await updateDoc(docRef, {
-                charm: arrayUnion({ ...select, checkOn: true }),
-            });
-            await queryClient.invalidateQueries("myInventory");
+        if (charmCount < 5) {
+            if (user.uid) {
+                const docRef = doc(db, "inventory", user.uid);
+                await updateDoc(docRef, {
+                    charm: arrayRemove(select),
+                });
+                await updateDoc(docRef, {
+                    charm: arrayUnion({ ...select, checkOn: true }),
+                });
+                await queryClient.invalidateQueries("myInventory");
+            }
+            setSelect(null);
+        } else {
+            alert("배지는 5 개까지 장착 가능합니다!");
         }
-        setSelect(null);
     };
     //해제!!!
 

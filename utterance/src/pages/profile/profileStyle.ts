@@ -147,6 +147,7 @@ export const Character = styled.div`
                     display: flex;
                     gap: 0.1vw;
                     .imgContainer {
+                        height: 90%;
                         position: relative;
                         display: inline-block;
                         .gradeImg {

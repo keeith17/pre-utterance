@@ -33,7 +33,7 @@ export default function Inventory({ setSelect }: InventoryProps) {
             throw new Error("사용자 UID가 존재하지 않습니다.");
         }
     };
-    // 내 캐릭터 정보
+    // 내 인벤 정보
     const { data: myInventory } = useQuery("myInventory", () =>
         fetchInvenData(user.uid)
     );

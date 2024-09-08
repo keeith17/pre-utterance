@@ -363,7 +363,10 @@ export default function TeacherProfilePage() {
                                         myInventory?.charm?.map(
                                             (item) =>
                                                 item.checkOn && (
-                                                    <div className="imgContainer">
+                                                    <div
+                                                        className="imgContainer"
+                                                        key={item.id}
+                                                    >
                                                         <img
                                                             src={item.imageLink}
                                                             alt="itemImage"

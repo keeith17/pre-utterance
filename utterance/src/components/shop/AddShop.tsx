@@ -42,6 +42,7 @@ export default function AddShop({ setOpen }: AddShopProps) {
     const [imageDesc, setImageDesc] = useState<string>("");
     const [justDesc, setJustDesc] = useState<string>("");
     const [howMuch, setHowMuch] = useState<number>(0);
+    const [ing, setIng] = useState<boolean>(false);
 
     const categories = [
         { name: "배지", type: "charm" },
@@ -113,8 +114,9 @@ export default function AddShop({ setOpen }: AddShopProps) {
 
     // 새 물건 제출
     const mutation = useMutation(
-        // 첫 번째 매개변수: 비동기 함수, 서버에 요청을 보내는 역할
+        // 첫 번째 매개변수: 비동기 함수, 서버에 요청을 보내는 역할}
         async (defaultInfo: defaultInfo) => {
+            setIng(true);
             if (user?.uid && myQinfo) {
                 const shopRef = collection(db, "shop");
                 const moneyRef = doc(db, "money", user.uid);
@@ -159,6 +161,7 @@ export default function AddShop({ setOpen }: AddShopProps) {
             setImageDesc("");
             setJustDesc("");
             setHowMuch(0);
+            setIng(false);
             //등록 안내 메시지 우편처럼 표출해 줘야 하는 듯
             setOpen(false);
         },
@@ -305,7 +308,9 @@ export default function AddShop({ setOpen }: AddShopProps) {
                     </div>
 
                     <div className="buttonBox">
-                        <button type="submit">등록</button>
+                        <button type="submit" disabled={ing}>
+                            등록
+                        </button>
                     </div>
                 </form>
             </div>
