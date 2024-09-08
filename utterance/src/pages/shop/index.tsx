@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { ShopWrap } from "./shopStyle";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebaseApp";
 import ShopList from "@/components/shop/ShopList";
 import { useState } from "react";
@@ -33,7 +33,12 @@ export default function ShopPage() {
     // 물건 페치
     const fetchShopData = async () => {
         const shopRef = collection(db, "shop");
-        const shopSnapshot = await getDocs(shopRef);
+
+        // 날짜 순으로 정렬: 'createdAt' 필드를 기준으로 정렬
+        const q = query(shopRef, orderBy("createdAt", "desc")); // 'desc'는 내림차순, 'asc'는 오름차순
+
+        const shopSnapshot = await getDocs(q);
+
         const data: defaultInfo2[] = shopSnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),

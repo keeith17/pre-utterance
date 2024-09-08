@@ -142,6 +142,7 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                         if (
                             select.uploadUid !== "LlZ41QVfUkcj0yVVRSTWJrXhuYv2"
                         ) {
+                            console.log("ㄴㄴ판매");
                             await updateDoc(thingRef, {
                                 soldout: true,
                             });
