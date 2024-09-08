@@ -113,13 +113,22 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
 
                     //일단 판매자한텐 돈을 넣어 주기
                     const charMoneyRef = doc(db, "money", select.uploadUid);
+                    const charMoneyLogRef = collection(
+                        db,
+                        "money",
+                        select.uploadUid,
+                        "log"
+                    );
                     const charSnap = await getDoc(charMoneyRef);
                     const charMoney = charSnap?.data()?.credit;
 
                     await updateDoc(charMoneyRef, {
                         credit: charMoney + select.howMuch,
                     });
-
+                    await addDoc(charMoneyLogRef, {
+                        log: `[${select.thingType}] ${select.thingName} 판매되어 ${select.howMuch}Q 입금되었습니다.`,
+                        timeStamp: serverTimestamp(),
+                    });
                     if (invenSnapshot.exists()) {
                         //인벤토리에 넣어 주기
                         await updateDoc(invenRef, {
