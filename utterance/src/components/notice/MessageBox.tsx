@@ -18,6 +18,7 @@ import { useRecoilValue } from "recoil";
 import { DropdownStyle, Out } from "../Style";
 import { RiCloseLine } from "react-icons/ri";
 import { ControlProps } from "@/pages/admin/control";
+import Loader from "../loader/Loader";
 
 // interface ModalStateProps {
 //     setMake: React.Dispatch<React.SetStateAction<boolean>>;
@@ -77,35 +78,6 @@ export default function MessageBox() {
             staleTime: 600000, // 캐시된 데이터가 10분 후에 만료됨
         }
     );
-
-    const fetchTotalDocs = useCallback(
-        async (userUid: string) => {
-            let mailRef;
-            if (box === "receive") {
-                mailRef = collection(db, "homeMail", userUid, "rec");
-            } else {
-                mailRef = collection(db, "homeMail", userUid, "send");
-            }
-            const snapshot = await getCountFromServer(mailRef);
-            return snapshot.data().count;
-        },
-        [box]
-    );
-
-    useEffect(() => {
-        const userUid = user.uid;
-        if (userUid) {
-            const fetchTotalPages = async () => {
-                const totalDocs = await fetchTotalDocs(userUid);
-                if (box === "receive") {
-                    setTotalPages(Math.ceil(totalDocs / pageSize));
-                } else {
-                    setSendTotalPages(Math.ceil(totalDocs / pageSize));
-                }
-            };
-            fetchTotalPages();
-        }
-    }, [box, fetchTotalDocs, user.uid, pageSize]);
     // change
     const handleChange = (
         e:
@@ -150,14 +122,12 @@ export default function MessageBox() {
                 const mailQuery = query(mailRef, orderBy("createdAt", "desc"));
 
                 const mailSnapshot = await getDocs(mailQuery);
-                const lastVisibleDoc =
-                    mailSnapshot.docs[mailSnapshot.docs.length - 1];
                 const data = mailSnapshot.docs.map((doc) => ({
                     id: doc.id,
                     ...doc.data(),
                 })) as MailProps[];
-
-                return { data, lastVisibleDoc };
+                setTotalPages(Math.ceil(data.length / pageSize));
+                return data;
             }
         } catch (error) {
             console.error("Error fetching posts:", error);
@@ -165,9 +135,14 @@ export default function MessageBox() {
         }
     };
 
-    const { data: recMails } = useQuery(["recMail"], () => fetchRecMail(), {
-        staleTime: 10000,
-    });
+    const { data: recMails, isLoading: recMailLoading } = useQuery(
+        ["recMail"],
+        () => fetchRecMail(),
+        {
+            staleTime: 10000,
+        }
+    );
+
     // 보낸 메시지 페치
     const fetchSendMail = async () => {
         try {
@@ -177,14 +152,12 @@ export default function MessageBox() {
                 const mailQuery = query(mailRef, orderBy("createdAt", "desc"));
 
                 const mailSnapshot = await getDocs(mailQuery);
-                const lastVisibleDoc =
-                    mailSnapshot.docs[mailSnapshot.docs.length - 1];
                 const data = mailSnapshot.docs.map((doc) => ({
                     id: doc.id,
                     ...doc.data(),
                 })) as MailProps[];
-
-                return { data, lastVisibleDoc };
+                setSendTotalPages(Math.ceil(data.length / pageSize));
+                return data;
             }
         } catch (error) {
             console.error("Error fetching posts:", error);
@@ -192,9 +165,13 @@ export default function MessageBox() {
         }
     };
 
-    const { data: sendMails } = useQuery(["sendMail"], () => fetchSendMail(), {
-        staleTime: 10000,
-    });
+    const { data: sendMails, isLoading: sendMailLoading } = useQuery(
+        ["sendMail"],
+        () => fetchSendMail(),
+        {
+            staleTime: 10000,
+        }
+    );
 
     //우편 보내기
     const sendMail = useMutation(
@@ -241,7 +218,7 @@ export default function MessageBox() {
             setContent("");
             setSendTo("");
             setShowSuccess(true);
-            await queryClient.invalidateQueries(["sendMail", 0]);
+            await queryClient.invalidateQueries(["sendMail"]);
             setTimeout(() => {
                 setShowSuccess(false);
             }, 1000);
@@ -273,7 +250,7 @@ export default function MessageBox() {
             await updateDoc(sendRef, {
                 isRead: true,
             });
-            await queryClient.invalidateQueries(["recMail", page]);
+            await queryClient.invalidateQueries(["recMail"]);
             await queryClient.invalidateQueries(["recMailAlarm"]);
         }
     });
@@ -334,114 +311,126 @@ export default function MessageBox() {
                         </button>
                     </div>
 
-                    {box === "receive" && (
-                        <div className="letters">
-                            <div className="letterBox">
-                                {recMails?.data
-                                    .slice(startIndex, endIndex)
-                                    .map((mail) => (
-                                        <div
-                                            key={mail.id}
-                                            className="letter"
-                                            onClick={() => {
-                                                setRec(true);
-                                                setViewmsg(mail.content);
-                                                setViewUrl(uidToUrl(mail.send));
-                                                setViewName(mail.send);
-                                                setViewMode("receive");
-                                                checkMail.mutate({
-                                                    mailId: mail.id,
-                                                    mailRec: mail.rec,
-                                                    mailSend: mail.send,
-                                                });
-                                            }}
-                                        >
-                                            {!mail.isRead && (
-                                                <div className="isRead"></div>
-                                            )}
-                                            <div className="name">
-                                                {uidToName(mail.send)}
+                    {box === "receive" &&
+                        (recMailLoading ? (
+                            <Loader />
+                        ) : (
+                            <div className="letters">
+                                <div className="letterBox">
+                                    {recMails
+                                        ?.slice(startIndex, endIndex)
+                                        .map((mail) => (
+                                            <div
+                                                key={mail.id}
+                                                className="letter"
+                                                onClick={() => {
+                                                    setRec(true);
+                                                    setViewmsg(mail.content);
+                                                    setViewUrl(
+                                                        uidToUrl(mail.send)
+                                                    );
+                                                    setViewName(mail.send);
+                                                    setViewMode("receive");
+                                                    checkMail.mutate({
+                                                        mailId: mail.id,
+                                                        mailRec: mail.rec,
+                                                        mailSend: mail.send,
+                                                    });
+                                                }}
+                                            >
+                                                {!mail.isRead && (
+                                                    <div className="isRead"></div>
+                                                )}
+                                                <div className="name">
+                                                    {uidToName(mail.send)}
+                                                </div>
+                                                <div className="preview">
+                                                    {mail.content}
+                                                </div>
                                             </div>
-                                            <div className="preview">
-                                                {mail.content}
-                                            </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                </div>
+                                <div className="pageButton">
+                                    {Array.from(
+                                        { length: totalPages },
+                                        (_, index) => (
+                                            <button
+                                                key={index}
+                                                className={
+                                                    index === page
+                                                        ? "selected"
+                                                        : ""
+                                                }
+                                                onClick={() =>
+                                                    handlePageClick(index)
+                                                }
+                                                disabled={index === page}
+                                            >
+                                                {index + 1}
+                                            </button>
+                                        )
+                                    )}
+                                </div>
                             </div>
-                            <div className="pageButton">
-                                {Array.from(
-                                    { length: totalPages },
-                                    (_, index) => (
-                                        <button
-                                            key={index}
-                                            className={
-                                                index === page ? "selected" : ""
-                                            }
-                                            onClick={() =>
-                                                handlePageClick(index)
-                                            }
-                                            disabled={index === page}
-                                        >
-                                            {index + 1}
-                                        </button>
-                                    )
-                                )}
-                            </div>
-                        </div>
-                    )}
+                        ))}
 
-                    {box === "send" && (
-                        <div className="letters">
-                            <div className="letterBox">
-                                {sendMails?.data
-                                    ?.slice(sendStartIndex, sendEndIndex)
-                                    .map((mail) => (
-                                        <div
-                                            key={mail.id}
-                                            className="letter"
-                                            onClick={() => {
-                                                setRec(true);
-                                                setViewmsg(mail.content);
-                                                setViewUrl(uidToUrl(mail.rec));
-                                                setViewName(mail.rec);
-                                                setViewMode("send");
-                                            }}
-                                        >
-                                            {!mail.isRead && (
-                                                <div className="isRead"></div>
-                                            )}
-                                            <div className="name">
-                                                {uidToName(mail.rec)}
+                    {box === "send" &&
+                        (sendMailLoading ? (
+                            <Loader />
+                        ) : (
+                            <div className="letters">
+                                <div className="letterBox">
+                                    {sendMails
+                                        ?.slice(sendStartIndex, sendEndIndex)
+                                        .map((mail) => (
+                                            <div
+                                                key={mail.id}
+                                                className="letter"
+                                                onClick={() => {
+                                                    setRec(true);
+                                                    setViewmsg(mail.content);
+                                                    setViewUrl(
+                                                        uidToUrl(mail.rec)
+                                                    );
+                                                    setViewName(mail.rec);
+                                                    setViewMode("send");
+                                                }}
+                                            >
+                                                {!mail.isRead && (
+                                                    <div className="isRead"></div>
+                                                )}
+                                                <div className="name">
+                                                    {uidToName(mail.rec)}
+                                                </div>
+                                                <div className="preview">
+                                                    {mail.content}
+                                                </div>
                                             </div>
-                                            <div className="preview">
-                                                {mail.content}
-                                            </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                </div>
+                                <div className="pageButton">
+                                    {Array.from(
+                                        { length: sendTotalPages },
+                                        (_, index) => (
+                                            <button
+                                                key={index}
+                                                className={
+                                                    index === sendPage
+                                                        ? "selected"
+                                                        : ""
+                                                }
+                                                onClick={() =>
+                                                    handlePageClick(index)
+                                                }
+                                                disabled={index === sendPage}
+                                            >
+                                                {index + 1}
+                                            </button>
+                                        )
+                                    )}
+                                </div>
                             </div>
-                            <div className="pageButton">
-                                {Array.from(
-                                    { length: sendTotalPages },
-                                    (_, index) => (
-                                        <button
-                                            key={index}
-                                            className={
-                                                index === sendPage
-                                                    ? "selected"
-                                                    : ""
-                                            }
-                                            onClick={() =>
-                                                handlePageClick(index)
-                                            }
-                                            disabled={index === sendPage}
-                                        >
-                                            {index + 1}
-                                        </button>
-                                    )
-                                )}
-                            </div>
-                        </div>
-                    )}
+                        ))}
                 </div>
                 {control && control[0].control.mail && (
                     <button
