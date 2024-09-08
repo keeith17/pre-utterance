@@ -436,7 +436,7 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="imgBox">
                                     {myInventory &&
-                                        myInventory.charm.map(
+                                        myInventory?.charm?.map(
                                             (item) =>
                                                 item.checkOn && (
                                                     <div className="imgContainer">

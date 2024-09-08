@@ -45,8 +45,9 @@ export default function TeacherProfilePage() {
         }
     };
     // 내 캐릭터 정보
-    const { data: myInventory } = useQuery("myInventory", () =>
-        fetchInvenData(user.uid)
+    const { data: myInventory } = useQuery(
+        ["selectInventory", selectChar.id],
+        () => fetchInvenData(selectChar.id)
     );
 
     // 내 캐릭터 정보 세팅 함수
@@ -359,7 +360,7 @@ export default function TeacherProfilePage() {
                                 </div>
                                 <div className="imgBox">
                                     {myInventory &&
-                                        myInventory.charm.map(
+                                        myInventory?.charm?.map(
                                             (item) =>
                                                 item.checkOn && (
                                                     <div className="imgContainer">

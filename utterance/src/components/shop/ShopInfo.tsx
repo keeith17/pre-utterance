@@ -110,6 +110,16 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                         "log"
                     );
                     const invenSnapshot = await getDoc(invenRef);
+
+                    //일단 판매자한텐 돈을 넣어 주기
+                    const charMoneyRef = doc(db, "money", select.uploadUid);
+                    const charSnap = await getDoc(charMoneyRef);
+                    const charMoney = charSnap?.data()?.credit;
+
+                    await updateDoc(charMoneyRef, {
+                        credit: charMoney + select.howMuch,
+                    });
+
                     if (invenSnapshot.exists()) {
                         //인벤토리에 넣어 주기
                         await updateDoc(invenRef, {
