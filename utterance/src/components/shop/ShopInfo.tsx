@@ -142,7 +142,6 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                         if (
                             select.uploadUid !== "LlZ41QVfUkcj0yVVRSTWJrXhuYv2"
                         ) {
-                            console.log("ㄴㄴ판매");
                             await updateDoc(thingRef, {
                                 soldout: true,
                             });
@@ -163,9 +162,13 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                             [select?.thingType]: arrayUnion(select),
                         });
                         //샵 솔드아웃 표시하기
-                        await updateDoc(thingRef, {
-                            soldout: true,
-                        });
+                        if (
+                            select.uploadUid !== "LlZ41QVfUkcj0yVVRSTWJrXhuYv2"
+                        ) {
+                            await updateDoc(thingRef, {
+                                soldout: true,
+                            });
+                        }
                         //돈 차감
                         await updateDoc(moneyRef, {
                             credit: myQinfo?.credit - select.howMuch,
