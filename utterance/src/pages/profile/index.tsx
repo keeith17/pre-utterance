@@ -85,18 +85,12 @@ export default function ProfilePage() {
                 uid: userUid,
             } as InvenProps;
             return data;
-        } else {
-            throw new Error("사용자 UID가 존재하지 않습니다.");
         }
     };
     // 내 캐릭터 정보
     const { data: myInventory } = useQuery(
         ["selectInventory", selectChar.id],
-        () => {
-            if (selectChar.id) {
-                fetchInvenData(selectChar.id);
-            }
-        }
+        () => fetchInvenData(selectChar.id)
     );
 
     // 내 캐릭터 정보 세팅 함수
