@@ -81,8 +81,8 @@ export const videoState = atom<boolean>({
 
 export const houseState = atom<string[]>({
     key: "houseState",
-    // default: ["quasa1", "quasa2", "quasa3"],
-    default: [],
+    default: ["quasa1", "quasa2", "quasa3"],
+    // default: [],
 });
 
 export const houseBadgeState = atom<string[]>({

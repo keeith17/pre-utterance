@@ -44,8 +44,8 @@ export default function ProfilePage() {
         selectChar.badge ? parseInt(selectChar.badge.slice(5, 6)) - 1 : 0
     );
     // 이것도 전역으로 빼야 할 것 같기도 함 -> 결국 뺌
-    const [houseList, setHouseList] = useRecoilState(houseState);
-    const [badgeList, setBadgeList] = useRecoilState(houseBadgeState);
+    const houseList = useRecoilValue(houseState);
+    const badgeList = useRecoilValue(houseBadgeState);
     // 소대 배정 시 변경해야 할 부분
     const handleRight = () => {
         if (selectHouse < houseList.length - 1) setSelectHouse(selectHouse + 1);
@@ -92,7 +92,11 @@ export default function ProfilePage() {
     // 내 캐릭터 정보
     const { data: myInventory } = useQuery(
         ["selectInventory", selectChar.id],
-        () => fetchInvenData(selectChar.id)
+        () => {
+            if (selectChar.id) {
+                fetchInvenData(selectChar.id);
+            }
+        }
     );
 
     // 내 캐릭터 정보 세팅 함수
@@ -144,21 +148,21 @@ export default function ProfilePage() {
             id: doc.id,
             ...doc.data(),
         })) as AllCharProps[];
-        const imsiHouseList: string[] = [];
-        const imsiBadgeList: string[] = [];
-        for (const char of data) {
-            if (char.badge && char.badge !== "teacher") {
-                if (!houseList.includes(char.badge)) {
-                    // console.log("숙소", char.badge, "리스트", houseList);
-                    if (!imsiHouseList.includes(char.badge)) {
-                        imsiHouseList.push(char.badge);
-                        imsiBadgeList.push("/images/etc/badge4.gif");
-                    }
-                }
-            }
-        }
-        setHouseList([...houseList, ...imsiHouseList]);
-        setBadgeList([...badgeList, ...imsiBadgeList]);
+        // const imsiHouseList: string[] = [];
+        // const imsiBadgeList: string[] = [];
+        // for (const char of data) {
+        //     if (char.badge && char.badge !== "teacher") {
+        //         if (!houseList.includes(char.badge)) {
+        //             // console.log("숙소", char.badge, "리스트", houseList);
+        //             if (!imsiHouseList.includes(char.badge)) {
+        //                 imsiHouseList.push(char.badge);
+        //                 imsiBadgeList.push("/images/etc/badge4.gif");
+        //             }
+        //         }
+        //     }
+        // }
+        // setHouseList([...houseList, ...imsiHouseList]);
+        // setBadgeList([...badgeList, ...imsiBadgeList]);
         return data;
     };
     const { data: allChar, isLoading } = useQuery<AllCharProps[]>(
