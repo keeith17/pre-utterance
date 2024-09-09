@@ -352,11 +352,7 @@ export default function MyPageBox() {
                                         />
                                     </button>
                                     <button
-                                        onClick={() => {
-                                            if (Number(myChar?.grade) >= 4) {
-                                                navigate("/ShopPage");
-                                            }
-                                        }}
+                                        onClick={() => navigate("/ShopPage")}
                                     >
                                         <img
                                             src="/images/main/icon/shop.webp"
