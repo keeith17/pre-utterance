@@ -8,6 +8,8 @@ const ResultButtonStyle = styled.div`
     border-radius: 0.5vw;
     font-family: nexonGothic;
     background: rgba(255, 255, 255, 0.2);
+    flex: 0 0 auto;
+    margin-bottom: 0.5vw;
     a {
         display: inline-block;
         padding: 0.27vw 0.8vw;

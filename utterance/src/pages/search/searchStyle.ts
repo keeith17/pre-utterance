@@ -35,6 +35,7 @@ export const SearcWrap = styled.div`
             }
             .linkButton {
                 display: flex;
+                flex-flow: wrap;
                 gap: 2%;
                 justify-content: center;
                 margin-top: 3%;
