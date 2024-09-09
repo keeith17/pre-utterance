@@ -71,6 +71,19 @@ export const ShopListWrap = styled.div`
                 cursor: pointer;
                 overflow: hidden;
                 background: rgba(0, 0, 0, 0.8);
+                position: relative;
+                .unlimited {
+                    position: absolute;
+                    z-index: 2;
+                    top: 0;
+                    right: 0;
+                    background: rgba(255, 255, 255, 0.7);
+                    padding: 0.1vw 0.1vw 0.2vw 0.1vw;
+                    color: ${defaultColor};
+                    font-weight: 700;
+                    font-family: nexonGothic;
+                    font-size: 0.6vw;
+                }
                 .thingImg {
                     width: 100%;
                     height: 80%;

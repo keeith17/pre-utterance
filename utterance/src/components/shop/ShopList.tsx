@@ -42,6 +42,13 @@ export default function ShopList({
                                     key={thing.id}
                                     onClick={() => setSelect(thing)}
                                 >
+                                    {thing.uploadUid ===
+                                        "LlZ41QVfUkcj0yVVRSTWJrXhuYv2" && (
+                                        <div className="unlimited">
+                                            상시 판매
+                                        </div>
+                                    )}
+
                                     <div className="thingImg">
                                         <img
                                             src={thing.imageLink}

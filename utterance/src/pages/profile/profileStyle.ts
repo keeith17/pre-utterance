@@ -152,6 +152,8 @@ export const Character = styled.div`
                         display: inline-block;
                         .gradeImg {
                             height: 100%;
+                            aspect-ratio: 1/1;
+                            object-fit: cover;
                         }
                         .tooltip {
                             visibility: hidden;
