@@ -184,12 +184,13 @@ export const ShopInfoWrap = styled.div`
         .rightP {
             width: 100%;
             height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow-y: scroll;
             p {
                 width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                text-align: center;
                 white-space: pre-wrap;
                 font-family: nexonGothic;
                 // background: rgba(0, 0, 0, 0.3);
