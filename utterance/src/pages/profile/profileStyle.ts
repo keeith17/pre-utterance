@@ -314,6 +314,7 @@ export const Character = styled.div`
                             text-align: justify;
                             display: flex;
                             padding: 3.98% 6.38%;
+                            white-space: pre-wrap;
                         }
                     }
                 }
