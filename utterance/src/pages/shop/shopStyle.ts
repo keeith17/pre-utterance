@@ -145,6 +145,7 @@ export const ShopInfoWrap = styled.div`
     border: 2px solid #fff;
     border-radius: 10px;
     padding: 1vw;
+    flex: 0 0 auto;
     display: flex;
     .success {
         width: 100%;
@@ -180,17 +181,21 @@ export const ShopInfoWrap = styled.div`
         width: 65%;
         height: 100%;
         position: relative;
-        p {
+        .rightP {
             width: 100%;
             height: 100%;
             overflow-y: scroll;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            white-space: pre-wrap;
-            font-family: nexonGothic;
-            // background: rgba(0, 0, 0, 0.3);
+            p {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                white-space: pre-wrap;
+                font-family: nexonGothic;
+                // background: rgba(0, 0, 0, 0.3);
+            }
         }
+
         .buttonBox {
             position: absolute;
             bottom: 0;

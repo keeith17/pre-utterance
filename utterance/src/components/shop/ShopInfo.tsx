@@ -266,12 +266,14 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                         <p>{select?.thingName}</p>
                     </div>
                     <div className="right">
-                        {select?.thingType === "info" &&
-                        checkingHave(select?.id) ? (
-                            <p>?</p>
-                        ) : (
-                            <p>{select?.justDesc}</p>
-                        )}
+                        <div className="rightP">
+                            {select?.thingType === "info" &&
+                            checkingHave(select?.id) ? (
+                                <p>?</p>
+                            ) : (
+                                <p>{select?.justDesc}</p>
+                            )}
+                        </div>
 
                         {select && checkingHave(select?.id) && (
                             <div className="buttonBox">
