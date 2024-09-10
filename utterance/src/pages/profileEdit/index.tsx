@@ -462,7 +462,14 @@ export default function ProfileEditPage() {
                                         </option>
                                     ))}
                                 </DropdownStyle>
-                                <InputStyle
+                                <TextAreaStyle
+                                    fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc1}
+                                    name="desc1"
+                                    onChange={handleChange}
+                                />
+                                {/* <InputStyle
                                     fontSize=" 0.65vw"
                                     border="none"
                                     height={thisHeight}
@@ -471,7 +478,7 @@ export default function ProfileEditPage() {
                                     value={input.desc1}
                                     name="desc1"
                                     onChange={handleChange}
-                                ></InputStyle>
+                                ></InputStyle> */}
                             </div>
                         </div>
                         <div className="inputGroup">
@@ -493,7 +500,14 @@ export default function ProfileEditPage() {
                                         </option>
                                     ))}
                                 </DropdownStyle>
-                                <InputStyle
+                                <TextAreaStyle
+                                    fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc2}
+                                    name="desc2"
+                                    onChange={handleChange}
+                                />
+                                {/* <InputStyle
                                     fontSize=" 0.65vw"
                                     border="none"
                                     height={thisHeight}
@@ -502,7 +516,7 @@ export default function ProfileEditPage() {
                                     value={input.desc2}
                                     name="desc2"
                                     onChange={handleChange}
-                                ></InputStyle>
+                                ></InputStyle> */}
                             </div>
                         </div>
                         <div className="inputGroup">
@@ -524,7 +538,14 @@ export default function ProfileEditPage() {
                                         </option>
                                     ))}
                                 </DropdownStyle>
-                                <InputStyle
+                                <TextAreaStyle
+                                    fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc3}
+                                    name="desc3"
+                                    onChange={handleChange}
+                                />
+                                {/* <InputStyle
                                     fontSize="0.65vw"
                                     border="none"
                                     height={thisHeight}
@@ -533,7 +554,7 @@ export default function ProfileEditPage() {
                                     value={input.desc3}
                                     name="desc3"
                                     onChange={handleChange}
-                                ></InputStyle>
+                                ></InputStyle> */}
                             </div>
                         </div>
                         <div className="inputGroup">
@@ -555,7 +576,14 @@ export default function ProfileEditPage() {
                                         </option>
                                     ))}
                                 </DropdownStyle>
-                                <InputStyle
+                                <TextAreaStyle
+                                    fontFamily={thisFont}
+                                    placeholder="관계를 간단히 서술해 주세요"
+                                    value={input.desc4}
+                                    name="desc4"
+                                    onChange={handleChange}
+                                />
+                                {/* <InputStyle
                                     fontSize="0.65vw"
                                     border="none"
                                     height={thisHeight}
@@ -564,7 +592,7 @@ export default function ProfileEditPage() {
                                     value={input.desc4}
                                     name="desc4"
                                     onChange={handleChange}
-                                ></InputStyle>
+                                ></InputStyle> */}
                             </div>
                         </div>
                     </div>
