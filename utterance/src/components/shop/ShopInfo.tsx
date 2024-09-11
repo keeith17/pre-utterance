@@ -64,6 +64,7 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
     useEffect(() => {
         console.log(charmCount);
     }, [charmCount]);
+
     const checkingHave = (selectId: string) => {
         //true일 경우 구매 버튼 표시/ fasle면 안 하기
         if (myInventory) {
@@ -219,7 +220,6 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
     };
 
     // 장착!!
-
     const updateArrayItem = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (charmCount < 5) {
@@ -234,6 +234,7 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                 await queryClient.invalidateQueries("myInventory");
             }
             setSelect(null);
+            await queryClient.invalidateQueries(["selectInventory", user.uid]);
         } else {
             alert("배지는 5 개까지 장착 가능합니다!");
         }

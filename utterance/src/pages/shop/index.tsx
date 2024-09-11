@@ -49,7 +49,10 @@ export default function ShopPage() {
 
     const { data: things } = useQuery<defaultInfo2[]>(
         "shopData",
-        fetchShopData
+        fetchShopData,
+        {
+            staleTime: 60000, // 5분 (밀리초 단위)
+        }
     );
 
     return (
