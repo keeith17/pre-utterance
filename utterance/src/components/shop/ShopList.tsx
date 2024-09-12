@@ -64,7 +64,7 @@ export default function ShopList({
                 </div>
             </div>
             <div className="buttonBox">
-                <button onClick={() => setOpen(true)}>등록하기</button>
+                {/* <button onClick={() => setOpen(true)}>등록하기</button> */}
             </div>
         </ShopListWrap>
     );
