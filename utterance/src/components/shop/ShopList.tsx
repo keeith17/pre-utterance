@@ -10,8 +10,8 @@ interface ShopListProps {
 export default function ShopList({
     things,
     setSelect,
-    setOpen,
-}: ShopListProps) {
+}: // setOpen,
+ShopListProps) {
     const categories = [
         { name: "배지", type: "charm" },
         { name: "정보", type: "info" },
