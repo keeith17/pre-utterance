@@ -377,7 +377,7 @@ export const SynapsePacker = styled.div`
                         background: rgba(255, 20, 20, 0.1);
                     }
                 }
-                .quasa1 {
+                .quasa2 {
                     .count1 {
                         background: #f1ceac;
                     }
@@ -401,7 +401,7 @@ export const SynapsePacker = styled.div`
                     }
                 }
 
-                .quasa2 {
+                .quasa1 {
                     .count1 {
                         background: #adf1a6;
                     }
