@@ -150,6 +150,10 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                             log: "시냅스 패커 100Q 입금되었습니다.",
                             timeStamp: serverTimestamp(),
                         });
+                    } else {
+                        alert(
+                            "입금이 정상적으로 이루어지지 않았으므로 관리자에게 문의해 주세요"
+                        );
                     }
                 }
             }
