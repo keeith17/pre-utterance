@@ -120,21 +120,22 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                         user.uid,
                         "log"
                     );
-                    await addDoc(charRef, {
-                        title: data.title,
-                        image: data.image,
-                        content: data.content,
-                        createdAt: new Date()?.toLocaleDateString("ko", {
-                            year: "numeric",
-                            month: "2-digit",
-                            day: "2-digit",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            second: "2-digit",
-                            hour12: false,
-                        }),
-                    });
+
                     if (myCharMoney && data.content.length > 500) {
+                        await addDoc(charRef, {
+                            title: data.title,
+                            image: data.image,
+                            content: data.content,
+                            createdAt: new Date()?.toLocaleDateString("ko", {
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                second: "2-digit",
+                                hour12: false,
+                            }),
+                        });
                         await updateDoc(charMoneyRef, {
                             credit: myCharMoney.credit + 200,
                         });
@@ -143,6 +144,20 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                             timeStamp: serverTimestamp(),
                         });
                     } else if (myCharMoney) {
+                        await addDoc(charRef, {
+                            title: data.title,
+                            image: data.image,
+                            content: data.content,
+                            createdAt: new Date()?.toLocaleDateString("ko", {
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                second: "2-digit",
+                                hour12: false,
+                            }),
+                        });
                         await updateDoc(charMoneyRef, {
                             credit: myCharMoney.credit + 100,
                         });
@@ -152,7 +167,7 @@ export const PackerWrite: React.FC<PackeWriteProps> = ({
                         });
                     } else {
                         alert(
-                            "입금이 정상적으로 이루어지지 않았으므로 관리자에게 문의해 주세요"
+                            "정상적으로 등록되지 않았으므로 새로고침 후 다시 시도해 주세요"
                         );
                     }
                 }
