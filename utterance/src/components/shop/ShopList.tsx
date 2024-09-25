@@ -10,6 +10,7 @@ interface ShopListProps {
 export default function ShopList({
     things,
     setSelect,
+    setOpen,
 }: // setOpen,
 ShopListProps) {
     const categories = [
@@ -35,7 +36,6 @@ ShopListProps) {
                 <div className="things">
                     {things?.map(
                         (thing) =>
-                            !thing.soldout &&
                             category === thing.thingType && (
                                 <div
                                     className="thing"
@@ -64,7 +64,7 @@ ShopListProps) {
                 </div>
             </div>
             <div className="buttonBox">
-                {/* <button onClick={() => setOpen(true)}>등록하기</button> */}
+                <button onClick={() => setOpen(true)}>등록하기</button>
             </div>
         </ShopListWrap>
     );

@@ -138,14 +138,17 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                     );
                     const charSnap = await getDoc(charMoneyRef);
                     const charMoney = charSnap?.data()?.credit;
-
-                    await updateDoc(charMoneyRef, {
-                        credit: charMoney + select.howMuch,
-                    });
-                    await addDoc(charMoneyLogRef, {
-                        log: `[${select.thingType}] ${select.thingName} 판매되어 ${select.howMuch}Q 입금되었습니다.`,
-                        timeStamp: serverTimestamp(),
-                    });
+                    if (select.uploadUid !== user.uid) {
+                        //판매자 판매대금 입금
+                        await updateDoc(charMoneyRef, {
+                            credit: charMoney + select.howMuch,
+                        });
+                        //판매자 판매대금 입금 로그
+                        await addDoc(charMoneyLogRef, {
+                            log: `[${select.thingType}] ${select.thingName} 판매되어 ${select.howMuch}Q 입금되었습니다.`,
+                            timeStamp: serverTimestamp(),
+                        });
+                    }
                     if (invenSnapshot.exists()) {
                         //인벤토리에 넣어 주기
                         await updateDoc(invenRef, {
@@ -167,7 +170,7 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                         await updateDoc(moneyRef, {
                             credit: myQinfo?.credit - select.howMuch,
                         });
-                        //돈 로그 생성
+                        //돈 차감 로그 생성
                         await addDoc(moneyLogRef, {
                             log: `[${select.thingType}] ${select.thingName} 구매하여 ${select.howMuch}Q 차감되었습니다.`,
                             timeStamp: serverTimestamp(),
