@@ -1,4 +1,4 @@
-import { userState } from "@/atom";
+import { AllCharProps, userState } from "@/atom";
 import { db } from "@/firebaseApp";
 import { MoneyProps } from "@/pages/admin/control";
 import { defaultInfo2 } from "@/pages/shop";
@@ -30,6 +30,26 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
     const [showSuccess, setShowSuccess] = useState(false);
     const queryClient = useQueryClient();
 
+    // 내 캐릭터 정보 세팅 함수
+    const fetchCharData = async (userUid: string | null) => {
+        if (userUid) {
+            const charRef = doc(db, "character", userUid);
+            const charSnap = await getDoc(charRef);
+            const data = { ...(charSnap?.data() as AllCharProps), id: userUid };
+            return data;
+        } else {
+            throw new Error("사용자 UID가 존재하지 않습니다.");
+        }
+    };
+    // 내 캐릭터 정보
+    const { data: myChar } = useQuery<AllCharProps>(
+        "charData",
+        () => fetchCharData(user.uid),
+        {
+            staleTime: 60000 * 60 * 3,
+        }
+    );
+
     // 인벤토리 소환
     const fetchInvenData = async (userUid: string | null) => {
         if (userUid) {
@@ -60,10 +80,6 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
             setCharmCount(count);
         }
     }, [myInventory?.charm]);
-
-    useEffect(() => {
-        console.log(charmCount);
-    }, [charmCount]);
 
     const checkingHave = (selectId: string) => {
         //true일 경우 구매 버튼 표시/ fasle면 안 하기
@@ -105,7 +121,7 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
             throw new Error("사용자 UID가 존재하지 않습니다.");
         }
     };
-    // 내 캐릭터 정보
+    // 내 캐릭터 큐 정보
     const { data: myQinfo } = useQuery("myQinfo", () =>
         fetchmoneyData(user.uid)
     );
@@ -113,7 +129,25 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
     const mutation = useMutation(
         // 첫 번째 매개변수: 비동기 함수, 서버에 요청을 보내는 역할
         async () => {
-            if (user?.uid && select?.thingType && myQinfo?.credit) {
+            if (
+                user?.uid &&
+                select?.thingType &&
+                myQinfo?.credit &&
+                myChar?.grade
+            ) {
+                if (select.thingType === "grade") {
+                    if (select.thingName === "권한 2 등급") {
+                        if (Number(myChar?.grade) !== 1) {
+                            alert("구매 가능한 등급이 아닙니다.");
+                            return;
+                        }
+                    } else if (select.thingName === "권한 3 등급") {
+                        if (Number(myChar?.grade) !== 2) {
+                            alert("구매 가능한 등급이 아닙니다.");
+                            return;
+                        }
+                    }
+                }
                 if (myQinfo?.credit - select.howMuch < 0) {
                     alert("남은 Q가 부족합니다.");
                 } else {
@@ -198,6 +232,26 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                             log: `[${select.thingType}] ${select.thingName} 구매하여 ${select.howMuch}Q 차감되었습니다.`,
                             timeStamp: serverTimestamp(),
                         });
+                    }
+                    if (select.thingType === "grade") {
+                        const myCharRef = doc(db, "character", user.uid);
+                        if (select.thingName === "권한 2 등급") {
+                            if (Number(myChar?.grade) === 1) {
+                                //등업 로직
+                                updateDoc(myCharRef, {
+                                    grade: "2",
+                                    gradeImg: "/images/etc/lv2.webp",
+                                });
+                            }
+                        } else if (select.thingName === "권한 3 등급") {
+                            if (Number(myChar?.grade) === 2) {
+                                // 등업 로직
+                                updateDoc(myCharRef, {
+                                    grade: "3",
+                                    gradeImg: "/images/etc/lv3.webp",
+                                });
+                            }
+                        }
                     }
                 }
                 await queryClient.invalidateQueries("myQinfo");

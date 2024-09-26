@@ -47,6 +47,7 @@ export default function AddShop({ setOpen }: AddShopProps) {
     const categories = [
         { name: "배지", type: "charm" },
         { name: "정보", type: "info" },
+        { name: "비밀 상점", type: "grade" },
         { name: "기타", type: "etc" },
     ];
 
@@ -205,15 +206,21 @@ export default function AddShop({ setOpen }: AddShopProps) {
                     <RiCloseLine size={25} color="white" />
                 </Out>
                 <div className="category">
-                    {categories.map((cate) => (
-                        <button
-                            key={cate.type}
-                            className={cate.type === category ? "selected" : ""}
-                            onClick={() => setCategory(cate.type)}
-                        >
-                            {cate.name}
-                        </button>
-                    ))}
+                    {categories.map(
+                        (cate) =>
+                            (user.uid === "LlZ41QVfUkcj0yVVRSTWJrXhuYv2" ||
+                                cate.type !== "grade") && (
+                                <button
+                                    key={cate.type}
+                                    className={
+                                        cate.type === category ? "selected" : ""
+                                    }
+                                    onClick={() => setCategory(cate.type)}
+                                >
+                                    {cate.name}
+                                </button>
+                            )
+                    )}
                 </div>
                 <form onSubmit={onSubmit}>
                     <div className="topBox">
