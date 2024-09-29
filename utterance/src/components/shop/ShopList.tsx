@@ -16,7 +16,7 @@ ShopListProps) {
     const categories = [
         { name: "배지", type: "charm" },
         { name: "정보", type: "info" },
-        // { name: "비밀 상점", type: "grade" },
+        { name: "비밀 상점", type: "grade" },
         { name: "기타", type: "etc" },
     ];
     const [category, setCategory] = useState("charm");

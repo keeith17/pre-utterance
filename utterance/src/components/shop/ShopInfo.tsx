@@ -98,6 +98,13 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                     }
                 }
             }
+            if (myInventory.grade) {
+                for (const item of myInventory.grade) {
+                    if (item.id === selectId) {
+                        return false;
+                    }
+                }
+            }
             if (myInventory.etc) {
                 for (const item of myInventory.etc) {
                     if (item.id === selectId) {
@@ -254,13 +261,14 @@ export default function ShopInfo({ select, setSelect }: ShopInfoProps) {
                         }
                     }
                 }
-                await queryClient.invalidateQueries("myQinfo");
-                await queryClient.invalidateQueries("shopData");
-                await queryClient.invalidateQueries("myInventory");
                 setShowSuccess(true);
                 setTimeout(() => {
                     setShowSuccess(false);
                 }, 1000);
+                await queryClient.invalidateQueries("charData");
+                await queryClient.invalidateQueries("myQinfo");
+                await queryClient.invalidateQueries("shopData");
+                await queryClient.invalidateQueries("myInventory");
             }
         },
         {

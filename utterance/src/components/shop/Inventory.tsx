@@ -71,6 +71,22 @@ export default function Inventory({ setSelect }: InventoryProps) {
                     </div>
                 ))}
             </div>
+            {/* 권한 리스트 만들기 */}
+            <div className="category">
+                <div className="title">권한</div>
+                {myInventory?.grade?.map((item) => (
+                    <div
+                        className="thing"
+                        key={item.id}
+                        onClick={() => setSelect(item)}
+                    >
+                        <div className="thingImg">
+                            <img src={item.imageLink} alt={item.imageLink} />
+                        </div>
+                        <div className="thingName">{item.thingName}</div>
+                    </div>
+                ))}
+            </div>
             <div className="category">
                 <div className="title">기타</div>
                 {myInventory?.etc?.map((item) => (
@@ -86,23 +102,6 @@ export default function Inventory({ setSelect }: InventoryProps) {
                     </div>
                 ))}
             </div>
-
-            {/* 권한 리스트 만들기 */}
-            {/* <div className="category">
-                <div className="title">권한</div>
-                {myInventory?.grade?.map((item) => (
-                    <div
-                        className="thing"
-                        key={item.id}
-                        onClick={() => setSelect(item)}
-                    >
-                        <div className="thingImg">
-                            <img src={item.imageLink} alt={item.imageLink} />
-                        </div>
-                        <div className="thingName">{item.thingName}</div>
-                    </div>
-                ))}
-            </div> */}
         </InventoryWrap>
     );
 }
