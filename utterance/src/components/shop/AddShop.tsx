@@ -196,7 +196,11 @@ export default function AddShop({ setOpen }: AddShopProps) {
                 howMuch: howMuch,
             });
         } else {
-            alert("모든 정보를 작성해 주세요");
+            if (Number(howMuch) < 50) {
+                alert("가격은 50 큐 이상으로 책정해 주세요.");
+            } else {
+                alert("모든 정보를 작성해 주세요");
+            }
         }
     };
     return (
