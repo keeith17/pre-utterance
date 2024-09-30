@@ -176,31 +176,31 @@ export default function AddShop({ setOpen }: AddShopProps) {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (thingName && justDesc && category) {
-            mutation.mutate({
-                thingName: thingName,
-                uploadUid: user?.uid || "",
-                imageLink: imageLink,
-                imageDesc: imageDesc,
-                justDesc: justDesc,
-                thingType: category,
-                createdAt: new Date().toLocaleDateString("ko", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                    hour12: false,
-                }),
-                soldout: false,
-                howMuch: howMuch,
-            });
-        } else {
             if (Number(howMuch) < 50) {
                 alert("가격은 50 큐 이상으로 책정해 주세요.");
             } else {
-                alert("모든 정보를 작성해 주세요");
+                mutation.mutate({
+                    thingName: thingName,
+                    uploadUid: user?.uid || "",
+                    imageLink: imageLink,
+                    imageDesc: imageDesc,
+                    justDesc: justDesc,
+                    thingType: category,
+                    createdAt: new Date().toLocaleDateString("ko", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: false,
+                    }),
+                    soldout: false,
+                    howMuch: howMuch,
+                });
             }
+        } else {
+            alert("모든 정보를 작성해 주세요");
         }
     };
     return (
