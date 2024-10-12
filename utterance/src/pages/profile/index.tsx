@@ -866,7 +866,7 @@ export default function ProfilePage() {
                                     char.badge === houseList[selectHouse] &&
                                     char.badge !== "teacher" && (
                                         <button
-                                            className={`charGif ${
+                                            className={`charGif student ${
                                                 char.id === selectChar.id &&
                                                 "selected"
                                             }`}

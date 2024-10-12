@@ -10,6 +10,7 @@ interface ShopListProps {
 export default function ShopList({
     things,
     setSelect,
+    setOpen,
 }: // setOpen,
 // setOpen,
 ShopListProps) {
@@ -64,9 +65,9 @@ ShopListProps) {
                     )}
                 </div>
             </div>
-            {/* <div className="buttonBox">
+            <div className="buttonBox">
                 <button onClick={() => setOpen(true)}>등록하기</button>
-            </div> */}
+            </div>
         </ShopListWrap>
     );
 }

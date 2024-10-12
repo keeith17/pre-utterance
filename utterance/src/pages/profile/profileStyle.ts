@@ -515,6 +515,9 @@ export const CharList = styled.div`
             outline: none;
             border: 1px solid #fff;
             position: relative;
+            &.student {
+                filter: grayscale(100%);
+            }
             .hover {
                 display: none;
             }
