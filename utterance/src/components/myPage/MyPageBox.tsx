@@ -134,7 +134,7 @@ export default function MyPageBox() {
             fs: 0,
             controls: 1,
             disablekb: 1,
-            playlist: "_AAdae7diOU,XX2gPs44fxg,0swsfLK_3VQ",
+            playlist: "FQNEnNIGZuG-Iigz,PjVTqMBrPZ4alspD",
             playsinline: 1,
             enablejsapi: 1,
             mute: 0,
